@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftData
 
 struct SearchView: View {
+    @Environment(\.modelContext) private var modelContext
     @Query(sort: \TodoTask.sortIndex) private var tasks: [TodoTask]
     @State private var query = ""
     @State private var editingTask: TodoTask?
@@ -48,6 +49,13 @@ struct SearchView: View {
                         }
                         .padding(.vertical, 2)
                     }
+                    .swipeActions(edge: .trailing) {
+                        Button(role: .destructive) {
+                            delete(task)
+                        } label: {
+                            Label("Delete", systemImage: "trash.fill")
+                        }
+                    }
                 }
             }
             .searchable(text: $query, prompt: "Search tasks")
@@ -55,6 +63,13 @@ struct SearchView: View {
             .sheet(item: $editingTask) { task in
                 AddEditTaskView(mode: .edit(task))
             }
+        }
+    }
+
+    private func delete(_ task: TodoTask) {
+        withAnimation(.snappy) {
+            modelContext.delete(task)
+            try? modelContext.save()
         }
     }
 }

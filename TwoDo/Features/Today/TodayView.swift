@@ -35,8 +35,10 @@ struct TodayView: View {
                             TaskSectionHeader(title: "Overdue", count: overdue.count, isOverdue: true)
                             LazyVStack(spacing: 0) {
                                 ForEach(overdue, id: \.id) { task in
-                                    TaskRow(task: task, isOverdue: true) {
-                                        editingTask = task
+                                    SwipeToDeleteRow(onDelete: { delete(task) }) {
+                                        TaskRow(task: task, isOverdue: true) {
+                                            editingTask = task
+                                        }
                                     }
                                     Divider()
                                         .padding(.leading, 48)
@@ -48,8 +50,10 @@ struct TodayView: View {
                         TaskSectionHeader(title: "Today", count: today.count)
                         LazyVStack(spacing: 0) {
                             ForEach(today, id: \.id) { task in
-                                TaskRow(task: task) {
-                                    editingTask = task
+                                SwipeToDeleteRow(onDelete: { delete(task) }) {
+                                    TaskRow(task: task) {
+                                        editingTask = task
+                                    }
                                 }
                                 Divider()
                                     .padding(.leading, 48)
@@ -99,6 +103,13 @@ struct TodayView: View {
             .sheet(isPresented: $showingSearch) {
                 SearchView()
             }
+        }
+    }
+
+    private func delete(_ task: TodoTask) {
+        withAnimation(.snappy) {
+            modelContext.delete(task)
+            try? modelContext.save()
         }
     }
 

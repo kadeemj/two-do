@@ -126,6 +126,86 @@ struct SubtaskRow: View {
     }
 }
 
+/// Swipe-left-to-delete for rows hosted in a ScrollView (where List's native
+/// swipeActions are unavailable). Reveals a delete button at the trailing
+/// edge; a long full swipe deletes immediately.
+struct SwipeToDeleteRow<Content: View>: View {
+    let onDelete: () -> Void
+    @ViewBuilder let content: () -> Content
+
+    @State private var offsetX: CGFloat = 0
+    @State private var isOpen = false
+
+    private let revealWidth: CGFloat = 84
+    private let fullSwipeDistance: CGFloat = 220
+
+    init(onDelete: @escaping () -> Void, @ViewBuilder content: @escaping () -> Content) {
+        self.onDelete = onDelete
+        self.content = content
+    }
+
+    var body: some View {
+        ZStack(alignment: .trailing) {
+            if offsetX < 0 {
+                Rectangle()
+                    .fill(TwoDoColor.overdue)
+                    .frame(width: -offsetX)
+                    .overlay(alignment: .trailing) {
+                        Button(action: performDelete) {
+                            Image(systemName: "trash.fill")
+                                .font(.system(size: 17, weight: .semibold))
+                                .foregroundStyle(.white)
+                                .frame(width: min(revealWidth, -offsetX))
+                                .frame(maxHeight: .infinity)
+                                .contentShape(Rectangle())
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel("Delete task")
+                    }
+            }
+
+            content()
+                .background(Color(.systemBackground))
+                .overlay {
+                    if isOpen {
+                        Color.clear
+                            .contentShape(Rectangle())
+                            .onTapGesture { setOpen(false) }
+                    }
+                }
+                .offset(x: offsetX)
+        }
+        .gesture(
+            DragGesture(minimumDistance: 20)
+                .onChanged { value in
+                    guard isOpen || abs(value.translation.width) > abs(value.translation.height) else { return }
+                    let base: CGFloat = isOpen ? -revealWidth : 0
+                    offsetX = min(0, base + value.translation.width)
+                }
+                .onEnded { value in
+                    if -offsetX > fullSwipeDistance {
+                        performDelete()
+                    } else {
+                        setOpen(-offsetX > revealWidth * 0.6 || value.predictedEndTranslation.width < -revealWidth)
+                    }
+                }
+        )
+        .clipped()
+    }
+
+    private func setOpen(_ open: Bool) {
+        withAnimation(.snappy) {
+            isOpen = open
+            offsetX = open ? -revealWidth : 0
+        }
+    }
+
+    private func performDelete() {
+        isOpen = false
+        onDelete()
+    }
+}
+
 struct ProjectColorStripe: View {
     let hex: String?
 

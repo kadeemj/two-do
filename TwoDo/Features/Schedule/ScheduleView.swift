@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftData
 
 struct ScheduleView: View {
+    @Environment(\.modelContext) private var modelContext
     @Query(sort: \TodoTask.sortIndex) private var tasks: [TodoTask]
     @State private var editingTask: TodoTask?
     @State private var showingAdd = false
@@ -29,8 +30,10 @@ struct ScheduleView: View {
                             TaskSectionHeader(title: "Overdue", count: overdue.count, isOverdue: true)
                             LazyVStack(spacing: 0) {
                                 ForEach(overdue, id: \.id) { task in
-                                    TaskRow(task: task, isOverdue: true, showDragHandle: false) {
-                                        editingTask = task
+                                    SwipeToDeleteRow(onDelete: { delete(task) }) {
+                                        TaskRow(task: task, isOverdue: true, showDragHandle: false) {
+                                            editingTask = task
+                                        }
                                     }
                                     Divider()
                                         .padding(.leading, 48)
@@ -64,6 +67,13 @@ struct ScheduleView: View {
             .sheet(item: $editingTask) { task in
                 AddEditTaskView(mode: .edit(task))
             }
+        }
+    }
+
+    private func delete(_ task: TodoTask) {
+        withAnimation(.snappy) {
+            modelContext.delete(task)
+            try? modelContext.save()
         }
     }
 
