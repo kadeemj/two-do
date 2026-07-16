@@ -13,6 +13,12 @@ enum DateFormatting {
         return f
     }()
 
+    static let weekday: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "EEEE"
+        return f
+    }()
+
     static let time: DateFormatter = {
         let f = DateFormatter()
         f.timeStyle = .short

@@ -6,6 +6,7 @@ struct DayTimelineStrip: View {
     var dayEndHour: Int = 20
     var now: Date = .now
     var showCaption: Bool = true
+    var showNow: Bool = true
 
     private let timer = Timer.publish(every: 30, on: .main, in: .common).autoconnect()
     @State private var currentNow: Date = .now
@@ -31,9 +32,11 @@ struct DayTimelineStrip: View {
                             .offset(x: x)
                     }
 
-                    let needleX = TimelineLayout.fraction(of: currentNow, dayStartHour: dayStartHour, dayEndHour: dayEndHour) * width
-                    timelineNeedle
-                        .offset(x: max(0, needleX - 5))
+                    if showNow {
+                        let needleX = TimelineLayout.fraction(of: currentNow, dayStartHour: dayStartHour, dayEndHour: dayEndHour) * width
+                        timelineNeedle
+                            .offset(x: max(0, needleX - 5))
+                    }
                 }
             }
             .frame(height: TwoDoSpacing.timelineHeight)
