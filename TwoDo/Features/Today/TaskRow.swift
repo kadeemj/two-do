@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftData
 
 struct TaskRow: View {
+    @Environment(\.modelContext) private var modelContext
     @Bindable var task: TodoTask
     var isOverdue: Bool = false
     var showDragHandle: Bool = true
@@ -102,6 +103,7 @@ struct TaskRow: View {
             task.completedAt = task.isCompleted ? .now : nil
             task.updatedAt = .now
         }
+        try? modelContext.save()
     }
 }
 

@@ -6,10 +6,14 @@ struct ScheduleView: View {
     @Query(sort: \TodoTask.sortIndex) private var tasks: [TodoTask]
     @State private var editingTask: TodoTask?
     @State private var showingAdd = false
+    @State private var googleEvents = GoogleCalendarEventsService()
 
     private var overdue: [TodoTask] { TaskQueries.overdue(from: tasks) }
     private var timelineBlocks: [TimelineBlock] {
-        TimelineLayout.blocks(from: tasks, on: .now)
+        TimelineLayout.merged(
+            TimelineLayout.blocks(from: tasks, on: .now),
+            TimelineLayout.blocks(from: googleEvents.timedEvents, on: .now)
+        )
     }
 
     var body: some View {
@@ -18,6 +22,12 @@ struct ScheduleView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {
                         header
+
+                        if !googleEvents.allDayEvents.isEmpty {
+                            allDayRow
+                                .padding(.horizontal, TwoDoSpacing.rowHorizontal)
+                                .padding(.bottom, 12)
+                        }
 
                         DayTimelineStrip(blocks: timelineBlocks)
                             .padding(.horizontal, TwoDoSpacing.rowHorizontal)
@@ -46,6 +56,9 @@ struct ScheduleView: View {
                     }
                 }
                 .background(Color(.systemBackground))
+                .refreshable {
+                    await googleEvents.loadEvents()
+                }
 
                 Button {
                     showingAdd = true
@@ -66,6 +79,30 @@ struct ScheduleView: View {
             }
             .sheet(item: $editingTask) { task in
                 AddEditTaskView(mode: .edit(task))
+            }
+            .task {
+                await googleEvents.loadEvents()
+            }
+        }
+    }
+
+    private var allDayRow: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                ForEach(googleEvents.allDayEvents) { event in
+                    HStack(spacing: 6) {
+                        Circle()
+                            .fill(TwoDoColor.project(from: event.colorHex))
+                            .frame(width: 7, height: 7)
+                        Text(event.title)
+                            .font(TwoDoTypography.metadata)
+                            .foregroundStyle(.primary)
+                            .lineLimit(1)
+                    }
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 6)
+                    .background(Color.primary.opacity(0.06), in: Capsule())
+                }
             }
         }
     }

@@ -30,7 +30,21 @@
 		DC2E8EAB3F3446A0852E4E69 /* AddEditTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22DD3ED1E7B4B0697427D4D /* AddEditTaskView.swift */; };
 		E831CA2F2E624EC9BCEB5D92 /* DayTimelineStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5E75FEB73649489FD1FD81 /* DayTimelineStrip.swift */; };
 		FBA6844B1A8340FF850560D9 /* ColorTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC6237D5F24F0F8657C45B /* ColorTokens.swift */; };
+		FD3A82C10E5B4C21A7D94E68 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E97B6D2A1F04385BC28D571 /* NotificationScheduler.swift */; };
+		B1E2D3C4A5F64788B9C0D1E2 /* NotificationSmokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F3E4D5B6A75899CAD1E2F3 /* NotificationSmokeTests.swift */; };
+		A9C0D1E2F3B45D66A1358902 /* GoogleCalendarEventsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D1E2F3A4C56E77B2469013 /* GoogleCalendarEventsService.swift */; };
+		C1E2F3A4B5D67F88C3570124 /* CalendarEventsSmokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F3A4B5C6E78099D4681235 /* CalendarEventsSmokeTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D4A5B6C7E8F94A00BCDE1234 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B71DE06D108B497FA486FB42 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B842BE5CF1C4793A470EBE1;
+			remoteInfo = TwoDo;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		01B53D1B2EA3474E9765650C /* GoogleCalendarAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleCalendarAuthService.swift; sourceTree = "<group>"; };
@@ -59,6 +73,11 @@
 		EE5E75FEB73649489FD1FD81 /* DayTimelineStrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTimelineStrip.swift; sourceTree = "<group>"; };
 		FE16D838775F47E1A0F3AE42 /* GoogleCalendarConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleCalendarConfig.swift; sourceTree = "<group>"; };
 		FF90F4B488CF4438BBCCF377 /* RootTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabView.swift; sourceTree = "<group>"; };
+		4E97B6D2A1F04385BC28D571 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
+		C2F3E4D5B6A75899CAD1E2F3 /* NotificationSmokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSmokeTests.swift; sourceTree = "<group>"; };
+		B0D1E2F3A4C56E77B2469013 /* GoogleCalendarEventsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleCalendarEventsService.swift; sourceTree = "<group>"; };
+		D2F3A4B5C6E78099D4681235 /* CalendarEventsSmokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventsSmokeTests.swift; sourceTree = "<group>"; };
+		E5B6C7D8F9A04B11CDEF2345 /* TwoDoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TwoDoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				3D9BEB3F26F94199BD981775 /* TwoDo.app */,
+				E5B6C7D8F9A04B11CDEF2345 /* TwoDoUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -142,6 +162,7 @@
 				0C63C49607814F01AFA31331 /* Design */,
 				128C5250350D4298AC944C57 /* Models */,
 				D446FFF977794E04BE195F07 /* Persistence */,
+				A2C5E8F1B3D74960AE16C482 /* Services */,
 				5963A5C32D6247BDA172268B /* Preview */,
 				B9FE1252239F485B9F388D0B /* Features */,
 				125D9A7188144BD8A401B159 /* Resources */,
@@ -154,6 +175,7 @@
 			children = (
 				528B95E57A1A4C79BE20F9D3 /* ScheduleView.swift */,
 				2E83C0C6A0394B9BB518524E /* HourlyScheduleView.swift */,
+				B0D1E2F3A4C56E77B2469013 /* GoogleCalendarEventsService.swift */,
 			);
 			path = Schedule;
 			sourceTree = "<group>";
@@ -195,6 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				73A3B1524CCF4FBD997ACC70 /* TwoDo */,
+				F6C7D8E9A0B14C22DEF03456 /* TwoDoUITests */,
 				16542EA094A24CDBAF8C4651 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -208,12 +231,29 @@
 			path = Persistence;
 			sourceTree = "<group>";
 		};
+		A2C5E8F1B3D74960AE16C482 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4E97B6D2A1F04385BC28D571 /* NotificationScheduler.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		F1B8990607214752B40F617A /* Search */ = {
 			isa = PBXGroup;
 			children = (
 				8577F7C31AC04855979C3FFD /* SearchView.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		F6C7D8E9A0B14C22DEF03456 /* TwoDoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C2F3E4D5B6A75899CAD1E2F3 /* NotificationSmokeTests.swift */,
+				D2F3A4B5C6E78099D4681235 /* CalendarEventsSmokeTests.swift */,
+			);
+			path = TwoDoUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,7 +276,32 @@
 			productReference = 3D9BEB3F26F94199BD981775 /* TwoDo.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A7B8C9D0E1F24D33EF014567 /* TwoDoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B8C9D0E1F2A34E44F0125678 /* Build configuration list for PBXNativeTarget "TwoDoUITests" */;
+			buildPhases = (
+				C9D0E1F2A3B44F55A0236789 /* Sources */,
+				D0E1F2A3B4C45066B1347890 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E1F2A3B4C5D56177C2458901 /* PBXTargetDependency */,
+			);
+			name = TwoDoUITests;
+			productName = TwoDoUITests;
+			productReference = E5B6C7D8F9A04B11CDEF2345 /* TwoDoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
+
+/* Begin PBXTargetDependency section */
+		E1F2A3B4C5D56177C2458901 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4B842BE5CF1C4793A470EBE1 /* TwoDo */;
+			targetProxy = D4A5B6C7E8F94A00BCDE1234 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXProject section */
 		B71DE06D108B497FA486FB42 /* Project object */ = {
@@ -248,6 +313,10 @@
 				TargetAttributes = {
 					4B842BE5CF1C4793A470EBE1 = {
 						CreatedOnToolsVersion = 16.0;
+					};
+					A7B8C9D0E1F24D33EF014567 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 4B842BE5CF1C4793A470EBE1;
 					};
 				};
 			};
@@ -265,9 +334,20 @@
 			projectRoot = "";
 			targets = (
 				4B842BE5CF1C4793A470EBE1 /* TwoDo */,
+				A7B8C9D0E1F24D33EF014567 /* TwoDoUITests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXFrameworksBuildPhase section (UITests) */
+		D0E1F2A3B4C45066B1347890 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section (UITests) */
 
 /* Begin PBXResourcesBuildPhase section */
 		52A07F3DD30D4BE0863E9B26 /* Resources */ = {
@@ -281,6 +361,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C9D0E1F2A3B44F55A0236789 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1E2D3C4A5F64788B9C0D1E2 /* NotificationSmokeTests.swift in Sources */,
+				C1E2F3A4B5D67F88C3570124 /* CalendarEventsSmokeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		54400F48C0844338A46E6791 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -295,12 +384,14 @@
 				353580FF4BA64A3C9382C841 /* TodoTask.swift in Sources */,
 				19C1B7F8918B4A7A84A419AA /* ModelContainer+CloudKit.swift in Sources */,
 				7C0B5C6D1BFB43FFB89D7868 /* TaskQueries.swift in Sources */,
+				FD3A82C10E5B4C21A7D94E68 /* NotificationScheduler.swift in Sources */,
 				D60142A264444EE3804F2D39 /* SampleData.swift in Sources */,
 				D69431BEEE50406F82B07D56 /* TodayView.swift in Sources */,
 				1B61DD0D065B47D281A33C36 /* TaskRow.swift in Sources */,
 				E831CA2F2E624EC9BCEB5D92 /* DayTimelineStrip.swift in Sources */,
 				2D71F9B330474591BE5C9AF0 /* ScheduleView.swift in Sources */,
 				3EFCD26F77E44AF5B2BCFFE5 /* HourlyScheduleView.swift in Sources */,
+				A9C0D1E2F3B45D66A1358902 /* GoogleCalendarEventsService.swift in Sources */,
 				DC2E8EAB3F3446A0852E4E69 /* AddEditTaskView.swift in Sources */,
 				57BC496EA2304BEDB3CE740E /* SearchView.swift in Sources */,
 				330C36DF87794912B0820C6C /* SettingsView.swift in Sources */,
@@ -464,7 +555,52 @@
 		};
 /* End XCBuildConfiguration section */
 
+		F2A3B4C5D6E67288D3569012 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kadeem.twodo.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TwoDo;
+			};
+			name = Debug;
+		};
+		A3B4C5D6E7F78399E4670123 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kadeem.twodo.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TwoDo;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section (UITests) */
+
 /* Begin XCConfigurationList section */
+		B8C9D0E1F2A34E44F0125678 /* Build configuration list for PBXNativeTarget "TwoDoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2A3B4C5D6E67288D3569012 /* Debug */,
+				A3B4C5D6E7F78399E4670123 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8BE8DFD893B946C09925854A /* Build configuration list for PBXProject "TwoDo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

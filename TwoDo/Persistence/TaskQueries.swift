@@ -26,11 +26,12 @@ enum TaskQueries {
 }
 
 struct TimelineBlock: Identifiable {
-    let id: UUID
+    let id: String
     let title: String
     let start: Date
     let end: Date
     let colorHex: String
+    var isCalendarEvent: Bool = false
 
     var durationMinutes: Int {
         Int(end.timeIntervalSince(start) / 60)
@@ -44,13 +45,34 @@ enum TimelineLayout {
             let minutes = task.durationMinutes ?? 30
             let end = start.addingTimeInterval(TimeInterval(minutes * 60))
             return TimelineBlock(
-                id: task.id,
+                id: task.id.uuidString,
                 title: task.title,
                 start: start,
                 end: end,
                 colorHex: task.project?.colorHex ?? "3380F5"
             )
         }
+    }
+
+    static func blocks(from events: [GoogleCalendarEvent], on day: Date, calendar: Calendar = .current) -> [TimelineBlock] {
+        events
+            .filter { !$0.isAllDay && calendar.isDate($0.start, inSameDayAs: day) }
+            .map { event in
+                TimelineBlock(
+                    id: event.id,
+                    title: event.title,
+                    start: event.start,
+                    end: event.end,
+                    colorHex: event.colorHex,
+                    isCalendarEvent: true
+                )
+            }
+    }
+
+    /// Tasks and calendar events interleaved in start order (what the
+    /// timeline and gap layout both expect).
+    static func merged(_ lhs: [TimelineBlock], _ rhs: [TimelineBlock]) -> [TimelineBlock] {
+        (lhs + rhs).sorted { $0.start < $1.start }
     }
 
     /// Fraction 0...1 of day between dayStartHour and dayEndHour.

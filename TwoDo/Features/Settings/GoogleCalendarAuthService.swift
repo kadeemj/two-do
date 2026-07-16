@@ -6,13 +6,7 @@ import SwiftUI
 @MainActor
 @Observable
 final class GoogleCalendarAuthService: NSObject {
-    private enum Keys {
-        static let accessToken = "google.calendar.accessToken"
-        static let refreshToken = "google.calendar.refreshToken"
-        static let expiry = "google.calendar.expiry"
-        static let email = "google.calendar.email"
-        static let displayName = "google.calendar.displayName"
-    }
+    private typealias Keys = GoogleCalendarKeys
 
     var isSignedIn = false
     var email: String?

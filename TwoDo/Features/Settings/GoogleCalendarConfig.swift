@@ -1,5 +1,14 @@
 import Foundation
 
+/// Keychain keys shared by the auth service (writes) and events service (reads).
+enum GoogleCalendarKeys {
+    static let accessToken = "google.calendar.accessToken"
+    static let refreshToken = "google.calendar.refreshToken"
+    static let expiry = "google.calendar.expiry"
+    static let email = "google.calendar.email"
+    static let displayName = "google.calendar.displayName"
+}
+
 enum GoogleCalendarConfig {
     /// Create an OAuth client of type **iOS** in Google Cloud Console
     /// (bundle ID: `com.kadeem.twodo`), then paste the Client ID here.

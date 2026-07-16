@@ -101,9 +101,16 @@ struct ScheduleBlockView: View {
                     .font(TwoDoTypography.scheduleBlockTitle)
                     .foregroundStyle(.primary)
                     .lineLimit(2)
-                Text("\(DateFormatting.time.string(from: block.start)) – \(DateFormatting.time.string(from: block.end))")
-                    .font(TwoDoTypography.metadata)
-                    .foregroundStyle(.secondary)
+                HStack(spacing: 4) {
+                    if block.isCalendarEvent {
+                        Image(systemName: "calendar")
+                            .font(.system(size: 10, weight: .medium))
+                            .foregroundStyle(.secondary)
+                    }
+                    Text("\(DateFormatting.time.string(from: block.start)) – \(DateFormatting.time.string(from: block.end))")
+                        .font(TwoDoTypography.metadata)
+                        .foregroundStyle(.secondary)
+                }
             }
             .padding(.horizontal, 10)
             .padding(.vertical, 8)

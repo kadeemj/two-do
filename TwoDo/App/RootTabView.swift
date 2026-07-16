@@ -7,6 +7,15 @@ struct RootTabView: View {
         case today, schedule, search, settings
     }
 
+    init() {
+        #if DEBUG
+        // UI-test / screenshot hook: open directly on a given tab.
+        if ProcessInfo.processInfo.environment["TWODO_SMOKE_TAB"] == "calendar" {
+            _selectedTab = State(initialValue: .schedule)
+        }
+        #endif
+    }
+
     var body: some View {
         TabView(selection: $selectedTab) {
             TodayView()
