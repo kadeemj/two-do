@@ -23,6 +23,27 @@ enum TaskQueries {
             .filter { !$0.isCompleted && $0.parent == nil && $0.isScheduled(on: day) }
             .sorted { ($0.scheduledStart ?? .distantPast) < ($1.scheduledStart ?? .distantPast) }
     }
+
+    /// Tasks due at a specific time that day without their own time block —
+    /// they still occupy a slot on the schedule.
+    static func dueTimed(on day: Date, from tasks: [TodoTask], calendar: Calendar = .current) -> [TodoTask] {
+        incomplete(from: tasks)
+            .filter { task in
+                guard task.scheduledStart == nil, task.dueHasTime, let due = task.dueAt else { return false }
+                return calendar.isDate(due, inSameDayAs: day)
+            }
+            .sorted { ($0.dueAt ?? .distantPast) < ($1.dueAt ?? .distantPast) }
+    }
+
+    /// Date-only tasks due that day (no time of day) — shown with all-day events.
+    static func dateOnly(on day: Date, from tasks: [TodoTask], calendar: Calendar = .current) -> [TodoTask] {
+        incomplete(from: tasks)
+            .filter { task in
+                guard !task.dueHasTime, let due = task.dueAt else { return false }
+                return calendar.isDate(due, inSameDayAs: day)
+            }
+            .sorted { $0.sortIndex < $1.sortIndex }
+    }
 }
 
 struct TimelineBlock: Identifiable {
@@ -40,18 +61,27 @@ struct TimelineBlock: Identifiable {
 
 enum TimelineLayout {
     static func blocks(from tasks: [TodoTask], on day: Date, calendar: Calendar = .current) -> [TimelineBlock] {
-        TaskQueries.scheduled(on: day, from: tasks).compactMap { task in
+        let scheduled = TaskQueries.scheduled(on: day, from: tasks).compactMap { task -> TimelineBlock? in
             guard let start = task.scheduledStart else { return nil }
-            let minutes = task.durationMinutes ?? 30
-            let end = start.addingTimeInterval(TimeInterval(minutes * 60))
-            return TimelineBlock(
-                id: task.id.uuidString,
-                title: task.title,
-                start: start,
-                end: end,
-                colorHex: task.project?.colorHex ?? "3380F5"
-            )
+            return block(for: task, start: start)
         }
+        // Tasks due at a time also occupy a slot, alongside calendar events.
+        let dueTimed = TaskQueries.dueTimed(on: day, from: tasks, calendar: calendar).compactMap { task -> TimelineBlock? in
+            guard let start = task.dueAt else { return nil }
+            return block(for: task, start: start)
+        }
+        return merged(scheduled, dueTimed)
+    }
+
+    private static func block(for task: TodoTask, start: Date) -> TimelineBlock {
+        let minutes = task.durationMinutes ?? 30
+        return TimelineBlock(
+            id: task.id.uuidString,
+            title: task.title,
+            start: start,
+            end: start.addingTimeInterval(TimeInterval(minutes * 60)),
+            colorHex: task.project?.colorHex ?? "3380F5"
+        )
     }
 
     static func blocks(from events: [GoogleCalendarEvent], on day: Date, calendar: Calendar = .current) -> [TimelineBlock] {

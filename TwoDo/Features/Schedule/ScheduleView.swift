@@ -9,6 +9,7 @@ struct ScheduleView: View {
     @State private var googleEvents = GoogleCalendarEventsService()
 
     private var overdue: [TodoTask] { TaskQueries.overdue(from: tasks) }
+    private var allDayTasks: [TodoTask] { TaskQueries.dateOnly(on: .now, from: tasks) }
     private var timelineBlocks: [TimelineBlock] {
         TimelineLayout.merged(
             TimelineLayout.blocks(from: tasks, on: .now),
@@ -23,7 +24,7 @@ struct ScheduleView: View {
                     VStack(alignment: .leading, spacing: 0) {
                         header
 
-                        if !googleEvents.allDayEvents.isEmpty {
+                        if !googleEvents.allDayEvents.isEmpty || !allDayTasks.isEmpty {
                             allDayRow
                                 .padding(.horizontal, TwoDoSpacing.rowHorizontal)
                                 .padding(.bottom, 12)
@@ -89,6 +90,25 @@ struct ScheduleView: View {
     private var allDayRow: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
+                ForEach(allDayTasks, id: \.id) { task in
+                    Button {
+                        editingTask = task
+                    } label: {
+                        HStack(spacing: 6) {
+                            Image(systemName: "circle")
+                                .font(.system(size: 9, weight: .semibold))
+                                .foregroundStyle(TwoDoColor.project(from: task.project?.colorHex ?? "3380F5"))
+                            Text(task.title)
+                                .font(TwoDoTypography.metadata)
+                                .foregroundStyle(.primary)
+                                .lineLimit(1)
+                        }
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 6)
+                        .background(Color.primary.opacity(0.06), in: Capsule())
+                    }
+                    .buttonStyle(.plain)
+                }
                 ForEach(googleEvents.allDayEvents) { event in
                     HStack(spacing: 6) {
                         Circle()
