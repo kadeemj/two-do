@@ -3,9 +3,11 @@ import SwiftData
 
 @Model
 final class Tag {
-    var id: UUID
-    var name: String
-    var createdAt: Date
+    // CloudKit sync requires every attribute to be optional or have an
+    // inline default value (initializer defaults don't count).
+    var id: UUID = UUID()
+    var name: String = ""
+    var createdAt: Date = Date.now
 
     @Relationship(inverse: \TodoTask.tags)
     var tasks: [TodoTask]?

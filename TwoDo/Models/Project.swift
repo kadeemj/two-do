@@ -3,11 +3,13 @@ import SwiftData
 
 @Model
 final class Project: Identifiable {
-    var id: UUID
-    var name: String
-    var colorHex: String
-    var sortIndex: Int
-    var createdAt: Date
+    // CloudKit sync requires every attribute to be optional or have an
+    // inline default value (initializer defaults don't count).
+    var id: UUID = UUID()
+    var name: String = ""
+    var colorHex: String = "3380F5"
+    var sortIndex: Int = 0
+    var createdAt: Date = Date.now
 
     @Relationship(deleteRule: .nullify, inverse: \TodoTask.project)
     var tasks: [TodoTask]?

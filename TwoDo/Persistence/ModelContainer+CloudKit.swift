@@ -4,25 +4,35 @@ import SwiftData
 enum ModelContainerFactory {
     static let cloudKitContainerID = "iCloud.com.kadeem.twodo"
 
+    /// True when the store was opened with CloudKit sync enabled.
+    private(set) static var isCloudBacked = false
+
     static func make() -> ModelContainer {
         let schema = Schema([TodoTask.self, Project.self, Tag.self])
+
+        // Earlier builds always fell back to the local store, so keep using its
+        // file — existing data is promoted into CloudKit on first sync.
+        let storeURL = URL.applicationSupportDirectory.appending(path: "TwoDoLocal.store")
 
         // Prefer CloudKit when available; fall back to local-only so the app
         // still runs on simulators / unsigned-iCloud accounts.
         let cloudConfig = ModelConfiguration(
             "TwoDo",
             schema: schema,
-            isStoredInMemoryOnly: false,
+            url: storeURL,
             cloudKitDatabase: .private(cloudKitContainerID)
         )
 
         do {
-            return try ModelContainer(for: schema, configurations: [cloudConfig])
+            let container = try ModelContainer(for: schema, configurations: [cloudConfig])
+            isCloudBacked = true
+            return container
         } catch {
+            print("TwoDo: CloudKit store unavailable (\(error)); using local-only store.")
             let localConfig = ModelConfiguration(
                 "TwoDoLocal",
                 schema: schema,
-                isStoredInMemoryOnly: false,
+                url: storeURL,
                 cloudKitDatabase: .none
             )
             do {

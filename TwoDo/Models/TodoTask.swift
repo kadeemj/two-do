@@ -3,22 +3,24 @@ import SwiftData
 
 @Model
 final class TodoTask: Identifiable {
-    var id: UUID
-    var title: String
-    var notes: String
+    // CloudKit sync requires every attribute to be optional or have an
+    // inline default value (initializer defaults don't count).
+    var id: UUID = UUID()
+    var title: String = ""
+    var notes: String = ""
     var dueAt: Date?
     var scheduledStart: Date?
     var durationMinutes: Int?
-    var isCompleted: Bool
+    var isCompleted: Bool = false
     var completedAt: Date?
-    var sortIndex: Double
-    var hasLocation: Bool
-    var hasPhone: Bool
-    var isFlagged: Bool
+    var sortIndex: Double = 0
+    var hasLocation: Bool = false
+    var hasPhone: Bool = false
+    var isFlagged: Bool = false
     var locationName: String?
     var phoneLabel: String?
-    var createdAt: Date
-    var updatedAt: Date
+    var createdAt: Date = Date.now
+    var updatedAt: Date = Date.now
 
     var project: Project?
 

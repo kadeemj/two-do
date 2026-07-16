@@ -14,7 +14,7 @@ struct SettingsView: View {
                 Section("iCloud Sync") {
                     LabeledContent("Status", value: iCloudStatusText)
                     LabeledContent("Container", value: ModelContainerFactory.cloudKitContainerID)
-                    Text("Tasks sync via SwiftData + CloudKit when you are signed into iCloud and the CloudKit container is provisioned for your Development Team in Xcode.")
+                    Text("Tasks sync automatically via iCloud on all devices signed into the same Apple Account.")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
@@ -120,10 +120,12 @@ struct SettingsView: View {
     /// Do not call `CKContainer(identifier:)` here — CloudKit fatally traps when that
     /// container isn’t provisioned for the signed build (Simulator / no team).
     private func refreshICloudStatus() {
-        if FileManager.default.ubiquityIdentityToken == nil {
-            iCloudStatusText = "No iCloud account — local only"
+        if !ModelContainerFactory.isCloudBacked {
+            iCloudStatusText = "Unavailable — local only"
+        } else if FileManager.default.ubiquityIdentityToken == nil {
+            iCloudStatusText = "Sign in to iCloud to sync"
         } else {
-            iCloudStatusText = "iCloud available — syncs when CloudKit is provisioned"
+            iCloudStatusText = "Syncing via iCloud"
         }
     }
 }
