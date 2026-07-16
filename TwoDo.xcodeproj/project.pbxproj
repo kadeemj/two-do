@@ -223,7 +223,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AA08741E678C4E889A3B21E4 /* Build configuration list for PBXNativeTarget "TwoDo" */;
 			buildPhases = (
-				B0B5BEAF00114EF8A1B2C3D4 /* Bump Build Number on Archive */,
 				54400F48C0844338A46E6791 /* Sources */,
 				46072915233B4696A45E9D52 /* Frameworks */,
 				52A07F3DD30D4BE0863E9B26 /* Resources */,
@@ -269,25 +268,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		B0B5BEAF00114EF8A1B2C3D4 /* Bump Build Number on Archive */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Bump Build Number on Archive";
-			outputPaths = (
-				"$(SRCROOT)/TwoDo/Resources/Info.plist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Bumps CFBundleVersion by 0.1, only when archiving (ACTION=install).\nif [ \"$ACTION\" != \"install\" ]; then\n  exit 0\nfi\n\nPLIST=\"$SRCROOT/TwoDo/Resources/Info.plist\"\nCURRENT=$(/usr/libexec/PlistBuddy -c \"Print :CFBundleVersion\" \"$PLIST\")\nNEW=$(awk -v v=\"$CURRENT\" 'BEGIN { printf \"%.1f\", v + 0.1 }')\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $NEW\" \"$PLIST\"\necho \"CFBundleVersion bumped: $CURRENT -> $NEW\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXResourcesBuildPhase section */
 		52A07F3DD30D4BE0863E9B26 /* Resources */ = {
@@ -340,7 +320,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = TwoDo/Resources/TwoDo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = TwoDo/Resources/Info.plist;
@@ -417,7 +397,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = TwoDo/Resources/TwoDo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = TwoDo/Resources/Info.plist;
