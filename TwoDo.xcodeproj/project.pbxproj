@@ -1,0 +1,509 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		01AF284E37A740F29CA18E57 /* GoogleCalendarAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B53D1B2EA3474E9765650C /* GoogleCalendarAuthService.swift */; };
+		19C1B7F8918B4A7A84A419AA /* ModelContainer+CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642CDB29FF6349F3AF68C13D /* ModelContainer+CloudKit.swift */; };
+		1B61DD0D065B47D281A33C36 /* TaskRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B290BDFCCF649FBBBA15C88 /* TaskRow.swift */; };
+		239CE68043044673AA0CED29 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022A76F33D5D468D84837BE6 /* Project.swift */; };
+		283378A4D9614745B5FE6465 /* RootTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF90F4B488CF4438BBCCF377 /* RootTabView.swift */; };
+		2D71F9B330474591BE5C9AF0 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B95E57A1A4C79BE20F9D3 /* ScheduleView.swift */; };
+		330C36DF87794912B0820C6C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD39ECC81674481BB7CCC90 /* SettingsView.swift */; };
+		353580FF4BA64A3C9382C841 /* TodoTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D956EC437E4A948327C3F4 /* TodoTask.swift */; };
+		3EFCD26F77E44AF5B2BCFFE5 /* HourlyScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E83C0C6A0394B9BB518524E /* HourlyScheduleView.swift */; };
+		4553EC9AF5A645DC8A01CEE4 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981F3B65B8CB444ABF721C22 /* Typography.swift */; };
+		57BC496EA2304BEDB3CE740E /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8577F7C31AC04855979C3FFD /* SearchView.swift */; };
+		5DDDEA70C8CE48828B2051B2 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BA69B98F6D4684B78FD2AD /* Tag.swift */; };
+		7C0B5C6D1BFB43FFB89D7868 /* TaskQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = D503BA70C28440F597FEC90D /* TaskQueries.swift */; };
+		8C81C470B642443884716E7D /* DateFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D864F2F93534BC1B71EF809 /* DateFormatting.swift */; };
+		C195A77C318F4138967688AF /* GoogleCalendarConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE16D838775F47E1A0F3AE42 /* GoogleCalendarConfig.swift */; };
+		C7CEFA97348B4213AF911740 /* TwoDoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A875B11F3284B32B09745E2 /* TwoDoApp.swift */; };
+		C89D87CCCAEB48F9936EA9E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B3C18A6EEDB41408AEFF34D /* Assets.xcassets */; };
+		D60142A264444EE3804F2D39 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C52EBAD1E44730858B1EB5 /* SampleData.swift */; };
+		D69431BEEE50406F82B07D56 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFDCF82C2044CB6822DD38B /* TodayView.swift */; };
+		D83A7B7FA86F4EB98CC42342 /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995D07D16A7F48C0936F605E /* KeychainStore.swift */; };
+		DC2E8EAB3F3446A0852E4E69 /* AddEditTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22DD3ED1E7B4B0697427D4D /* AddEditTaskView.swift */; };
+		E831CA2F2E624EC9BCEB5D92 /* DayTimelineStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5E75FEB73649489FD1FD81 /* DayTimelineStrip.swift */; };
+		FBA6844B1A8340FF850560D9 /* ColorTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC6237D5F24F0F8657C45B /* ColorTokens.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		01B53D1B2EA3474E9765650C /* GoogleCalendarAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleCalendarAuthService.swift; sourceTree = "<group>"; };
+		022A76F33D5D468D84837BE6 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		0EFDCF82C2044CB6822DD38B /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
+		2A875B11F3284B32B09745E2 /* TwoDoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoDoApp.swift; sourceTree = "<group>"; };
+		2E83C0C6A0394B9BB518524E /* HourlyScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyScheduleView.swift; sourceTree = "<group>"; };
+		30BA69B98F6D4684B78FD2AD /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		30D956EC437E4A948327C3F4 /* TodoTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTask.swift; sourceTree = "<group>"; };
+		393ACE6EB1574AA287809069 /* TwoDo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TwoDo.entitlements; sourceTree = "<group>"; };
+		3D9BEB3F26F94199BD981775 /* TwoDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwoDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		46AFD1D2E0F24ED8B865AD08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		528B95E57A1A4C79BE20F9D3 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
+		5B3C18A6EEDB41408AEFF34D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		642CDB29FF6349F3AF68C13D /* ModelContainer+CloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ModelContainer+CloudKit.swift"; sourceTree = "<group>"; };
+		69C52EBAD1E44730858B1EB5 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
+		6AAC6237D5F24F0F8657C45B /* ColorTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTokens.swift; sourceTree = "<group>"; };
+		6D864F2F93534BC1B71EF809 /* DateFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatting.swift; sourceTree = "<group>"; };
+		8577F7C31AC04855979C3FFD /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		8B290BDFCCF649FBBBA15C88 /* TaskRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRow.swift; sourceTree = "<group>"; };
+		981F3B65B8CB444ABF721C22 /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
+		995D07D16A7F48C0936F605E /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
+		BBD39ECC81674481BB7CCC90 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		D503BA70C28440F597FEC90D /* TaskQueries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskQueries.swift; sourceTree = "<group>"; };
+		E22DD3ED1E7B4B0697427D4D /* AddEditTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditTaskView.swift; sourceTree = "<group>"; };
+		EE5E75FEB73649489FD1FD81 /* DayTimelineStrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTimelineStrip.swift; sourceTree = "<group>"; };
+		FE16D838775F47E1A0F3AE42 /* GoogleCalendarConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleCalendarConfig.swift; sourceTree = "<group>"; };
+		FF90F4B488CF4438BBCCF377 /* RootTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		46072915233B4696A45E9D52 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0C63C49607814F01AFA31331 /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				6AAC6237D5F24F0F8657C45B /* ColorTokens.swift */,
+				981F3B65B8CB444ABF721C22 /* Typography.swift */,
+				6D864F2F93534BC1B71EF809 /* DateFormatting.swift */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
+		125D9A7188144BD8A401B159 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5B3C18A6EEDB41408AEFF34D /* Assets.xcassets */,
+				46AFD1D2E0F24ED8B865AD08 /* Info.plist */,
+				393ACE6EB1574AA287809069 /* TwoDo.entitlements */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		128C5250350D4298AC944C57 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				022A76F33D5D468D84837BE6 /* Project.swift */,
+				30BA69B98F6D4684B78FD2AD /* Tag.swift */,
+				30D956EC437E4A948327C3F4 /* TodoTask.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		16542EA094A24CDBAF8C4651 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3D9BEB3F26F94199BD981775 /* TwoDo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		262C0672045245EB8AB0A816 /* Tasks */ = {
+			isa = PBXGroup;
+			children = (
+				E22DD3ED1E7B4B0697427D4D /* AddEditTaskView.swift */,
+			);
+			path = Tasks;
+			sourceTree = "<group>";
+		};
+		5963A5C32D6247BDA172268B /* Preview */ = {
+			isa = PBXGroup;
+			children = (
+				69C52EBAD1E44730858B1EB5 /* SampleData.swift */,
+			);
+			path = Preview;
+			sourceTree = "<group>";
+		};
+		735A313E7E7D47D4984274C9 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				2A875B11F3284B32B09745E2 /* TwoDoApp.swift */,
+				FF90F4B488CF4438BBCCF377 /* RootTabView.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		73A3B1524CCF4FBD997ACC70 /* TwoDo */ = {
+			isa = PBXGroup;
+			children = (
+				735A313E7E7D47D4984274C9 /* App */,
+				0C63C49607814F01AFA31331 /* Design */,
+				128C5250350D4298AC944C57 /* Models */,
+				D446FFF977794E04BE195F07 /* Persistence */,
+				5963A5C32D6247BDA172268B /* Preview */,
+				B9FE1252239F485B9F388D0B /* Features */,
+				125D9A7188144BD8A401B159 /* Resources */,
+			);
+			path = TwoDo;
+			sourceTree = "<group>";
+		};
+		8FE619DB62A74CCF927309ED /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				528B95E57A1A4C79BE20F9D3 /* ScheduleView.swift */,
+				2E83C0C6A0394B9BB518524E /* HourlyScheduleView.swift */,
+			);
+			path = Schedule;
+			sourceTree = "<group>";
+		};
+		B5D8CF9D5EEE493B9615C32A /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				BBD39ECC81674481BB7CCC90 /* SettingsView.swift */,
+				FE16D838775F47E1A0F3AE42 /* GoogleCalendarConfig.swift */,
+				995D07D16A7F48C0936F605E /* KeychainStore.swift */,
+				01B53D1B2EA3474E9765650C /* GoogleCalendarAuthService.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		B9FE1252239F485B9F388D0B /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				C202378936B74033B075973E /* Today */,
+				8FE619DB62A74CCF927309ED /* Schedule */,
+				262C0672045245EB8AB0A816 /* Tasks */,
+				F1B8990607214752B40F617A /* Search */,
+				B5D8CF9D5EEE493B9615C32A /* Settings */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		C202378936B74033B075973E /* Today */ = {
+			isa = PBXGroup;
+			children = (
+				0EFDCF82C2044CB6822DD38B /* TodayView.swift */,
+				8B290BDFCCF649FBBBA15C88 /* TaskRow.swift */,
+				EE5E75FEB73649489FD1FD81 /* DayTimelineStrip.swift */,
+			);
+			path = Today;
+			sourceTree = "<group>";
+		};
+		C2B86A31EC6D4BBBBAA61E3E = {
+			isa = PBXGroup;
+			children = (
+				73A3B1524CCF4FBD997ACC70 /* TwoDo */,
+				16542EA094A24CDBAF8C4651 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D446FFF977794E04BE195F07 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				642CDB29FF6349F3AF68C13D /* ModelContainer+CloudKit.swift */,
+				D503BA70C28440F597FEC90D /* TaskQueries.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		F1B8990607214752B40F617A /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				8577F7C31AC04855979C3FFD /* SearchView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4B842BE5CF1C4793A470EBE1 /* TwoDo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA08741E678C4E889A3B21E4 /* Build configuration list for PBXNativeTarget "TwoDo" */;
+			buildPhases = (
+				B0B5BEAF00114EF8A1B2C3D4 /* Bump Build Number on Archive */,
+				54400F48C0844338A46E6791 /* Sources */,
+				46072915233B4696A45E9D52 /* Frameworks */,
+				52A07F3DD30D4BE0863E9B26 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TwoDo;
+			productName = TwoDo;
+			productReference = 3D9BEB3F26F94199BD981775 /* TwoDo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B71DE06D108B497FA486FB42 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 2660;
+				TargetAttributes = {
+					4B842BE5CF1C4793A470EBE1 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = 8BE8DFD893B946C09925854A /* Build configuration list for PBXProject "TwoDo" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C2B86A31EC6D4BBBBAA61E3E;
+			productRefGroup = 16542EA094A24CDBAF8C4651 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4B842BE5CF1C4793A470EBE1 /* TwoDo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B0B5BEAF00114EF8A1B2C3D4 /* Bump Build Number on Archive */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bump Build Number on Archive";
+			outputPaths = (
+				"$(SRCROOT)/TwoDo/Resources/Info.plist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Bumps CFBundleVersion by 0.1, only when archiving (ACTION=install).\nif [ \"$ACTION\" != \"install\" ]; then\n  exit 0\nfi\n\nPLIST=\"$SRCROOT/TwoDo/Resources/Info.plist\"\nCURRENT=$(/usr/libexec/PlistBuddy -c \"Print :CFBundleVersion\" \"$PLIST\")\nNEW=$(awk -v v=\"$CURRENT\" 'BEGIN { printf \"%.1f\", v + 0.1 }')\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $NEW\" \"$PLIST\"\necho \"CFBundleVersion bumped: $CURRENT -> $NEW\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXResourcesBuildPhase section */
+		52A07F3DD30D4BE0863E9B26 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C89D87CCCAEB48F9936EA9E4 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		54400F48C0844338A46E6791 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C7CEFA97348B4213AF911740 /* TwoDoApp.swift in Sources */,
+				283378A4D9614745B5FE6465 /* RootTabView.swift in Sources */,
+				FBA6844B1A8340FF850560D9 /* ColorTokens.swift in Sources */,
+				4553EC9AF5A645DC8A01CEE4 /* Typography.swift in Sources */,
+				8C81C470B642443884716E7D /* DateFormatting.swift in Sources */,
+				239CE68043044673AA0CED29 /* Project.swift in Sources */,
+				5DDDEA70C8CE48828B2051B2 /* Tag.swift in Sources */,
+				353580FF4BA64A3C9382C841 /* TodoTask.swift in Sources */,
+				19C1B7F8918B4A7A84A419AA /* ModelContainer+CloudKit.swift in Sources */,
+				7C0B5C6D1BFB43FFB89D7868 /* TaskQueries.swift in Sources */,
+				D60142A264444EE3804F2D39 /* SampleData.swift in Sources */,
+				D69431BEEE50406F82B07D56 /* TodayView.swift in Sources */,
+				1B61DD0D065B47D281A33C36 /* TaskRow.swift in Sources */,
+				E831CA2F2E624EC9BCEB5D92 /* DayTimelineStrip.swift in Sources */,
+				2D71F9B330474591BE5C9AF0 /* ScheduleView.swift in Sources */,
+				3EFCD26F77E44AF5B2BCFFE5 /* HourlyScheduleView.swift in Sources */,
+				DC2E8EAB3F3446A0852E4E69 /* AddEditTaskView.swift in Sources */,
+				57BC496EA2304BEDB3CE740E /* SearchView.swift in Sources */,
+				330C36DF87794912B0820C6C /* SettingsView.swift in Sources */,
+				C195A77C318F4138967688AF /* GoogleCalendarConfig.swift in Sources */,
+				D83A7B7FA86F4EB98CC42342 /* KeychainStore.swift in Sources */,
+				01AF284E37A740F29CA18E57 /* GoogleCalendarAuthService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4F9CA02403D64E2C9F23B021 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TwoDo/Resources/TwoDo.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = TwoDo/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = T2Do;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kadeem.twodo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		850D006C215A48B684628987 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = JUQMKZZ7TJ;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C3967385B593432F994B774B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TwoDo/Resources/TwoDo.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = TwoDo/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = T2Do;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kadeem.twodo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C90EFBD6023B4420A1157944 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = JUQMKZZ7TJ;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8BE8DFD893B946C09925854A /* Build configuration list for PBXProject "TwoDo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				850D006C215A48B684628987 /* Debug */,
+				C90EFBD6023B4420A1157944 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA08741E678C4E889A3B21E4 /* Build configuration list for PBXNativeTarget "TwoDo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4F9CA02403D64E2C9F23B021 /* Debug */,
+				C3967385B593432F994B774B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B71DE06D108B497FA486FB42 /* Project object */;
+}
