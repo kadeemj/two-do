@@ -9,6 +9,8 @@ final class TodoTask: Identifiable {
     var title: String = ""
     var notes: String = ""
     var dueAt: Date?
+    // False when the due date is date-only (no specific time of day).
+    var dueHasTime: Bool = true
     var scheduledStart: Date?
     var durationMinutes: Int?
     var isCompleted: Bool = false
@@ -36,6 +38,7 @@ final class TodoTask: Identifiable {
         title: String,
         notes: String = "",
         dueAt: Date? = nil,
+        dueHasTime: Bool = true,
         scheduledStart: Date? = nil,
         durationMinutes: Int? = nil,
         isCompleted: Bool = false,
@@ -55,6 +58,7 @@ final class TodoTask: Identifiable {
         self.title = title
         self.notes = notes
         self.dueAt = dueAt
+        self.dueHasTime = dueHasTime
         self.scheduledStart = scheduledStart
         self.durationMinutes = durationMinutes
         self.isCompleted = isCompleted

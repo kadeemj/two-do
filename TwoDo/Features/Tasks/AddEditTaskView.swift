@@ -17,6 +17,7 @@ struct AddEditTaskView: View {
     @State private var notes = ""
     @State private var dueAt: Date = .now
     @State private var hasDue = true
+    @State private var hasDueTime = true
     @State private var scheduledStart: Date = .now
     @State private var hasSchedule = false
     @State private var durationMinutes: Int = 30
@@ -55,8 +56,15 @@ struct AddEditTaskView: View {
                         FlatToggle(title: "Due date", isOn: $hasDue)
                         if hasDue {
                             FlatDivider()
-                            DatePicker("Due", selection: $dueAt)
+                            DatePicker("Due", selection: $dueAt, displayedComponents: .date)
                                 .padding(.vertical, 10)
+                            FlatDivider()
+                            FlatToggle(title: "Time", isOn: $hasDueTime)
+                            if hasDueTime {
+                                FlatDivider()
+                                DatePicker("At", selection: $dueAt, displayedComponents: .hourAndMinute)
+                                    .padding(.vertical, 10)
+                            }
                         }
                         FlatDivider()
                         FlatToggle(title: "Time block", isOn: $hasSchedule)
@@ -156,6 +164,7 @@ struct AddEditTaskView: View {
         title = task.title
         notes = task.notes
         hasDue = task.dueAt != nil
+        hasDueTime = task.dueAt == nil || task.dueHasTime
         dueAt = task.dueAt ?? .now
         hasSchedule = task.scheduledStart != nil
         scheduledStart = task.scheduledStart ?? .now
@@ -183,7 +192,9 @@ struct AddEditTaskView: View {
         }
 
         task.notes = notes
-        task.dueAt = hasDue ? dueAt : nil
+        // Date-only due dates are stored at start of day.
+        task.dueAt = hasDue ? (hasDueTime ? dueAt : Calendar.current.startOfDay(for: dueAt)) : nil
+        task.dueHasTime = hasDueTime
         task.scheduledStart = hasSchedule ? scheduledStart : nil
         task.durationMinutes = (hasSchedule || durationMinutes > 0) ? durationMinutes : nil
         task.hasLocation = hasLocation

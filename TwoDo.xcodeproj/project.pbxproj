@@ -34,6 +34,7 @@
 		B1E2D3C4A5F64788B9C0D1E2 /* NotificationSmokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F3E4D5B6A75899CAD1E2F3 /* NotificationSmokeTests.swift */; };
 		A9C0D1E2F3B45D66A1358902 /* GoogleCalendarEventsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D1E2F3A4C56E77B2469013 /* GoogleCalendarEventsService.swift */; };
 		C1E2F3A4B5D67F88C3570124 /* CalendarEventsSmokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F3A4B5C6E78099D4681235 /* CalendarEventsSmokeTests.swift */; };
+		E3A4B5C6D7F891AAE5792346 /* DateOnlyTaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B5C6D7E8A9A2BBF6803457 /* DateOnlyTaskTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		C2F3E4D5B6A75899CAD1E2F3 /* NotificationSmokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSmokeTests.swift; sourceTree = "<group>"; };
 		B0D1E2F3A4C56E77B2469013 /* GoogleCalendarEventsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleCalendarEventsService.swift; sourceTree = "<group>"; };
 		D2F3A4B5C6E78099D4681235 /* CalendarEventsSmokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventsSmokeTests.swift; sourceTree = "<group>"; };
+		F4B5C6D7E8A9A2BBF6803457 /* DateOnlyTaskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateOnlyTaskTests.swift; sourceTree = "<group>"; };
 		E5B6C7D8F9A04B11CDEF2345 /* TwoDoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TwoDoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -252,6 +254,7 @@
 			children = (
 				C2F3E4D5B6A75899CAD1E2F3 /* NotificationSmokeTests.swift */,
 				D2F3A4B5C6E78099D4681235 /* CalendarEventsSmokeTests.swift */,
+				F4B5C6D7E8A9A2BBF6803457 /* DateOnlyTaskTests.swift */,
 			);
 			path = TwoDoUITests;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 			files = (
 				B1E2D3C4A5F64788B9C0D1E2 /* NotificationSmokeTests.swift in Sources */,
 				C1E2F3A4B5D67F88C3570124 /* CalendarEventsSmokeTests.swift in Sources */,
+				E3A4B5C6D7F891AAE5792346 /* DateOnlyTaskTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -88,7 +88,7 @@ struct TaskRow: View {
                 }
             }
             if let due = task.dueAt {
-                Text(DateFormatting.relativeDue(due))
+                Text(DateFormatting.relativeDue(due, includeTime: task.dueHasTime))
                     .font(TwoDoTypography.metadata)
                     .foregroundStyle(TwoDoColor.accentBlue)
             }
