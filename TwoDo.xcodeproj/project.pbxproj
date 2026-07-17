@@ -21,6 +21,7 @@
 		5DDDEA70C8CE48828B2051B2 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BA69B98F6D4684B78FD2AD /* Tag.swift */; };
 		7C0B5C6D1BFB43FFB89D7868 /* TaskQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = D503BA70C28440F597FEC90D /* TaskQueries.swift */; };
 		8C81C470B642443884716E7D /* DateFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D864F2F93534BC1B71EF809 /* DateFormatting.swift */; };
+		9A11BC22DE33F4448A55C601 /* NotesFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11BC22DE33F4448A55C602 /* NotesFormatting.swift */; };
 		C195A77C318F4138967688AF /* GoogleCalendarConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE16D838775F47E1A0F3AE42 /* GoogleCalendarConfig.swift */; };
 		C7CEFA97348B4213AF911740 /* TwoDoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A875B11F3284B32B09745E2 /* TwoDoApp.swift */; };
 		C89D87CCCAEB48F9936EA9E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B3C18A6EEDB41408AEFF34D /* Assets.xcassets */; };
@@ -64,6 +65,7 @@
 		69C52EBAD1E44730858B1EB5 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		6AAC6237D5F24F0F8657C45B /* ColorTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTokens.swift; sourceTree = "<group>"; };
 		6D864F2F93534BC1B71EF809 /* DateFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatting.swift; sourceTree = "<group>"; };
+		9A11BC22DE33F4448A55C602 /* NotesFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesFormatting.swift; sourceTree = "<group>"; };
 		8577F7C31AC04855979C3FFD /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		8B290BDFCCF649FBBBA15C88 /* TaskRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRow.swift; sourceTree = "<group>"; };
 		981F3B65B8CB444ABF721C22 /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 				6AAC6237D5F24F0F8657C45B /* ColorTokens.swift */,
 				981F3B65B8CB444ABF721C22 /* Typography.swift */,
 				6D864F2F93534BC1B71EF809 /* DateFormatting.swift */,
+				9A11BC22DE33F4448A55C602 /* NotesFormatting.swift */,
 			);
 			path = Design;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 				FBA6844B1A8340FF850560D9 /* ColorTokens.swift in Sources */,
 				4553EC9AF5A645DC8A01CEE4 /* Typography.swift in Sources */,
 				8C81C470B642443884716E7D /* DateFormatting.swift in Sources */,
+				9A11BC22DE33F4448A55C601 /* NotesFormatting.swift in Sources */,
 				239CE68043044673AA0CED29 /* Project.swift in Sources */,
 				5DDDEA70C8CE48828B2051B2 /* Tag.swift in Sources */,
 				353580FF4BA64A3C9382C841 /* TodoTask.swift in Sources */,

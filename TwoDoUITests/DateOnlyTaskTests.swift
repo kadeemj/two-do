@@ -45,11 +45,15 @@ final class DateOnlyTaskTests: XCTestCase {
             .matching(NSPredicate(format: "label BEGINSWITH %@", "Today,"))
         XCTAssertEqual(timedDueLabels.count, 0, "No due label should carry a time of day")
 
-        // Reopen the editor and confirm only the date-only controls appear.
+        // Reopening a task lands on the read-only view; Edit opens the form.
         row.tap()
+        let editButton = app.buttons["Edit"]
+        XCTAssertTrue(editButton.waitForExistence(timeout: 5), "Task should open in a read-only view with an Edit button")
+        editButton.tap()
         let dueToggle = app.switches["Due date"]
         XCTAssertTrue(dueToggle.waitForExistence(timeout: 5), "Editor should reopen with Due date toggle")
         XCTAssertEqual(dueToggle.value as? String, "1", "Due date should still be on")
         XCTAssertFalse(app.switches["Time"].exists, "Time toggle should not reappear in edit mode")
     }
 }
+

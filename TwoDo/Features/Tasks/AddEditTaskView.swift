@@ -13,6 +13,9 @@ struct AddEditTaskView: View {
 
     let mode: TaskEditorMode
 
+    // Existing tasks open read-only; Edit switches to the form and Save returns here.
+    @State private var isViewing: Bool
+
     @State private var title = ""
     @State private var notes = ""
     @State private var dueAt: Date = .now
@@ -28,13 +31,23 @@ struct AddEditTaskView: View {
     @State private var subtaskTitle = ""
     @State private var pendingSubtasks: [String] = []
 
+    init(mode: TaskEditorMode) {
+        self.mode = mode
+        if case .edit = mode {
+            _isViewing = State(initialValue: true)
+        } else {
+            _isViewing = State(initialValue: false)
+        }
+    }
+
     private var isEditing: Bool {
         if case .edit = mode { return true }
         return false
     }
 
     private var navigationTitle: String {
-        isEditing ? "Edit Task" : "New Task"
+        if isViewing { return "Task" }
+        return isEditing ? "Edit Task" : "New Task"
     }
 
     private var selectedProject: Project? {
@@ -43,91 +56,118 @@ struct AddEditTaskView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 0) {
-                    flatSection("Details") {
-                        FlatTextField(placeholder: "Title", text: $title)
-                        FlatDivider()
-                        FlatTextField(placeholder: "Notes", text: $notes, axis: .vertical)
-                    }
-
-                    flatSection("When") {
-                        FlatToggle(title: "Due date", isOn: $hasDue)
-                        if hasDue {
-                            FlatDivider()
-                            DatePicker("Due", selection: $dueAt, displayedComponents: .date)
-                                .padding(.vertical, 10)
-                        }
-                        FlatDivider()
-                        FlatToggle(title: "Time block", isOn: $hasSchedule)
-                        if hasSchedule {
-                            FlatDivider()
-                            DatePicker("Starts", selection: $scheduledStart)
-                                .padding(.vertical, 10)
-                            FlatDivider()
-                            Stepper(
-                                "Duration: \(DateFormatting.durationLabel(durationMinutes))",
-                                value: $durationMinutes,
-                                in: 5...480,
-                                step: 5
-                            )
-                            .padding(.vertical, 10)
-                        }
-                    }
-
-                    flatSection("Project") {
-                        Picker("Project", selection: $selectedProjectID) {
-                            Text("None").tag(Optional<UUID>.none)
-                            ForEach(projects, id: \.id) { project in
-                                Text(project.name).tag(Optional(project.id))
-                            }
-                        }
-                        .pickerStyle(.menu)
-                        .padding(.vertical, 10)
-                    }
-
-                    flatSection("Subtasks") {
-                        ForEach(Array(pendingSubtasks.enumerated()), id: \.offset) { index, name in
-                            Text(name)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.vertical, 10)
-                            if index < pendingSubtasks.count - 1 {
-                                FlatDivider()
-                            }
-                        }
-                        if !pendingSubtasks.isEmpty {
-                            FlatDivider()
-                        }
-                        HStack(spacing: 12) {
-                            FlatTextField(placeholder: "Add subtask", text: $subtaskTitle)
-                            Button("Add") {
-                                let trimmed = subtaskTitle.trimmingCharacters(in: .whitespacesAndNewlines)
-                                guard !trimmed.isEmpty else { return }
-                                pendingSubtasks.append(trimmed)
-                                subtaskTitle = ""
-                            }
-                            .disabled(subtaskTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                            .fontWeight(.semibold)
-                        }
-                    }
+            Group {
+                if isViewing, case .edit(let task) = mode {
+                    TaskDetailContent(task: task)
+                } else {
+                    editorForm
                 }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 32)
             }
             .background(Color(.systemBackground))
             .navigationTitle(navigationTitle)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { dismiss() }
+                    if isViewing {
+                        Button("Done") { dismiss() }
+                    } else if isEditing {
+                        Button("Cancel") {
+                            load()
+                            withAnimation(.snappy) { isViewing = true }
+                        }
+                    } else {
+                        Button("Cancel") { dismiss() }
+                    }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") { save() }
-                        .disabled(title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                    if isViewing {
+                        Button("Edit") {
+                            load()
+                            withAnimation(.snappy) { isViewing = false }
+                        }
                         .fontWeight(.semibold)
+                    } else {
+                        Button("Save") { save() }
+                            .disabled(title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                            .fontWeight(.semibold)
+                    }
                 }
             }
             .onAppear(perform: load)
+        }
+    }
+
+    private var editorForm: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 0) {
+                flatSection("Details") {
+                    FlatTextField(placeholder: "Title", text: $title)
+                    FlatDivider()
+                    FlatTextField(placeholder: "Notes", text: $notes, axis: .vertical)
+                }
+
+                flatSection("When") {
+                    FlatToggle(title: "Due date", isOn: $hasDue)
+                    if hasDue {
+                        FlatDivider()
+                        DatePicker("Due", selection: $dueAt, displayedComponents: .date)
+                            .padding(.vertical, 10)
+                    }
+                    FlatDivider()
+                    FlatToggle(title: "Time block", isOn: $hasSchedule)
+                    if hasSchedule {
+                        FlatDivider()
+                        DatePicker("Starts", selection: $scheduledStart)
+                            .padding(.vertical, 10)
+                        FlatDivider()
+                        Stepper(
+                            "Duration: \(DateFormatting.durationLabel(durationMinutes))",
+                            value: $durationMinutes,
+                            in: 5...480,
+                            step: 5
+                        )
+                        .padding(.vertical, 10)
+                    }
+                }
+
+                flatSection("Project") {
+                    Picker("Project", selection: $selectedProjectID) {
+                        Text("None").tag(Optional<UUID>.none)
+                        ForEach(projects, id: \.id) { project in
+                            Text(project.name).tag(Optional(project.id))
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    .padding(.vertical, 10)
+                }
+
+                flatSection("Subtasks") {
+                    ForEach(Array(pendingSubtasks.enumerated()), id: \.offset) { index, name in
+                        Text(name)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.vertical, 10)
+                        if index < pendingSubtasks.count - 1 {
+                            FlatDivider()
+                        }
+                    }
+                    if !pendingSubtasks.isEmpty {
+                        FlatDivider()
+                    }
+                    HStack(spacing: 12) {
+                        FlatTextField(placeholder: "Add subtask", text: $subtaskTitle)
+                        Button("Add") {
+                            let trimmed = subtaskTitle.trimmingCharacters(in: .whitespacesAndNewlines)
+                            guard !trimmed.isEmpty else { return }
+                            pendingSubtasks.append(trimmed)
+                            subtaskTitle = ""
+                        }
+                        .disabled(subtaskTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                        .fontWeight(.semibold)
+                    }
+                }
+            }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 32)
         }
     }
 
@@ -206,7 +246,113 @@ struct AddEditTaskView: View {
         }
 
         try? modelContext.save()
-        dismiss()
+        if case .edit = mode {
+            withAnimation(.snappy) { isViewing = true }
+        } else {
+            dismiss()
+        }
+    }
+}
+
+// MARK: - Read-only detail
+
+private struct TaskDetailContent: View {
+    let task: TodoTask
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 0) {
+                detailSection("Details") {
+                    Text(task.title)
+                        .font(.system(size: 20, weight: .semibold))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.vertical, 12)
+                    if !task.notes.isEmpty {
+                        FlatDivider()
+                        Text(NotesFormatting.attributedNotes(task.notes))
+                            .tint(TwoDoColor.accentBlue)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.vertical, 12)
+                    }
+                }
+
+                if task.dueAt != nil || task.scheduledStart != nil {
+                    detailSection("When") {
+                        if let due = task.dueAt {
+                            detailRow("Due", DateFormatting.relativeDue(due))
+                        }
+                        if let start = task.scheduledStart {
+                            if task.dueAt != nil {
+                                FlatDivider()
+                            }
+                            detailRow(
+                                "Starts",
+                                "\(DateFormatting.shortDay.string(from: start)), \(DateFormatting.time.string(from: start))"
+                            )
+                            if let minutes = task.durationMinutes {
+                                FlatDivider()
+                                detailRow("Duration", DateFormatting.durationLabel(minutes))
+                            }
+                        }
+                    }
+                }
+
+                if let project = task.project {
+                    detailSection("Project") {
+                        HStack(spacing: 8) {
+                            Circle()
+                                .fill(TwoDoColor.project(from: project.colorHex))
+                                .frame(width: 10, height: 10)
+                            Text(project.name)
+                        }
+                        .padding(.vertical, 12)
+                    }
+                }
+
+                if let subtasks = task.subtasks, !subtasks.isEmpty {
+                    detailSection("Subtasks") {
+                        let sorted = subtasks.sorted { $0.sortIndex < $1.sortIndex }
+                        ForEach(Array(sorted.enumerated()), id: \.element.id) { index, subtask in
+                            Text(subtask.title)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.vertical, 10)
+                            if index < sorted.count - 1 {
+                                FlatDivider()
+                            }
+                        }
+                    }
+                }
+            }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 32)
+        }
+    }
+
+    @ViewBuilder
+    private func detailSection<Content: View>(_ title: String, @ViewBuilder content: () -> Content) -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Text(title.uppercased())
+                .font(.system(size: 12, weight: .semibold))
+                .foregroundStyle(.secondary)
+                .tracking(0.6)
+                .padding(.top, 24)
+                .padding(.bottom, 8)
+
+            content()
+
+            FlatDivider()
+                .padding(.top, 4)
+        }
+    }
+
+    private func detailRow(_ label: String, _ value: String) -> some View {
+        HStack {
+            Text(label)
+                .foregroundStyle(.secondary)
+            Spacer()
+            Text(value)
+        }
+        .padding(.vertical, 12)
     }
 }
 
