@@ -2,8 +2,8 @@ import SwiftUI
 
 struct HourlyScheduleView: View {
     let blocks: [TimelineBlock]
-    var dayStartHour: Int = 8
-    var dayEndHour: Int = 19
+    var dayStartHour: Int = 6
+    var dayEndHour: Int = 23
 
     private var hours: [Int] { Array(dayStartHour...dayEndHour) }
     private var gaps: [ScheduleGap] { ScheduleLayout.gaps(between: blocks) }

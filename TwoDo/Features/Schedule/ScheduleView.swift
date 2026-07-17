@@ -33,7 +33,7 @@ struct ScheduleView: View {
                                 .padding(.bottom, 12)
                         }
 
-                        DayTimelineStrip(blocks: timelineBlocks, showCaption: isToday, showNow: isToday)
+                        DayTimelineStrip(blocks: timelineBlocks, dayStartHour: 6, dayEndHour: 23, showCaption: isToday, showNow: isToday)
                             .padding(.horizontal, TwoDoSpacing.rowHorizontal)
                             .padding(.bottom, 18)
 
