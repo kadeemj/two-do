@@ -5,12 +5,28 @@ struct HourlyScheduleView: View {
     var dayStartHour: Int = 6
     var dayEndHour: Int = 23
 
-    private var hours: [Int] { Array(dayStartHour...dayEndHour) }
+    // Expand the grid so blocks outside the default range never render past its edges.
+    private var effectiveStartHour: Int {
+        let earliest = blocks.map { Calendar.current.component(.hour, from: $0.start) }.min()
+        return max(min(dayStartHour, earliest ?? dayStartHour), 0)
+    }
+
+    private var effectiveEndHour: Int {
+        let calendar = Calendar.current
+        let latest = blocks.map { block -> Int in
+            let hour = calendar.component(.hour, from: block.end)
+            let minute = calendar.component(.minute, from: block.end)
+            return minute > 0 ? hour + 1 : hour
+        }.max()
+        return min(max(dayEndHour, latest ?? dayEndHour), 24)
+    }
+
+    private var hours: [Int] { Array(effectiveStartHour...effectiveEndHour) }
     private var gaps: [ScheduleGap] { ScheduleLayout.gaps(between: blocks) }
 
     var body: some View {
         GeometryReader { geo in
-            let totalHours = CGFloat(max(dayEndHour - dayStartHour, 1))
+            let totalHours = CGFloat(max(effectiveEndHour - effectiveStartHour, 1))
             let hourHeight = max(geo.size.height / totalHours, TwoDoSpacing.scheduleHourHeight)
             let totalHeight = hourHeight * totalHours
 
@@ -57,8 +73,9 @@ struct HourlyScheduleView: View {
                 }
             }
             .frame(height: totalHeight, alignment: .top)
+            .clipped()
         }
-        .frame(minHeight: CGFloat(max(dayEndHour - dayStartHour, 1)) * TwoDoSpacing.scheduleHourHeight)
+        .frame(minHeight: CGFloat(max(effectiveEndHour - effectiveStartHour, 1)) * TwoDoSpacing.scheduleHourHeight)
     }
 
     private func hourLabel(_ hour: Int) -> String {
@@ -72,7 +89,7 @@ struct HourlyScheduleView: View {
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: date)
         let minute = calendar.component(.minute, from: date)
-        let hoursFromStart = CGFloat(hour - dayStartHour) + CGFloat(minute) / 60
+        let hoursFromStart = CGFloat(hour - effectiveStartHour) + CGFloat(minute) / 60
         return hoursFromStart * hourHeight
     }
 
