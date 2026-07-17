@@ -26,7 +26,7 @@ enum DateFormatting {
         return f
     }()
 
-    static func relativeDue(_ date: Date, includeTime: Bool = true, relativeTo now: Date = .now, calendar: Calendar = .current) -> String {
+    static func relativeDue(_ date: Date, relativeTo now: Date = .now, calendar: Calendar = .current) -> String {
         let startToday = calendar.startOfDay(for: now)
         let startDue = calendar.startOfDay(for: date)
         let days = calendar.dateComponents([.day], from: startDue, to: startToday).day ?? 0
@@ -36,12 +36,12 @@ enum DateFormatting {
         } else if days == 1 {
             return "Yesterday"
         } else if days == 0 {
-            return includeTime ? "Today, \(time.string(from: date))" : "Today"
+            return "Today"
         } else if days == -1 {
-            return includeTime ? "Tomorrow, \(time.string(from: date))" : "Tomorrow"
+            return "Tomorrow"
         } else {
             let f = DateFormatter()
-            f.dateFormat = "MMM d"
+            f.dateFormat = "EEE, MMM d"
             return f.string(from: date)
         }
     }

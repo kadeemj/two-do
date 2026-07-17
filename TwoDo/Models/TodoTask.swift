@@ -9,7 +9,8 @@ final class TodoTask: Identifiable {
     var title: String = ""
     var notes: String = ""
     var dueAt: Date?
-    // False when the due date is date-only (no specific time of day).
+    // Legacy: due dates are date-only now, so nothing reads this flag anymore.
+    // Kept (with its original inline default) for CloudKit schema compatibility.
     var dueHasTime: Bool = true
     var scheduledStart: Date?
     var durationMinutes: Int?
@@ -38,7 +39,7 @@ final class TodoTask: Identifiable {
         title: String,
         notes: String = "",
         dueAt: Date? = nil,
-        dueHasTime: Bool = true,
+        dueHasTime: Bool = false,
         scheduledStart: Date? = nil,
         durationMinutes: Int? = nil,
         isCompleted: Bool = false,

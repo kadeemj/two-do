@@ -29,6 +29,10 @@ enum SampleData {
             calendar.date(byAdding: .day, value: -n, to: today) ?? today
         }
 
+        func daysIn(_ n: Int) -> Date {
+            calendar.date(byAdding: .day, value: n, to: today) ?? today
+        }
+
         let work = Project(name: "Work", colorHex: "F58C38", sortIndex: 0)
         let personal = Project(name: "Personal", colorHex: "598FE8", sortIndex: 1)
         let deepWork = Project(name: "Deep Work", colorHex: "8BC85A", sortIndex: 2)
@@ -40,7 +44,7 @@ enum SampleData {
         // Scheduled today
         let callJeremy = TodoTask(
             title: "Call with Jeremy",
-            dueAt: at(hour: 10, minute: 30),
+            dueAt: today,
             scheduledStart: at(hour: 10, minute: 0),
             durationMinutes: 30,
             sortIndex: 0,
@@ -50,7 +54,7 @@ enum SampleData {
 
         let budget = TodoTask(
             title: "Submit Q2 budget notes",
-            dueAt: at(hour: 7, minute: 0),
+            dueAt: today,
             scheduledStart: at(hour: 9, minute: 0),
             durationMinutes: 60,
             sortIndex: 1,
@@ -60,7 +64,7 @@ enum SampleData {
 
         let grocery = TodoTask(
             title: "Grocery run",
-            dueAt: at(hour: 12, minute: 0),
+            dueAt: today,
             scheduledStart: at(hour: 11, minute: 30),
             durationMinutes: 45,
             sortIndex: 2,
@@ -71,7 +75,7 @@ enum SampleData {
 
         let deepFocus = TodoTask(
             title: "Deep work: roadmap",
-            dueAt: at(hour: 15, minute: 0),
+            dueAt: today,
             scheduledStart: at(hour: 13, minute: 0),
             durationMinutes: 120,
             sortIndex: 3,
@@ -81,7 +85,7 @@ enum SampleData {
 
         let designReview = TodoTask(
             title: "Design review sync",
-            dueAt: at(hour: 16, minute: 30),
+            dueAt: today,
             scheduledStart: at(hour: 16, minute: 0),
             durationMinutes: 30,
             sortIndex: 4,
@@ -90,8 +94,8 @@ enum SampleData {
 
         let wrap = TodoTask(
             title: "Ship release notes",
-            dueAt: at(hour: 18, minute: 0),
-            scheduledStart: nil,
+            dueAt: today,
+            scheduledStart: at(hour: 18, minute: 0),
             durationMinutes: 30,
             sortIndex: 5,
             project: work
@@ -100,7 +104,7 @@ enum SampleData {
         // Overdue
         let overdue1 = TodoTask(
             title: "Reply to vendor quote",
-            dueAt: daysAgo(4).addingTimeInterval(10 * 3600),
+            dueAt: daysAgo(4),
             durationMinutes: 30,
             sortIndex: 10,
             hasPhone: true,
@@ -110,7 +114,7 @@ enum SampleData {
 
         let overdue2 = TodoTask(
             title: "Call Alex",
-            dueAt: daysAgo(1).addingTimeInterval(14 * 3600),
+            dueAt: daysAgo(1),
             durationMinutes: 20,
             sortIndex: 11,
             hasPhone: true,
@@ -128,7 +132,7 @@ enum SampleData {
 
         let overdue3 = TodoTask(
             title: "Book dentist",
-            dueAt: daysAgo(2).addingTimeInterval(9 * 3600),
+            dueAt: daysAgo(2),
             durationMinutes: 15,
             sortIndex: 12,
             hasLocation: true,
@@ -136,7 +140,32 @@ enum SampleData {
             project: home
         )
 
-        let all = [callJeremy, budget, grocery, deepFocus, designReview, wrap, overdue1, overdue2, launchVideo, overdue3]
+        // Upcoming
+        let sprintDemo = TodoTask(
+            title: "Prep sprint demo",
+            dueAt: daysIn(1),
+            durationMinutes: 45,
+            sortIndex: 20,
+            project: work
+        )
+
+        let passport = TodoTask(
+            title: "Renew passport",
+            dueAt: daysIn(4),
+            sortIndex: 21,
+            hasLocation: true,
+            locationName: "Post office",
+            project: errands
+        )
+
+        // No due date
+        let designBook = TodoTask(
+            title: "Read design book",
+            sortIndex: 30,
+            project: personal
+        )
+
+        let all = [callJeremy, budget, grocery, deepFocus, designReview, wrap, overdue1, overdue2, launchVideo, overdue3, sprintDemo, passport, designBook]
         all.forEach { context.insert($0) }
 
         try? context.save()

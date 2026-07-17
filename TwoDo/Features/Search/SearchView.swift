@@ -41,7 +41,7 @@ struct SearchView: View {
                                     }
                                 }
                                 if let due = task.dueAt {
-                                    Text(DateFormatting.relativeDue(due, includeTime: task.dueHasTime))
+                                    Text(DateFormatting.relativeDue(due))
                                         .font(TwoDoTypography.metadata)
                                         .foregroundStyle(TwoDoColor.accentBlue)
                                 }

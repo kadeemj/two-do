@@ -17,12 +17,15 @@ struct TwoDoApp: App {
                 .task {
                     await NotificationScheduler.shared.requestAuthorizationIfNeeded()
                     #if DEBUG
-                    // UI-test hook: seed a task due shortly so the smoke test
-                    // can observe a real notification banner.
+                    // UI-test hook: seed a time block starting shortly so the
+                    // smoke test can observe a real notification banner.
+                    // (Due-date notifications fire at 9 AM, so only time
+                    // blocks can be scheduled at an arbitrary near moment.)
                     if ProcessInfo.processInfo.environment["TWODO_SMOKE_TEST"] == "1" {
                         let task = TodoTask(
                             title: "Smoke test task",
-                            dueAt: .now.addingTimeInterval(60)
+                            scheduledStart: .now.addingTimeInterval(60),
+                            durationMinutes: 15
                         )
                         container.mainContext.insert(task)
                         try? container.mainContext.save()

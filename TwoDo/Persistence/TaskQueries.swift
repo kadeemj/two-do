@@ -24,24 +24,36 @@ enum TaskQueries {
             .sorted { ($0.scheduledStart ?? .distantPast) < ($1.scheduledStart ?? .distantPast) }
     }
 
-    /// Tasks due at a specific time that day without their own time block —
-    /// they still occupy a slot on the schedule.
-    static func dueTimed(on day: Date, from tasks: [TodoTask], calendar: Calendar = .current) -> [TodoTask] {
-        incomplete(from: tasks)
-            .filter { task in
-                guard task.scheduledStart == nil, task.dueHasTime, let due = task.dueAt else { return false }
-                return calendar.isDate(due, inSameDayAs: day)
-            }
-            .sorted { ($0.dueAt ?? .distantPast) < ($1.dueAt ?? .distantPast) }
-    }
-
-    /// Date-only tasks due that day (no time of day) — shown with all-day events.
+    /// Tasks due that day — shown with all-day events. Tasks with a time block
+    /// that day appear on the timeline instead, not here.
     static func dateOnly(on day: Date, from tasks: [TodoTask], calendar: Calendar = .current) -> [TodoTask] {
         incomplete(from: tasks)
             .filter { task in
-                guard !task.dueHasTime, let due = task.dueAt else { return false }
+                guard let due = task.dueAt, !task.isScheduled(on: day, calendar: calendar) else { return false }
                 return calendar.isDate(due, inSameDayAs: day)
             }
+            .sorted { $0.sortIndex < $1.sortIndex }
+    }
+
+    /// Incomplete tasks due after today, soonest first (tasks time-blocked
+    /// today stay in the Today section instead).
+    static func upcoming(from tasks: [TodoTask], now: Date = .now, calendar: Calendar = .current) -> [TodoTask] {
+        incomplete(from: tasks)
+            .filter { task in
+                guard let due = task.dueAt else { return false }
+                return calendar.startOfDay(for: due) > calendar.startOfDay(for: now)
+                    && !task.isDueToday(relativeTo: now, calendar: calendar)
+            }
+            .sorted {
+                let (a, b) = ($0.dueAt ?? .distantFuture, $1.dueAt ?? .distantFuture)
+                return a == b ? $0.sortIndex < $1.sortIndex : a < b
+            }
+    }
+
+    /// Incomplete tasks with no due date (and not time-blocked today).
+    static func undated(from tasks: [TodoTask], now: Date = .now, calendar: Calendar = .current) -> [TodoTask] {
+        incomplete(from: tasks)
+            .filter { $0.dueAt == nil && !$0.isDueToday(relativeTo: now, calendar: calendar) }
             .sorted { $0.sortIndex < $1.sortIndex }
     }
 }
@@ -61,16 +73,12 @@ struct TimelineBlock: Identifiable {
 
 enum TimelineLayout {
     static func blocks(from tasks: [TodoTask], on day: Date, calendar: Calendar = .current) -> [TimelineBlock] {
-        let scheduled = TaskQueries.scheduled(on: day, from: tasks).compactMap { task -> TimelineBlock? in
-            guard let start = task.scheduledStart else { return nil }
-            return block(for: task, start: start)
-        }
-        // Tasks due at a time also occupy a slot, alongside calendar events.
-        let dueTimed = TaskQueries.dueTimed(on: day, from: tasks, calendar: calendar).compactMap { task -> TimelineBlock? in
-            guard let start = task.dueAt else { return nil }
-            return block(for: task, start: start)
-        }
-        return merged(scheduled, dueTimed)
+        TaskQueries.scheduled(on: day, from: tasks)
+            .compactMap { task -> TimelineBlock? in
+                guard let start = task.scheduledStart else { return nil }
+                return block(for: task, start: start)
+            }
+            .sorted { $0.start < $1.start }
     }
 
     private static func block(for task: TodoTask, start: Date) -> TimelineBlock {

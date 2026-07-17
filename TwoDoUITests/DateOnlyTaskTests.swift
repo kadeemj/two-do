@@ -1,11 +1,11 @@
 import XCTest
 
-/// Creates a task with a date-only due date (Time toggle off), verifies it
-/// appears without a time, and that the setting persists when reopened.
+/// Due dates are date-only: the editor offers no Time toggle, and a saved
+/// task shows a plain date label with no time of day.
 final class DateOnlyTaskTests: XCTestCase {
 
     @MainActor
-    func testCreateDateOnlyTask() throws {
+    func testCreateTaskWithDueDateIsDateOnly() throws {
         let app = XCUIApplication()
         app.launch()
 
@@ -26,25 +26,30 @@ final class DateOnlyTaskTests: XCTestCase {
         title.tap()
         title.typeText(taskTitle)
 
-        let timeToggle = app.switches["Time"]
-        XCTAssertTrue(timeToggle.waitForExistence(timeout: 3), "Time toggle should appear under Due date")
-        timeToggle.tap()
+        // The due-date editor offers no time-of-day controls; the separate
+        // Time block toggle is still there.
+        XCTAssertTrue(app.switches["Time block"].waitForExistence(timeout: 3), "Time block toggle should exist")
+        XCTAssertFalse(app.switches["Time"].exists, "Time toggle should be gone — due dates are date-only")
 
         app.buttons["Save"].tap()
 
-        // Task rows collapse into one accessibility element — match by label.
+        // The row's title is its own accessibility element — match by label.
         let row = app.descendants(matching: .any)
             .matching(NSPredicate(format: "label CONTAINS %@", taskTitle))
             .firstMatch
         XCTAssertTrue(row.waitForExistence(timeout: 5), "Saved task should appear in the list")
 
-        // Reopen the editor and confirm the date-only choice persisted.
+        // Timed dues used to render as "Today, 10:30 AM"; date-only dues
+        // render as plain "Today", so no label anywhere carries a time.
+        let timedDueLabels = app.staticTexts
+            .matching(NSPredicate(format: "label BEGINSWITH %@", "Today,"))
+        XCTAssertEqual(timedDueLabels.count, 0, "No due label should carry a time of day")
+
+        // Reopen the editor and confirm only the date-only controls appear.
         row.tap()
-        let reopenedToggle = app.switches["Time"]
-        XCTAssertTrue(reopenedToggle.waitForExistence(timeout: 5), "Editor should reopen with Time toggle")
-        XCTAssertEqual(
-            reopenedToggle.value as? String, "0",
-            "Time toggle should still be off for a date-only task"
-        )
+        let dueToggle = app.switches["Due date"]
+        XCTAssertTrue(dueToggle.waitForExistence(timeout: 5), "Editor should reopen with Due date toggle")
+        XCTAssertEqual(dueToggle.value as? String, "1", "Due date should still be on")
+        XCTAssertFalse(app.switches["Time"].exists, "Time toggle should not reappear in edit mode")
     }
 }

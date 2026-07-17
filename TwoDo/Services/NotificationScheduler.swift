@@ -58,15 +58,13 @@ final class NotificationScheduler: NSObject, UNUserNotificationCenterDelegate {
         var planned: [(fireAt: Date, request: UNNotificationRequest)] = []
         for task in tasks {
             if let due = task.dueAt {
-                // Date-only due dates notify at 9 AM on the due day.
-                let fireAt = task.dueHasTime
-                    ? due
-                    : (calendar.date(bySettingHour: 9, minute: 0, second: 0, of: due) ?? due)
+                // Due dates are date-only; notify at 9 AM on the due day.
+                let fireAt = calendar.date(bySettingHour: 9, minute: 0, second: 0, of: due) ?? due
                 if fireAt > now {
                     planned.append((fireAt, makeRequest(
                         id: "\(Self.identifierPrefix)\(task.id.uuidString)-due",
                         title: task.title,
-                        body: task.dueHasTime ? "Due now" : "Due today",
+                        body: "Due today",
                         fireAt: fireAt
                     )))
                 }

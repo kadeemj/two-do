@@ -17,6 +17,8 @@ struct TodayView: View {
         }
         return items
     }
+    private var upcoming: [TodoTask] { TaskQueries.upcoming(from: tasks) }
+    private var undated: [TodoTask] { TaskQueries.undated(from: tasks) }
     private var timelineBlocks: [TimelineBlock] {
         TimelineLayout.blocks(from: tasks, on: .now)
     }
@@ -58,6 +60,38 @@ struct TodayView: View {
                                 Divider()
                                     .padding(.leading, 48)
                                     .opacity(0.5)
+                            }
+                        }
+
+                        if !upcoming.isEmpty {
+                            TaskSectionHeader(title: "Upcoming", count: upcoming.count)
+                            LazyVStack(spacing: 0) {
+                                ForEach(upcoming, id: \.id) { task in
+                                    SwipeToDeleteRow(onDelete: { delete(task) }) {
+                                        TaskRow(task: task) {
+                                            editingTask = task
+                                        }
+                                    }
+                                    Divider()
+                                        .padding(.leading, 48)
+                                        .opacity(0.5)
+                                }
+                            }
+                        }
+
+                        if !undated.isEmpty {
+                            TaskSectionHeader(title: "No date", count: undated.count)
+                            LazyVStack(spacing: 0) {
+                                ForEach(undated, id: \.id) { task in
+                                    SwipeToDeleteRow(onDelete: { delete(task) }) {
+                                        TaskRow(task: task) {
+                                            editingTask = task
+                                        }
+                                    }
+                                    Divider()
+                                        .padding(.leading, 48)
+                                        .opacity(0.5)
+                                }
                             }
                         }
 
@@ -116,7 +150,7 @@ struct TodayView: View {
     private var header: some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(alignment: .center) {
-                Text("Today")
+                Text("Tasks")
                     .font(TwoDoTypography.todayTitle)
                 Spacer()
                 Button {
