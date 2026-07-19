@@ -13,13 +13,16 @@ signing, no 2FA. This doc covers the **one-time setup** and the
 
 1. `setup_ci` — creates a throwaway keychain on the runner.
 2. Authenticates to App Store Connect with the **API key** (no Apple ID / 2FA).
-3. `match (readonly)` — installs the distribution cert + App Store profile from
-   the private certs repo.
+3. `match (readonly)` — installs the distribution cert + App Store profiles
+   (app **and** widget extension) from the private certs repo.
 4. Computes the next build number = highest on TestFlight + 1.
-5. `build_app` — archives the **Release** config, injecting the build number
+5. Writes manual-signing settings (team, identity, per-target profile) into
+   the project for the `TwoDo` and `TwoDoWidgets` targets — profiles can't go
+   through `xcargs` because xcargs apply to every target.
+6. `build_app` — archives the **Release** config, injecting the build number
    via `CURRENT_PROJECT_VERSION` at build time (no project edit, no
    commit-back).
-6. `upload_to_testflight` — uploads the build.
+7. `upload_to_testflight` — uploads the build.
 
 `MARKETING_VERSION` (the user-facing `1.0`) is **not** automated — bump it in
 Xcode (target → General → Version) when you want a new version string.
@@ -57,13 +60,31 @@ bundle exec fastlane match appstore --readonly false
 ```
 
 This creates the Apple **distribution certificate** + **App Store provisioning
-profile** for `com.kadeem.twodo`, encrypts them with `MATCH_PASSWORD`, and
-pushes them to the certs repo. CI only ever reads them (the Matchfile pins
-`readonly: true`).
+profiles** for `com.kadeem.twodo` and `com.kadeem.twodo.widgets`, encrypts
+them with `MATCH_PASSWORD`, and pushes them to the certs repo. CI only ever
+reads them during releases (the Matchfile pins `readonly: true`).
 
-> The App ID needs its capabilities (iCloud/CloudKit, Push Notifications)
-> enabled in the developer portal so the profile match generates includes
-> them — they should already be on from previous manual releases.
+> Profiles are snapshots of an App ID's capabilities. Both App IDs need their
+> capabilities enabled in the developer portal **before** match generates
+> profiles: `com.kadeem.twodo` needs iCloud/CloudKit, Push Notifications, and
+> App Groups (`group.com.kadeem.twodo`); `com.kadeem.twodo.widgets` needs App
+> Groups (same group).
+
+### Adding a target or capability later
+
+Match profiles go stale whenever a signable target is added or an App ID gains
+a capability. To repair:
+
+1. In the [developer portal](https://developer.apple.com/account/resources/identifiers/list),
+   register any new App ID / App Group and enable the capability on the
+   affected App IDs.
+2. Add the new bundle id to `fastlane/Matchfile`, `ALL_IDENTIFIERS` and
+   `SIGNED_TARGETS` in `fastlane/Fastfile`.
+3. Regenerate profiles: Actions tab → *iOS Signing Sync* → *Run workflow*
+   (runs `fastlane sync_signing`, i.e. `match --force` with write access —
+   the `MATCH_GIT_BASIC_AUTHORIZATION` PAT must be able to **write** to the
+   certs repo), or locally `bundle exec fastlane sync_signing` with the env
+   vars below.
 
 ### 3. GitHub repository secrets
 

@@ -1,5 +1,5 @@
 git_url(ENV["MATCH_GIT_URL"])
 storage_mode("git")
 type("appstore")
-app_identifier(["com.kadeem.twodo"])
+app_identifier(["com.kadeem.twodo", "com.kadeem.twodo.widgets"])
 readonly(true)

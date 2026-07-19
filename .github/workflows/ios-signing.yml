@@ -1,0 +1,33 @@
+name: iOS Signing Sync
+
+# Regenerates the App Store provisioning profiles in the certs repo
+# (fastlane match, readonly: false). Run manually after adding a target
+# or changing an App ID's capabilities in the developer portal.
+# Requires MATCH_GIT_BASIC_AUTHORIZATION's PAT to have WRITE access to
+# the certs repo.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  sync-signing:
+    name: Regenerate provisioning profiles
+    runs-on: macos-15
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - name: Regenerate profiles
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
+          MATCH_GIT_URL: ${{ secrets.MATCH_GIT_URL }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
+        run: bundle exec fastlane sync_signing
