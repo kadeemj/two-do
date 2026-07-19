@@ -4,6 +4,8 @@ import SwiftData
 struct TodayView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \TodoTask.sortIndex) private var tasks: [TodoTask]
+    @Binding private var requestedTaskID: UUID?
+    @Binding private var requestedCreateTask: Bool
     @State private var editingTask: TodoTask?
     @State private var showingAdd = false
     @State private var sortByDue = true
@@ -21,6 +23,14 @@ struct TodayView: View {
     private var undated: [TodoTask] { TaskQueries.undated(from: tasks) }
     private var timelineBlocks: [TimelineBlock] {
         TimelineLayout.blocks(from: tasks, on: .now)
+    }
+
+    init(
+        requestedTaskID: Binding<UUID?> = .constant(nil),
+        requestedCreateTask: Binding<Bool> = .constant(false)
+    ) {
+        _requestedTaskID = requestedTaskID
+        _requestedCreateTask = requestedCreateTask
     }
 
     var body: some View {
@@ -137,7 +147,29 @@ struct TodayView: View {
             .sheet(isPresented: $showingSearch) {
                 SearchView()
             }
+            .onChange(of: requestedTaskID, initial: true) { _, _ in
+                presentRequestedTaskIfAvailable()
+            }
+            .onChange(of: requestedCreateTask, initial: true) { _, shouldPresent in
+                presentCreateTaskIfRequested(shouldPresent)
+            }
+            .onChange(of: tasks.map(\.id)) { _, _ in
+                presentRequestedTaskIfAvailable()
+            }
         }
+    }
+
+    private func presentRequestedTaskIfAvailable() {
+        guard let requestedTaskID else { return }
+        editingTask = tasks.first { $0.id == requestedTaskID }
+        self.requestedTaskID = nil
+    }
+
+    private func presentCreateTaskIfRequested(_ shouldPresent: Bool) {
+        guard shouldPresent else { return }
+        editingTask = nil
+        showingAdd = true
+        requestedCreateTask = false
     }
 
     private func delete(_ task: TodoTask) {

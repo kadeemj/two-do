@@ -4,6 +4,7 @@ import SwiftData
 @main
 struct TwoDoApp: App {
     @Environment(\.scenePhase) private var scenePhase
+    @State private var router = AppRouter()
     private let container: ModelContainer
 
     init() {
@@ -13,7 +14,7 @@ struct TwoDoApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootTabView()
+            RootTabView(router: router)
                 .task {
                     await NotificationScheduler.shared.requestAuthorizationIfNeeded()
                     #if DEBUG
@@ -32,9 +33,11 @@ struct TwoDoApp: App {
                     }
                     #endif
                     await NotificationScheduler.shared.resync(container: container)
+                    WidgetSnapshotExporter.shared.export(container: container)
                 }
                 .onReceive(NotificationCenter.default.publisher(for: ModelContext.didSave)) { _ in
                     NotificationScheduler.shared.scheduleResync(container: container)
+                    WidgetSnapshotExporter.shared.scheduleExport(container: container)
                 }
         }
         .modelContainer(container)
@@ -43,6 +46,7 @@ struct TwoDoApp: App {
             // user's other devices via CloudKit while backgrounded.
             if phase == .active {
                 NotificationScheduler.shared.scheduleResync(container: container)
+                WidgetSnapshotExporter.shared.scheduleExport(container: container)
             }
         }
     }

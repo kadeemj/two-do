@@ -22,6 +22,14 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
+			<string>com.kadeem.twodo.tasks</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>twodo</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLName</key>
 			<string>com.kadeem.twodo.google.oauth</string>
 			<key>CFBundleURLSchemes</key>
 			<array>

@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B10000000000000000000001 /* WidgetTaskData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000001 /* WidgetTaskData.swift */; };
+		B10000000000000000000002 /* WidgetTaskSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000002 /* WidgetTaskSelection.swift */; };
+		B10000000000000000000003 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000003 /* AppRouter.swift */; };
+		B10000000000000000000004 /* WidgetSnapshotExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000004 /* WidgetSnapshotExporter.swift */; };
+		B20000000000000000000001 /* WidgetTaskData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000001 /* WidgetTaskData.swift */; };
+		B20000000000000000000002 /* WidgetTaskSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000002 /* WidgetTaskSelection.swift */; };
+		B20000000000000000000003 /* TaskWidgetConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000001 /* TaskWidgetConfiguration.swift */; };
+		B20000000000000000000004 /* TaskWidgetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000002 /* TaskWidgetProvider.swift */; };
+		B20000000000000000000005 /* TaskWidgetViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000003 /* TaskWidgetViews.swift */; };
+		B20000000000000000000006 /* TwoDoTaskWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000004 /* TwoDoTaskWidget.swift */; };
+		B30000000000000000000001 /* WidgetTaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30000000000000000000001 /* WidgetTaskTests.swift */; };
+		B40000000000000000000001 /* TwoDoWidgets.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A40000000000000000000001 /* TwoDoWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		01AF284E37A740F29CA18E57 /* GoogleCalendarAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B53D1B2EA3474E9765650C /* GoogleCalendarAuthService.swift */; };
 		19C1B7F8918B4A7A84A419AA /* ModelContainer+CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642CDB29FF6349F3AF68C13D /* ModelContainer+CloudKit.swift */; };
 		1B61DD0D065B47D281A33C36 /* TaskRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B290BDFCCF649FBBBA15C88 /* TaskRow.swift */; };
@@ -39,6 +51,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		A50000000000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B71DE06D108B497FA486FB42 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D20000000000000000000001;
+			remoteInfo = TwoDoWidgets;
+		};
+		A50000000000000000000003 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B71DE06D108B497FA486FB42 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B842BE5CF1C4793A470EBE1;
+			remoteInfo = TwoDo;
+		};
 		D4A5B6C7E8F94A00BCDE1234 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B71DE06D108B497FA486FB42 /* Project object */;
@@ -49,6 +75,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A10000000000000000000001 /* WidgetTaskData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTaskData.swift; sourceTree = "<group>"; };
+		A10000000000000000000002 /* WidgetTaskSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTaskSelection.swift; sourceTree = "<group>"; };
+		A10000000000000000000003 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
+		A10000000000000000000004 /* WidgetSnapshotExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSnapshotExporter.swift; sourceTree = "<group>"; };
+		A20000000000000000000001 /* TaskWidgetConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskWidgetConfiguration.swift; sourceTree = "<group>"; };
+		A20000000000000000000002 /* TaskWidgetProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskWidgetProvider.swift; sourceTree = "<group>"; };
+		A20000000000000000000003 /* TaskWidgetViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskWidgetViews.swift; sourceTree = "<group>"; };
+		A20000000000000000000004 /* TwoDoTaskWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoDoTaskWidget.swift; sourceTree = "<group>"; };
+		A20000000000000000000005 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A20000000000000000000006 /* TwoDoWidgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TwoDoWidgets.entitlements; sourceTree = "<group>"; };
+		A30000000000000000000001 /* WidgetTaskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTaskTests.swift; sourceTree = "<group>"; };
+		A40000000000000000000001 /* TwoDoWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TwoDoWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		A40000000000000000000002 /* TwoDoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TwoDoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		01B53D1B2EA3474E9765650C /* GoogleCalendarAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleCalendarAuthService.swift; sourceTree = "<group>"; };
 		022A76F33D5D468D84837BE6 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		0EFDCF82C2044CB6822DD38B /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
@@ -85,6 +124,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C20000000000000000000002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C30000000000000000000002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		46072915233B4696A45E9D52 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -95,6 +148,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A60000000000000000000001 /* TwoDoShared */ = {
+			isa = PBXGroup;
+			children = (
+				A10000000000000000000001 /* WidgetTaskData.swift */,
+				A10000000000000000000002 /* WidgetTaskSelection.swift */,
+			);
+			path = TwoDoShared;
+			sourceTree = "<group>";
+		};
+		A60000000000000000000002 /* TwoDoWidgets */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000001 /* TaskWidgetConfiguration.swift */,
+				A20000000000000000000002 /* TaskWidgetProvider.swift */,
+				A20000000000000000000003 /* TaskWidgetViews.swift */,
+				A20000000000000000000004 /* TwoDoTaskWidget.swift */,
+				A20000000000000000000005 /* Info.plist */,
+				A20000000000000000000006 /* TwoDoWidgets.entitlements */,
+			);
+			path = TwoDoWidgets;
+			sourceTree = "<group>";
+		};
+		A60000000000000000000003 /* TwoDoTests */ = {
+			isa = PBXGroup;
+			children = (
+				A30000000000000000000001 /* WidgetTaskTests.swift */,
+			);
+			path = TwoDoTests;
+			sourceTree = "<group>";
+		};
 		0C63C49607814F01AFA31331 /* Design */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +213,8 @@
 			isa = PBXGroup;
 			children = (
 				3D9BEB3F26F94199BD981775 /* TwoDo.app */,
+				A40000000000000000000001 /* TwoDoWidgets.appex */,
+				A40000000000000000000002 /* TwoDoTests.xctest */,
 				E5B6C7D8F9A04B11CDEF2345 /* TwoDoUITests.xctest */,
 			);
 			name = Products;
@@ -156,6 +241,7 @@
 			children = (
 				2A875B11F3284B32B09745E2 /* TwoDoApp.swift */,
 				FF90F4B488CF4438BBCCF377 /* RootTabView.swift */,
+				A10000000000000000000003 /* AppRouter.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -222,6 +308,9 @@
 			isa = PBXGroup;
 			children = (
 				73A3B1524CCF4FBD997ACC70 /* TwoDo */,
+				A60000000000000000000001 /* TwoDoShared */,
+				A60000000000000000000002 /* TwoDoWidgets */,
+				A60000000000000000000003 /* TwoDoTests */,
 				F6C7D8E9A0B14C22DEF03456 /* TwoDoUITests */,
 				16542EA094A24CDBAF8C4651 /* Products */,
 			);
@@ -240,6 +329,7 @@
 			isa = PBXGroup;
 			children = (
 				4E97B6D2A1F04385BC28D571 /* NotificationScheduler.swift */,
+				A10000000000000000000004 /* WidgetSnapshotExporter.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -265,6 +355,40 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		D20000000000000000000001 /* TwoDoWidgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E20000000000000000000001 /* Build configuration list for PBXNativeTarget "TwoDoWidgets" */;
+			buildPhases = (
+				C20000000000000000000001 /* Sources */,
+				C20000000000000000000002 /* Frameworks */,
+				C20000000000000000000003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TwoDoWidgets;
+			productName = TwoDoWidgets;
+			productReference = A40000000000000000000001 /* TwoDoWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		D30000000000000000000001 /* TwoDoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E30000000000000000000001 /* Build configuration list for PBXNativeTarget "TwoDoTests" */;
+			buildPhases = (
+				C30000000000000000000001 /* Sources */,
+				C30000000000000000000002 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A50000000000000000000004 /* PBXTargetDependency */,
+			);
+			name = TwoDoTests;
+			productName = TwoDoTests;
+			productReference = A40000000000000000000002 /* TwoDoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		4B842BE5CF1C4793A470EBE1 /* TwoDo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AA08741E678C4E889A3B21E4 /* Build configuration list for PBXNativeTarget "TwoDo" */;
@@ -272,10 +396,12 @@
 				54400F48C0844338A46E6791 /* Sources */,
 				46072915233B4696A45E9D52 /* Frameworks */,
 				52A07F3DD30D4BE0863E9B26 /* Resources */,
+				C40000000000000000000001 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A50000000000000000000002 /* PBXTargetDependency */,
 			);
 			name = TwoDo;
 			productName = TwoDo;
@@ -302,6 +428,16 @@
 /* End PBXNativeTarget section */
 
 /* Begin PBXTargetDependency section */
+		A50000000000000000000002 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D20000000000000000000001 /* TwoDoWidgets */;
+			targetProxy = A50000000000000000000001 /* PBXContainerItemProxy */;
+		};
+		A50000000000000000000004 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4B842BE5CF1C4793A470EBE1 /* TwoDo */;
+			targetProxy = A50000000000000000000003 /* PBXContainerItemProxy */;
+		};
 		E1F2A3B4C5D56177C2458901 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4B842BE5CF1C4793A470EBE1 /* TwoDo */;
@@ -317,6 +453,13 @@
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 2660;
 				TargetAttributes = {
+					D20000000000000000000001 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					D30000000000000000000001 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 4B842BE5CF1C4793A470EBE1;
+					};
 					4B842BE5CF1C4793A470EBE1 = {
 						CreatedOnToolsVersion = 16.0;
 					};
@@ -340,6 +483,8 @@
 			projectRoot = "";
 			targets = (
 				4B842BE5CF1C4793A470EBE1 /* TwoDo */,
+				D20000000000000000000001 /* TwoDoWidgets */,
+				D30000000000000000000001 /* TwoDoTests */,
 				A7B8C9D0E1F24D33EF014567 /* TwoDoUITests */,
 			);
 		};
@@ -356,6 +501,13 @@
 /* End PBXFrameworksBuildPhase section (UITests) */
 
 /* Begin PBXResourcesBuildPhase section */
+		C20000000000000000000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		52A07F3DD30D4BE0863E9B26 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -366,7 +518,42 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		C40000000000000000000001 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				B40000000000000000000001 /* TwoDoWidgets.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		C20000000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B20000000000000000000001 /* WidgetTaskData.swift in Sources */,
+				B20000000000000000000002 /* WidgetTaskSelection.swift in Sources */,
+				B20000000000000000000003 /* TaskWidgetConfiguration.swift in Sources */,
+				B20000000000000000000004 /* TaskWidgetProvider.swift in Sources */,
+				B20000000000000000000005 /* TaskWidgetViews.swift in Sources */,
+				B20000000000000000000006 /* TwoDoTaskWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C30000000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B30000000000000000000001 /* WidgetTaskTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C9D0E1F2A3B44F55A0236789 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -381,6 +568,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B10000000000000000000001 /* WidgetTaskData.swift in Sources */,
+				B10000000000000000000002 /* WidgetTaskSelection.swift in Sources */,
+				B10000000000000000000003 /* AppRouter.swift in Sources */,
+				B10000000000000000000004 /* WidgetSnapshotExporter.swift in Sources */,
 				C7CEFA97348B4213AF911740 /* TwoDoApp.swift in Sources */,
 				283378A4D9614745B5FE6465 /* RootTabView.swift in Sources */,
 				FBA6844B1A8340FF850560D9 /* ColorTokens.swift in Sources */,
@@ -412,6 +603,98 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		F20000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = TwoDoWidgets/TwoDoWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = JUQMKZZ7TJ;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = TwoDoWidgets/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kadeem.twodo.widgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F20000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = TwoDoWidgets/TwoDoWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = JUQMKZZ7TJ;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = TwoDoWidgets/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kadeem.twodo.widgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F30000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JUQMKZZ7TJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kadeem.twodo.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TwoDo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TwoDo";
+				TEST_TARGET_NAME = TwoDo;
+			};
+			name = Debug;
+		};
+		F30000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JUQMKZZ7TJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kadeem.twodo.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TwoDo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TwoDo";
+				TEST_TARGET_NAME = TwoDo;
+			};
+			name = Release;
+		};
 		4F9CA02403D64E2C9F23B021 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -600,6 +883,24 @@
 /* End XCBuildConfiguration section (UITests) */
 
 /* Begin XCConfigurationList section */
+		E20000000000000000000001 /* Build configuration list for PBXNativeTarget "TwoDoWidgets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F20000000000000000000001 /* Debug */,
+				F20000000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E30000000000000000000001 /* Build configuration list for PBXNativeTarget "TwoDoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F30000000000000000000001 /* Debug */,
+				F30000000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B8C9D0E1F2A34E44F0125678 /* Build configuration list for PBXNativeTarget "TwoDoUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
