@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" fill="none">
+  <defs>
+    <!-- Dark Midnight Background Gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#0E172E"/>
+      <stop offset="60%" stop-color="#070A14"/>
+      <stop offset="100%" stop-color="#020408"/>
+    </radialGradient>
+
+    <!-- Vibrant Electric Blue Gradient for T2 -->
+    <linearGradient id="t2Grad" x1="20%" y1="90%" x2="80%" y2="10%">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="40%" stop-color="#2563EB"/>
+      <stop offset="75%" stop-color="#0EA5E9"/>
+      <stop offset="100%" stop-color="#38BDF8"/>
+    </linearGradient>
+
+    <!-- Top Bevel Highlight Gradient -->
+    <linearGradient id="bevelGrad" x1="0%" y1="0%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="50%" stop-color="#BAE6FD" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.1"/>
+    </linearGradient>
+
+    <!-- Ambient Core Glow -->
+    <radialGradient id="ambientGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.35"/>
+      <stop offset="50%" stop-color="#2563EB" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#070A14" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Laser Needle Crimson Gradient -->
+    <linearGradient id="laserLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F43F5E" stop-opacity="0"/>
+      <stop offset="20%" stop-color="#E11D48" stop-opacity="0.8"/>
+      <stop offset="48%" stop-color="#FF2D55"/>
+      <stop offset="52%" stop-color="#FFFFFF"/>
+      <stop offset="56%" stop-color="#FF2D55"/>
+      <stop offset="80%" stop-color="#E11D48" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#F43F5E" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Laser Center Flare Radial -->
+    <radialGradient id="centerSpark" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="25%" stop-color="#FDA4AF"/>
+      <stop offset="60%" stop-color="#E11D48" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#E11D48" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- iOS-style Squircle Canvas -->
+  <rect width="128" height="128" rx="28" fill="url(#bgGrad)"/>
+  <rect width="128" height="128" rx="28" stroke="#1E293B" stroke-width="1.5" stroke-opacity="0.6"/>
+
+  <!-- Radial Blue Backlight -->
+  <circle cx="64" cy="62" r="48" fill="url(#ambientGlow)"/>
+
+  <!-- Bold Italic T2 Glyph Group -->
+  <g transform="skewX(-11) translate(12, 0)">
+    <!-- Main Glyphs with Depth Shadow -->
+    <!-- T - Drop/Bevel shadow -->
+    <path d="M 27 34 L 59 34 L 56 46 L 47 46 L 39 96 L 27 96 L 35 46 L 27 46 Z"
+          fill="#0B132B"/>
+    <!-- 2 - Drop/Bevel shadow -->
+    <path d="M 64 47 C 64 36 73 33 84 33 C 97 33 103 40 103 49 C 103 59 95 69 84 80 L 105 80 L 102 98 L 62 98 L 63 88 L 85 66 C 91 60 94 54 94 49 C 94 43 89 40 82 40 C 75 40 70 44 69 49 Z"
+          fill="#0B132B"/>
+
+    <!-- T - Front Face -->
+    <path d="M 28 32 L 60 32 L 58 43 L 49 43 L 41 94 L 30 94 L 37 43 L 28 43 Z"
+          fill="url(#t2Grad)"/>
+    <!-- T - Specular Edge -->
+    <path d="M 28 32 L 60 32 L 58 35 L 30 35 L 38 43 L 36 44 L 28 35 Z"
+          fill="url(#bevelGrad)"/>
+
+    <!-- 2 - Front Face -->
+    <path d="M 65 45 C 65 34 74 31 85 31 C 98 31 104 38 104 47 C 104 57 96 67 85 78 L 105 78 L 103 95 L 64 95 L 65 86 L 86 64 C 92 58 95 52 95 47 C 95 41 90 38 83 38 C 76 38 71 42 70 47 Z"
+          fill="url(#t2Grad)"/>
+    <!-- 2 - Specular Top Arc -->
+    <path d="M 66 43 C 68 36 74 32 84 32 C 95 32 102 37 103 45 L 99 46 C 98 40 93 35 84 35 C 75 35 70 38 68 44 Z"
+          fill="url(#bevelGrad)"/>
+    <!-- 2 - Base Highlight -->
+    <path d="M 64 92 L 102 92 L 100 95 L 64 95 Z"
+          fill="#BAE6FD" fill-opacity="0.4"/>
+  </g>
+
+  <!-- Glowing Crimson Laser Timeline Needle -->
+  <!-- Outer Glow Bar -->
+  <line x1="6" y1="64" x2="122" y2="64" stroke="#FF2D55" stroke-width="4" stroke-opacity="0.3" stroke-linecap="round"/>
+  <!-- Focused Laser Line -->
+  <line x1="8" y1="64" x2="120" y2="64" stroke="url(#laserLine)" stroke-width="2" stroke-linecap="round"/>
+  <!-- Pure White Core Filament -->
+  <line x1="42" y1="64" x2="94" y2="64" stroke="#FFFFFF" stroke-width="1" stroke-opacity="0.9"/>
+  <!-- Central Flare / Hotspot -->
+  <circle cx="68" cy="64" r="7" fill="url(#centerSpark)"/>
+  <ellipse cx="68" cy="64" rx="16" ry="1.8" fill="#FFFFFF" fill-opacity="0.9"/>
+</svg>
