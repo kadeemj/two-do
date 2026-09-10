@@ -1,0 +1,62 @@
+name: iOS Tests
+
+# Runs on the Mac Mini self-hosted runner (cannot build/test iOS on Linux).
+# Labels: self-hosted, macOS, ARM64, two-do-mac-mini
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ios-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Unit & UI tests
+    runs-on: [self-hosted, macOS, ARM64, two-do-mac-mini]
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show Xcode
+        run: |
+          xcode-select -p
+          xcodebuild -version
+
+      - name: Resolve simulator
+        id: dest
+        run: |
+          DEST=$(xcrun simctl list devices available \
+            | sed -n 's/.*iPhone 17 (\([A-F0-9-]*\)).*/\1/p' \
+            | head -1)
+          if [ -z "$DEST" ]; then
+            echo "No iPhone 17 simulator found" >&2
+            xcrun simctl list devices available >&2
+            exit 1
+          fi
+          echo "id=$DEST" >> "$GITHUB_OUTPUT"
+          echo "Using simulator $DEST"
+
+      - name: Run tests
+        env:
+          TWODO_SMOKE_TEST: "1"
+          TWODO_SMOKE_CAL: "1"
+        run: |
+          set -o pipefail
+          xcodebuild test \
+            -scheme TwoDo \
+            -destination "platform=iOS Simulator,id=${{ steps.dest.outputs.id }}" \
+            -resultBundlePath TestResults.xcresult \
+            DEVELOPMENT_TEAM=JUQMKZZ7TJ
+
+      - name: Upload xcresult
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: TestResults
+          path: TestResults.xcresult
+          if-no-files-found: ignore
