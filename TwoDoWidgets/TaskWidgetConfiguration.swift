@@ -16,7 +16,7 @@ enum WidgetViewMode: String, AppEnum {
 
 struct TaskWidgetConfigurationIntent: WidgetConfigurationIntent {
     static let title: LocalizedStringResource = "Task View"
-    static let description = IntentDescription("Choose which tasks Two Do shows.")
+    static let description = IntentDescription("Choose which tasks T2Do shows.")
 
     @Parameter(title: "View", default: .focus)
     var viewMode: WidgetViewMode

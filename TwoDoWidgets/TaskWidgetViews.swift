@@ -322,7 +322,7 @@ private struct WidgetEmptyState: View {
                 .foregroundStyle(Color.widgetBlue)
             Text("You're all caught up")
                 .font(.system(size: 13, weight: .semibold))
-            Text("Open Two Do to add a task.")
+            Text("Open T2Do to add a task.")
                 .font(.system(size: 10))
                 .foregroundStyle(.secondary)
         }

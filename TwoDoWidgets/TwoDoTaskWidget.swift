@@ -10,7 +10,7 @@ struct TwoDoTaskWidget: Widget {
         ) { entry in
             TaskWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("Two Do Tasks")
+        .configurationDisplayName("T2Do Tasks")
         .description("See your focus, today, or upcoming tasks at a glance.")
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
