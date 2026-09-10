@@ -17,6 +17,7 @@ Two Do is an iOS time-blocking to-do list app ("a time-blocking todo list with o
 - `TwoDo/Preview/` — `SampleData.swift` (demo seeding for previews/first run).
 - `TwoDoUITests/` — XCUITest smoke tests driven by launch-environment hooks (see gotchas).
 - `fastlane/`, `.github/workflows/`, `docs/testflight.md` — release tooling (see below).
+- `ci_scripts/` — Xcode Cloud hooks; `docs/mac-mini-and-xcode-cloud.md` — Mac Mini SSH + self-hosted tests + Xcode Cloud setup.
 
 ## Architecture
 
@@ -37,6 +38,8 @@ Two Do is an iOS time-blocking to-do list app ("a time-blocking todo list with o
 
 ## Build, test, release
 
-- Targets: `TwoDo` (bundle id `com.kadeem.twodo`, iOS 18.0+, iPhone & iPad) and `TwoDoUITests`; shared scheme `TwoDo`. Building requires Xcode on macOS — it cannot be built or tested in a Linux session; rely on CI/review there.
-- **TestFlight release is fully headless:** push a tag matching `ios-v*` (e.g. `ios-v1.0.1`) or manually dispatch the "iOS TestFlight" workflow (`.github/workflows/ios-testflight.yml`), which runs `bundle exec fastlane beta` on macOS with App Store Connect API-key auth and `match` (readonly, certs in a separate private repo).
+- Targets: `TwoDo` (bundle id `com.kadeem.twodo`, iOS 18.0+, iPhone & iPad) and `TwoDoUITests`; shared scheme `TwoDo`. Building requires Xcode on macOS — it cannot be built or tested in a Linux session.
+- **Mac Mini:** Linux SSHs with `ssh mac-mini` (`192.168.10.163`). Dev checkout: `~/Developer/two-do`. Self-hosted runner `kadeems-mac-mini` runs `.github/workflows/ios-tests.yml`. See `docs/mac-mini-and-xcode-cloud.md`.
+- **Xcode Cloud:** Apple-hosted build/test (not TestFlight). Create the workflow with `scripts/create_xcode_cloud_workflow.py` or the `ios-xcode-cloud-setup` Action after one-time ASC Get Started + GitHub grant; hooks live in `ci_scripts/`.
+- **TestFlight release is fully headless:** push a tag matching `ios-v*` (e.g. `ios-v1.0.1`) or manually dispatch the "iOS TestFlight" workflow (`.github/workflows/ios-testflight.yml`), which runs `bundle exec fastlane beta` on hosted `macos-15` with App Store Connect API-key auth and `match` (readonly, certs in a separate private repo).
 - Versioning: `MARKETING_VERSION` is bumped manually in Xcode; the build number (`CURRENT_PROJECT_VERSION`) is computed and injected by CI (latest TestFlight build + 1) — no version-bump commits. Full details in `docs/testflight.md`.

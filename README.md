@@ -24,3 +24,8 @@ Two Do is a focused iOS time-blocking to-do list for turning a busy day into a c
 - WidgetKit and App Intents
 - Google Calendar OAuth 2.0 with PKCE
 - XCUITest smoke tests
+
+## Build & CI
+
+- **TestFlight:** GitHub Actions + fastlane — see [`docs/testflight.md`](docs/testflight.md).
+- **Tests / Mac Mini / Xcode Cloud:** Linux cannot run Xcode. Use the Mac Mini over SSH and the self-hosted test workflow; connect Xcode Cloud from the Mini — see [`docs/mac-mini-and-xcode-cloud.md`](docs/mac-mini-and-xcode-cloud.md).
