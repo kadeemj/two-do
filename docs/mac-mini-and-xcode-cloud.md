@@ -69,53 +69,48 @@ cd ~/actions-runner
 Keep the Mac Mini awake / logged in so the LaunchAgent stays alive. Screen
 Sharing or a logged-in GUI session is required for Simulator UI tests.
 
-## Xcode Cloud (one-time, must finish on the Mac Mini)
+## Xcode Cloud
 
-Xcode Cloud workflows are created in **Xcode** or **App Store Connect** —
-they cannot be fully provisioned from Linux. Repo hooks for Cloud are
-already in [`ci_scripts/`](../ci_scripts/).
+Workflow **creation is automated** via the App Store Connect API once two
+Apple-only prerequisites exist. TestFlight stays on GitHub Actions.
 
-### 1. Grant GitHub access
+### Automated path
 
-On the Mac Mini (GUI session):
-
-1. Open **Xcode** → **Settings → Accounts** — sign in with the Apple ID that
-   owns team `JUQMKZZ7TJ`.
-2. Open `~/Developer/two-do/TwoDo.xcodeproj`.
-3. **Product → Xcode Cloud → Create Workflow…** (or App Store Connect →
-   your app → **Xcode Cloud** → **Get Started**).
-4. When prompted, connect the **GitHub** repository `kadeemj/two-do` and
-   grant Apple access to the repo (App Store Connect GitHub App).
-
-### 2. Recommended first workflow
-
-Keep this separate from TestFlight (GitHub Actions owns releases):
-
-| Setting | Suggestion |
+| Piece | Path |
 | --- | --- |
-| Name | `PR Build & Test` |
-| Start condition | Pull requests to `main` (and optionally pushes to `main`) |
-| Actions | **Build** + **Test** the `TwoDo` scheme |
-| Destination | Latest iOS Simulator / managed device |
-| Post-actions | None (do **not** auto-deploy to TestFlight) |
+| Script | [`scripts/create_xcode_cloud_workflow.py`](../scripts/create_xcode_cloud_workflow.py) |
+| Dispatch workflow | [`.github/workflows/ios-xcode-cloud-setup.yml`](../.github/workflows/ios-xcode-cloud-setup.yml) |
+| Hooks | [`ci_scripts/`](../ci_scripts/) |
 
-Archive + TestFlight can stay exclusively on the existing
-`ios-testflight.yml` / `fastlane beta` path.
+Creates (or reuses) **PR Build & Test**: Build + Test on PRs targeting
+`main`, scheme `TwoDo`, container `TwoDo.xcodeproj` — **no** TestFlight
+post-action.
 
-### 3. Custom scripts already in-repo
+```bash
+# Locally (Mac Mini has the .p8; issuer is the ASC API Issuer UUID)
+export ASC_KEY_ID=…
+export ASC_ISSUER_ID=…
+export ASC_KEY_PATH=~/.appstoreconnect/private_keys/AuthKey_….p8
+python3 scripts/create_xcode_cloud_workflow.py
 
-| Script | Purpose |
-| --- | --- |
-| [`ci_scripts/ci_post_clone.sh`](../ci_scripts/ci_post_clone.sh) | Sanity-check clone after Xcode Cloud checks out the repo |
-| [`ci_scripts/ci_pre_xcodebuild.sh`](../ci_scripts/ci_pre_xcodebuild.sh) | Sets `TWODO_SMOKE_TEST` / `TWODO_SMOKE_CAL` for UI smoke hooks |
+# Or: Actions → Xcode Cloud Workflow Setup → Run workflow
+# (uses ASC_KEY_ID / ASC_ISSUER_ID / ASC_KEY_P8 repo secrets)
+```
 
-Make them executable after pull (`chmod +x ci_scripts/*.sh`) — Git should
-preserve the executable bit once committed.
+### One-time ASC steps (API cannot do these)
 
-### 4. Confirm in App Store Connect
+Script exits `2` until both are done:
 
-App Store Connect → **Apps → Two Do → Xcode Cloud** should list the
-workflow and recent builds after the first push/PR.
+1. **Get Started** for T2Do:  
+   https://appstoreconnect.apple.com/apps/6791229236/ci
+2. **Grant GitHub** access so Xcode Cloud can clone `kadeemj/two-do`  
+   (same ASC Xcode Cloud UI → repository picker / Manage Repositories).
+
+Today ASC already has Xcode Cloud products for other apps, and GitHub repos
+`kadeemj/corecredit` + `hiddenkah/jefferyhome` — **not** Two Do yet.
+
+After those clicks, re-run the script / dispatch workflow; it should print
+the new workflow URL.
 
 ## What stays on GitHub Actions (hosted macOS)
 
