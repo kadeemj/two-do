@@ -1,6 +1,6 @@
 # Mac Mini + Xcode Cloud (Linux-first workflow)
 
-Two Do’s primary checkout lives on a **Linux box**, which cannot run Xcode.
+T2Do’s primary checkout lives on a **Linux box**, which cannot run Xcode.
 Day-to-day builds/tests use the **Mac Mini**; cloud CI for Apple-hosted
 builds uses **Xcode Cloud**. TestFlight uploads stay on GitHub Actions
 ([`docs/testflight.md`](testflight.md)) — unchanged.
@@ -107,7 +107,7 @@ Script exits `2` until both are done:
    (same ASC Xcode Cloud UI → repository picker / Manage Repositories).
 
 Today ASC already has Xcode Cloud products for other apps, and GitHub repos
-`kadeemj/corecredit` + `hiddenkah/jefferyhome` — **not** Two Do yet.
+`kadeemj/corecredit` + `hiddenkah/jefferyhome` — **not** T2Do yet.
 
 After those clicks, re-run the script / dispatch workflow; it should print
 the new workflow URL.

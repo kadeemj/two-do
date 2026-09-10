@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create (or reuse) the Two Do Xcode Cloud 'PR Build & Test' workflow via ASC API.
+"""Create (or reuse) the T2Do Xcode Cloud 'PR Build & Test' workflow via ASC API.
 
 Requires env:
   ASC_KEY_ID       App Store Connect API Key ID
@@ -17,7 +17,7 @@ Optional env:
   ASC_KEY_PATH           path to .p8 instead of ASC_KEY_P8
 
 One-time prerequisites Apple does not expose via API:
-  1. App Store Connect → Two Do (T2Do) → Xcode Cloud → Get Started
+  1. App Store Connect → T2Do → Xcode Cloud → Get Started
   2. Grant the Xcode Cloud GitHub App access to kadeemj/two-do
 
 Exit codes:
@@ -208,7 +208,7 @@ def create_workflow(
             "type": "ciWorkflows",
             "attributes": {
                 "name": name,
-                "description": "Build + test Two Do on PRs to main (no TestFlight — that stays on GitHub Actions).",
+                "description": "Build + test T2Do on PRs to main (no TestFlight — that stays on GitHub Actions).",
                 "isEnabled": True,
                 "isLockedForEditing": False,
                 "clean": True,

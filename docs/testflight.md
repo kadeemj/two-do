@@ -1,6 +1,6 @@
 # Headless TestFlight releases
 
-Two Do ships to TestFlight from GitHub Actions — no Xcode Organizer, no manual
+T2Do ships to TestFlight from GitHub Actions — no Xcode Organizer, no manual
 signing, no 2FA. This doc covers the **one-time setup** and the
 **per-release** flow.
 

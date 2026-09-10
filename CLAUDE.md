@@ -4,7 +4,7 @@ Guidance for Claude Code when working in this repository.
 
 ## Project overview
 
-Two Do is an iOS time-blocking to-do list app ("a time-blocking todo list with overdue focus"). Tasks have due dates (timed or date-only), scheduled time blocks, projects, tags, subtasks, and flags. Four tabs (`TwoDo/App/RootTabView.swift`): **Today** (overdue + today list with a day timeline strip), **Schedule** (hourly timeline merging tasks with Google Calendar events), **Search**, and **Settings**. Data syncs across devices via iCloud/CloudKit; due dates and time blocks fire local notifications; Google Calendar events are displayed read-only via OAuth.
+T2Do is an iOS time-blocking to-do list app ("a time-blocking todo list with overdue focus"). Tasks have due dates (timed or date-only), scheduled time blocks, projects, tags, subtasks, and flags. Four tabs (`TwoDo/App/RootTabView.swift`): **Today** (overdue + today list with a day timeline strip), **Schedule** (hourly timeline merging tasks with Google Calendar events), **Search**, and **Settings**. Data syncs across devices via iCloud/CloudKit; due dates and time blocks fire local notifications; Google Calendar events are displayed read-only via OAuth.
 
 ## Structure
 

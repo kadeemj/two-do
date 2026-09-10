@@ -90,7 +90,10 @@ struct SettingsView: View {
                 }
 
                 Section("About") {
-                    LabeledContent("App", value: "Two Do")
+                    LabeledContent("App", value: "T2Do")
+                    Link(destination: URL(string: "https://t2do.app")!) {
+                        LabeledContent("Website", value: "t2do.app")
+                    }
                     LabeledContent("Appearance", value: "System light / dark")
                     Text("A time-blocking todo list with overdue focus.")
                         .font(.footnote)
