@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>T2Do — Turn a busy day into a clear plan</title>
+  <meta name="description" content="T2Do is a time-blocking to-do list for iPhone and iPad that keeps overdue work visible, places tasks on a live timeline, and merges your Google Calendar into one view." />
+  <meta property="og:title" content="T2Do — A time-blocking to-do list with overdue focus" />
+  <meta property="og:description" content="See your whole day on one timeline. Never lose an overdue task again." />
+  <meta property="og:image" content="https://t2do.app/assets/app-icon.png" />
+  <meta name="theme-color" content="#070A14" />
+  <link rel="canonical" href="https://t2do.app/" />
+  <meta property="og:url" content="https://t2do.app/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/png" href="assets/app-icon.png" />
+  <link rel="apple-touch-icon" href="assets/app-icon.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="cursor-glow" aria-hidden="true"></div>
+  <div class="progress-line" aria-hidden="true"></div>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="nav">
+    <a class="brand" href="#top" aria-label="T2Do home">
+      <img src="assets/app-icon.png" alt="" class="brand-icon" width="36" height="36" />
+      <span class="brand-name">T2Do</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#overdue">Overdue</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#features">Features</a>
+      <a href="#sync">Sync</a>
+    </nav>
+    <a class="btn btn-small btn-primary" href="#download">
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9s-2-.9-3.4-.9C5.9 6.8 4 8.8 4 12.5c0 1.1.2 2.3.6 3.4.6 1.6 2.6 5.4 4.7 5.3 1.1 0 1.8-.7 3.2-.7s2 .7 3.4.7c2.1 0 3.9-3.5 4.5-5.1-2.8-1.3-3-3.4-4-3.5zM14 4.9c.8-1 1.4-2.3 1.2-3.7-1.2 0-2.6.8-3.4 1.8-.8.9-1.4 2.2-1.2 3.6 1.3.1 2.6-.7 3.4-1.7z"/></svg>
+      Get the app
+    </a>
+  </header>
+
+  <main id="top">
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero">
+      <div class="aurora" aria-hidden="true">
+        <span class="blob blob-a"></span>
+        <span class="blob blob-b"></span>
+        <span class="blob blob-c"></span>
+      </div>
+      <div class="grid-lines" aria-hidden="true"></div>
+      <div class="horizon" aria-hidden="true"><span class="horizon-dot"></span></div>
+
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow reveal"><span class="pulse-dot"></span> Now on iPhone &amp; iPad</p>
+          <h1 class="headline">
+            <span class="word">Turn</span>
+            <span class="word">a</span>
+            <span class="word">busy</span>
+            <span class="word">day</span>
+            <span class="word">into</span>
+            <span class="word">a</span>
+            <span class="word accent">clear</span>
+            <span class="word accent">plan.</span>
+          </h1>
+          <p class="lede reveal" style="--d:.55s">
+            T2Do is a time-blocking to-do list that puts every task on a live timeline, keeps
+            overdue work impossible to ignore, and folds your Google Calendar into the same view.
+          </p>
+          <div class="hero-actions reveal" style="--d:.7s">
+            <a class="btn btn-primary btn-large magnetic" href="#download">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9s-2-.9-3.4-.9C5.9 6.8 4 8.8 4 12.5c0 1.1.2 2.3.6 3.4.6 1.6 2.6 5.4 4.7 5.3 1.1 0 1.8-.7 3.2-.7s2 .7 3.4.7c2.1 0 3.9-3.5 4.5-5.1-2.8-1.3-3-3.4-4-3.5zM14 4.9c.8-1 1.4-2.3 1.2-3.7-1.2 0-2.6.8-3.4 1.8-.8.9-1.4 2.2-1.2 3.6 1.3.1 2.6-.7 3.4-1.7z"/></svg>
+              Download on the App Store
+            </a>
+            <a class="btn btn-ghost btn-large" href="#timeline">See how it works <span class="arrow">→</span></a>
+          </div>
+          <ul class="hero-stats reveal" style="--d:.85s">
+            <li><strong data-count="24">0</strong><span>hour timeline</span></li>
+            <li><strong>iCloud</strong><span>sync built in</span></li>
+            <li><strong>0</strong><span>overdue tasks hidden</span></li>
+          </ul>
+        </div>
+
+        <!-- Phone mockup -->
+        <div class="hero-device" data-tilt>
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="app-header">
+                <div class="app-title">
+                  <span class="cal-icon">15</span>
+                  <span class="app-title-text">Today</span>
+                  <span class="app-title-date">Wed, 15 Jul</span>
+                </div>
+                <span class="app-sun"></span>
+              </div>
+
+              <div class="strip">
+                <div class="strip-label"><span class="dot blue"></span> Call with Jeremy <em>ends 10:30 AM</em></div>
+                <div class="strip-track">
+                  <span class="strip-block" style="--l:38%;--w:3%;background:var(--blue)"></span>
+                  <span class="strip-block" style="--l:44%;--w:3%;background:var(--orange)"></span>
+                  <span class="strip-block" style="--l:48%;--w:4%;background:var(--blue)"></span>
+                  <span class="strip-block" style="--l:58%;--w:9%;background:var(--yellow)"></span>
+                  <span class="strip-needle" id="stripNeedle"></span>
+                </div>
+              </div>
+
+              <div class="section-head overdue-head"><span>Overdue</span><span class="count">3</span></div>
+              <ul class="tasks" id="heroTasks">
+                <li class="task overdue" data-loop="1">
+                  <span class="check"></span>
+                  <span class="task-title">Submit Q2 budget notes</span>
+                  <span class="meta"><i class="ico clock"></i>30 m <b>4 days ago</b></span>
+                </li>
+                <li class="task overdue">
+                  <span class="check repeat"></span>
+                  <span class="task-title">Pay electricity bill</span>
+                  <span class="meta"><i class="ico pin"></i>15 m <b>3 days ago</b></span>
+                </li>
+                <li class="task overdue">
+                  <span class="check"></span>
+                  <span class="task-title">Call Alex about demo script</span>
+                  <span class="meta"><i class="ico tel"></i>20 m <b>Yesterday</b></span>
+                </li>
+              </ul>
+
+              <div class="section-head"><span>Today</span><span class="count muted">6</span></div>
+              <ul class="tasks">
+                <li class="task done-anim">
+                  <span class="check repeat"></span>
+                  <span class="task-title">Daily mobility routine</span>
+                  <span class="meta blue-meta">25 m <b>7:00 AM</b></span>
+                </li>
+                <li class="task">
+                  <span class="check"></span>
+                  <span class="task-title">Call Alex about birthday dinner</span>
+                  <span class="meta blue-meta"><i class="ico tel"></i><b>10:30 AM</b></span>
+                </li>
+                <li class="task">
+                  <span class="check"></span>
+                  <span class="task-title">Draft storyboard for key feature</span>
+                  <span class="meta blue-meta">90 m <b>2:00 PM</b></span>
+                </li>
+                <li class="task">
+                  <span class="check repeat"></span>
+                  <span class="task-title">Weekly review and plan sprint</span>
+                  <span class="meta blue-meta">45 m <b>4:00 PM</b></span>
+                </li>
+                <li class="task">
+                  <span class="check"></span>
+                  <span class="task-title">Grocery run</span>
+                  <span class="meta blue-meta"><i class="ico pin"></i>1 h <b>5:15 PM</b></span>
+                </li>
+              </ul>
+
+              <div class="tabbar">
+                <span class="tab active">Today</span><span class="tab">Schedule</span><span class="tab">Search</span><span class="tab">Settings</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- floating chips -->
+          <div class="chip chip-free float-a"><span class="chip-dot"></span>2 hours free</div>
+          <div class="chip chip-notify float-b">
+            <img src="assets/app-icon.png" alt="" width="18" height="18" />
+            <div><strong>T2Do</strong><span>Call with Jeremy starts in 5 min</span></div>
+          </div>
+          <div class="chip chip-sync float-c"><i class="ico cloud"></i>Synced via iCloud</div>
+        </div>
+      </div>
+
+      <a class="scroll-hint" href="#marquee" aria-label="Scroll down"><span></span></a>
+    </section>
+
+    <!-- ============ MARQUEE ============ -->
+    <section class="marquee" id="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Time blocks</span><i></i><span>Overdue focus</span><i></i><span>Google Calendar</span><i></i><span>iCloud sync</span><i></i><span>Projects</span><i></i><span>Tags</span><i></i><span>Subtasks</span><i></i><span>Widgets</span><i></i><span>Notifications</span><i></i><span>Flags</span><i></i>
+        <span>Time blocks</span><i></i><span>Overdue focus</span><i></i><span>Google Calendar</span><i></i><span>iCloud sync</span><i></i><span>Projects</span><i></i><span>Tags</span><i></i><span>Subtasks</span><i></i><span>Widgets</span><i></i><span>Notifications</span><i></i><span>Flags</span><i></i>
+      </div>
+    </section>
+
+    <!-- ============ OVERDUE ============ -->
+    <section class="section overdue-section" id="overdue">
+      <div class="container split">
+        <div class="split-copy">
+          <p class="kicker reveal">Overdue focus</p>
+          <h2 class="reveal" style="--d:.1s">Overdue work never<br/>gets to hide.</h2>
+          <p class="reveal" style="--d:.2s">
+            Most apps bury yesterday's tasks under today's. T2Do pins them to the top of your day,
+            in a colour you can't scroll past, until they're done or rescheduled. The moment you finish
+            one, it slides away and the count drops.
+          </p>
+          <ul class="checklist reveal" style="--d:.3s">
+            <li>Overdue section always sits first, with a live count</li>
+            <li>Repeating tasks roll forward the second you tick them</li>
+            <li>Swipe to reschedule to today, tomorrow, or a chosen time</li>
+          </ul>
+        </div>
+        <div class="split-visual">
+          <div class="card overdue-card reveal-scale">
+            <div class="section-head overdue-head big"><span>Overdue</span><span class="count" id="overdueCount">3</span></div>
+            <ul class="tasks big" id="overdueDemo">
+              <li class="task overdue"><span class="check"></span><span class="task-title">Submit Q2 budget notes</span><span class="meta"><i class="ico clock"></i>30 m <b>4 days ago</b></span></li>
+              <li class="task overdue"><span class="check repeat"></span><span class="task-title">Pay electricity bill</span><span class="meta"><i class="ico pin"></i>15 m <b>3 days ago</b></span></li>
+              <li class="task overdue"><span class="check"></span><span class="task-title">Call Alex about demo script</span><span class="meta"><i class="ico tel"></i>20 m <b>Yesterday</b></span></li>
+            </ul>
+            <button class="btn btn-ghost btn-small replay" id="overdueReplay" type="button">Tap a task to complete it · replay</button>
+          </div>
+          <div class="glow-ring" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TIMELINE ============ -->
+    <section class="section timeline-section" id="timeline">
+      <div class="container">
+        <div class="center-copy">
+          <p class="kicker reveal">The live timeline</p>
+          <h2 class="reveal" style="--d:.1s">Your whole day, on one line.</h2>
+          <p class="reveal" style="--d:.2s">
+            Every task with a time block lands on an hourly schedule beside your calendar events.
+            The red needle is <em>now</em>. Drag it and watch the day move.
+          </p>
+        </div>
+
+        <div class="schedule card reveal-scale" id="schedule">
+          <div class="schedule-top">
+            <div class="free-pill" id="freePill">2 hours free</div>
+            <label class="scrub">
+              <span>Scrub the day</span>
+              <input type="range" id="scrub" min="8" max="18" step="0.05" value="10" aria-label="Time of day" />
+            </label>
+          </div>
+          <div class="schedule-grid">
+            <div class="hours">
+              <span>9 AM</span><span>10 AM</span><span>11 AM</span><span>12 PM</span><span>1 PM</span><span>2 PM</span><span>3 PM</span><span>4 PM</span><span>5 PM</span>
+            </div>
+            <div class="lanes" id="lanes">
+              <div class="needle" id="needle"><span class="needle-time" id="needleTime">10:00</span></div>
+              <div class="block cal" style="--start:1;--len:.5;--col:1;--span:2" data-title="Call with Jeremy" data-cal><strong>Call with Jeremy</strong><span>10:00 – 10:30 AM</span><i class="ico people"></i></div>
+              <div class="block" style="--start:1.6;--len:.55;--col:1;--span:1;--c:var(--orange)"><strong>Drop-off stuff at TYU</strong></div>
+              <div class="block" style="--start:1.85;--len:.55;--col:2;--span:1;--c:var(--orange)"><strong>Supplies pickup</strong></div>
+              <div class="block" style="--start:2.5;--len:1;--col:1;--span:1;--c:var(--blue)"><strong>Lunch with Pete, Mike, J…</strong><span>12:00 – 1:00 PM</span></div>
+              <div class="block" style="--start:4.5;--len:2;--col:1;--span:2;--c:var(--yellow)"><strong>Terry P</strong><span>2:00 – 4:00 PM</span></div>
+              <div class="block" style="--start:7;--len:.75;--col:1;--span:2;--c:var(--purple)"><strong>Grocery run</strong><span>5:15 – 6:00 PM</span></div>
+            </div>
+          </div>
+          <p class="schedule-note"><span class="dot" style="background:var(--blue)"></span> Google Calendar event &nbsp;·&nbsp; <span class="dot" style="background:var(--orange)"></span> T2Do time block &nbsp;·&nbsp; <span class="dot" style="background:var(--needle)"></span> Now</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FEATURES ============ -->
+    <section class="section features" id="features">
+      <div class="container">
+        <div class="center-copy">
+          <p class="kicker reveal">Everything a day needs</p>
+          <h2 class="reveal" style="--d:.1s">Small details, big calm.</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature card tilt reveal" style="--d:0s">
+            <div class="feature-icon"><svg viewBox="0 0 48 48"><rect x="8" y="10" width="32" height="30" rx="6"/><path d="M8 20h32M16 6v8M32 6v8"/><rect class="fill" x="14" y="26" width="8" height="8" rx="2"/></svg></div>
+            <h3>Due dates, timed or not</h3>
+            <p>Give a task a time, or just a day. Timed tasks fire notifications and land on the timeline. Date-only tasks stay flexible.</p>
+          </article>
+          <article class="feature card tilt reveal" style="--d:.08s">
+            <div class="feature-icon"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17"/><path d="M24 12v12l8 5"/><path class="fill-red" d="M24 8v3"/></svg></div>
+            <h3>Time blocks</h3>
+            <p>Block 25 minutes or 3 hours. Blocks stack side by side when they overlap, exactly like a calendar.</p>
+          </article>
+          <article class="feature card tilt reveal" style="--d:.16s">
+            <div class="feature-icon"><svg viewBox="0 0 48 48"><rect x="6" y="14" width="36" height="26" rx="5"/><path d="M6 22h36M16 14V9M32 14V9"/><path class="fill" d="M22 30l4 4 8-8"/></svg></div>
+            <h3>Google Calendar, merged</h3>
+            <p>Sign in once with secure OAuth. Your events appear read-only next to your tasks, so free time is obvious.</p>
+          </article>
+          <article class="feature card tilt reveal" style="--d:.24s">
+            <div class="feature-icon"><svg viewBox="0 0 48 48"><path d="M10 12h28a4 4 0 0 1 4 4v20a4 4 0 0 1-4 4H10a4 4 0 0 1-4-4V16a4 4 0 0 1 4-4z"/><path d="M6 20h36"/><circle class="fill-orange" cx="14" cy="28" r="3"/><circle class="fill-blue" cx="24" cy="28" r="3"/><circle class="fill-purple" cx="34" cy="28" r="3"/></svg></div>
+            <h3>Projects &amp; colours</h3>
+            <p>Group work into colour-coded projects. A slim stripe on every row tells you what belongs where at a glance.</p>
+          </article>
+          <article class="feature card tilt reveal" style="--d:.32s">
+            <div class="feature-icon"><svg viewBox="0 0 48 48"><path d="M8 24l16-16h16v16L24 40z"/><circle cx="31" cy="17" r="3"/></svg></div>
+            <h3>Tags, flags, subtasks</h3>
+            <p>Tag across projects, flag what matters most, and break big tasks into checkable steps.</p>
+          </article>
+          <article class="feature card tilt reveal" style="--d:.4s">
+            <div class="feature-icon"><svg viewBox="0 0 48 48"><path d="M24 6c6 0 10 4 10 10v8l4 6H10l4-6v-8c0-6 4-10 10-10z"/><path d="M19 36a5 5 0 0 0 10 0"/><path class="fill-red" d="M34 10l3-3"/></svg></div>
+            <h3>Notifications that matter</h3>
+            <p>Get pinged when something is due or a block begins. Never a nag, never a miss.</p>
+          </article>
+          <article class="feature card tilt reveal" style="--d:.48s">
+            <div class="feature-icon"><svg viewBox="0 0 48 48"><circle cx="20" cy="20" r="11"/><path d="M28 28l12 12"/></svg></div>
+            <h3>Instant search</h3>
+            <p>Find any task by title, project, or notes as fast as you can type.</p>
+          </article>
+          <article class="feature card tilt reveal" style="--d:.56s">
+            <div class="feature-icon"><svg viewBox="0 0 48 48"><rect x="6" y="6" width="16" height="16" rx="4"/><rect x="26" y="6" width="16" height="16" rx="4"/><rect x="6" y="26" width="16" height="16" rx="4"/><rect class="fill" x="26" y="26" width="16" height="16" rx="4"/></svg></div>
+            <h3>Home-screen widgets</h3>
+            <p>Focus, Today, and Upcoming widgets keep your next move visible without opening the app.</p>
+          </article>
+          <article class="feature card tilt reveal" style="--d:.64s">
+            <div class="feature-icon"><svg viewBox="0 0 48 48"><path d="M24 6a10 10 0 0 1 10 10c0 7-10 18-10 18S14 23 14 16A10 10 0 0 1 24 6z"/><circle cx="24" cy="16" r="3"/><path d="M12 40h24"/></svg></div>
+            <h3>Places &amp; phone numbers</h3>
+            <p>Attach a location or a number to a task and act on it in one tap from the row.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SCREENS ============ -->
+    <section class="section screens" id="screens">
+      <div class="container">
+        <div class="center-copy">
+          <p class="kicker reveal">Light or dark</p>
+          <h2 class="reveal" style="--d:.1s">Beautiful at 7 AM. Beautiful at midnight.</h2>
+        </div>
+        <div class="screen-compare reveal-scale" id="compare">
+          <img src="assets/screen-today.jpeg" alt="T2Do Today view in light mode" class="screen light" draggable="false" />
+          <img src="assets/screen-schedule.jpeg" alt="T2Do Schedule view in dark mode" class="screen dark" draggable="false" />
+          <div class="compare-handle" id="compareHandle" role="slider" aria-label="Compare light and dark" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0"><span></span></div>
+        </div>
+        <p class="hint reveal">Drag the handle</p>
+      </div>
+    </section>
+
+    <!-- ============ SYNC ============ -->
+    <section class="section sync" id="sync">
+      <div class="container split reverse">
+        <div class="split-visual">
+          <div class="orbit reveal-scale">
+            <div class="orbit-core"><img src="assets/app-icon.png" alt="" width="72" height="72" /></div>
+            <div class="orbit-ring r1"><span class="sat iphone"></span></div>
+            <div class="orbit-ring r2"><span class="sat ipad"></span></div>
+            <div class="orbit-ring r3"><span class="sat cloud"><i class="ico cloud"></i></span></div>
+            <span class="packet p1"></span><span class="packet p2"></span><span class="packet p3"></span>
+          </div>
+        </div>
+        <div class="split-copy">
+          <p class="kicker reveal">Private iCloud sync</p>
+          <h2 class="reveal" style="--d:.1s">Add it on your phone.<br/>Finish it on your iPad.</h2>
+          <p class="reveal" style="--d:.2s">
+            T2Do stores your tasks in your own private iCloud database. Nothing goes to our servers,
+            there is no account to create, and changes appear on every device within seconds.
+          </p>
+          <ul class="checklist reveal" style="--d:.3s">
+            <li>End-to-end private CloudKit storage</li>
+            <li>Works fully offline, syncs when you're back</li>
+            <li>Google Calendar tokens stay in the Keychain</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HOW IT WORKS ============ -->
+    <section class="section steps" id="how">
+      <div class="container">
+        <div class="center-copy">
+          <p class="kicker reveal">Three moves</p>
+          <h2 class="reveal" style="--d:.1s">From chaos to plan in under a minute.</h2>
+        </div>
+        <ol class="step-list">
+          <li class="step reveal" style="--d:0s"><span class="num">1</span><h3>Capture</h3><p>Type the task, pick a project, add a due time if it has one.</p></li>
+          <li class="step reveal" style="--d:.12s"><span class="num">2</span><h3>Block</h3><p>Drop it onto the timeline for the time you'll actually do it.</p></li>
+          <li class="step reveal" style="--d:.24s"><span class="num">3</span><h3>Do</h3><p>Follow the red line. Tick things off. Watch the overdue count hit zero.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="section cta" id="download">
+      <div class="cta-bg" aria-hidden="true"></div>
+      <div class="container center-copy">
+        <img src="assets/app-icon.png" alt="T2Do app icon" class="cta-icon reveal-scale" width="120" height="120" />
+        <h2 class="reveal">Your day has a shape.<br/>Let's see it.</h2>
+        <p class="reveal" style="--d:.1s">Free to download. Requires iOS 18 or later. iPhone and iPad.</p>
+        <div class="hero-actions center reveal" style="--d:.2s">
+          <a class="btn btn-primary btn-large magnetic" href="https://apps.apple.com/" id="appStoreLink" rel="noopener">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9s-2-.9-3.4-.9C5.9 6.8 4 8.8 4 12.5c0 1.1.2 2.3.6 3.4.6 1.6 2.6 5.4 4.7 5.3 1.1 0 1.8-.7 3.2-.7s2 .7 3.4.7c2.1 0 3.9-3.5 4.5-5.1-2.8-1.3-3-3.4-4-3.5zM14 4.9c.8-1 1.4-2.3 1.2-3.7-1.2 0-2.6.8-3.4 1.8-.8.9-1.4 2.2-1.2 3.6 1.3.1 2.6-.7 3.4-1.7z"/></svg>
+            Download on the App Store
+          </a>
+        </div>
+        <div class="qr reveal" style="--d:.3s">
+          <div class="qr-box" aria-hidden="true"><span></span></div>
+          <p>Or visit <strong>t2do.app</strong> on your iPhone</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a class="brand" href="#top"><img src="assets/app-icon.png" alt="" width="28" height="28" class="brand-icon" /><span class="brand-name">T2Do</span></a>
+      <p>Built with SwiftUI, SwiftData &amp; CloudKit. Google Calendar is a trademark of Google LLC. Apple, the Apple logo, iPhone and iPad are trademarks of Apple Inc.</p>
+      <nav aria-label="Footer"><a href="#features">Features</a><a href="mailto:kadeem.jeffery@mail.lavalabs.ai">Support</a><a href="#">Privacy</a></nav>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

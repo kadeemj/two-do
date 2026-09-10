@@ -10,3 +10,4 @@ build/
 fastlane/report.xml
 fastlane/README.md
 vendor/bundle/
+website/.netlify/
