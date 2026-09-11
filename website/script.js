@@ -3,6 +3,7 @@
   const isStatic = location.search.includes('static');
   if (isStatic) document.documentElement.classList.add('static');
   const reduceMotion = isStatic || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 
@@ -23,22 +24,32 @@
   let lastY = 0;
   const sections = $$('main section[id]');
   const links = $$('.nav-links a');
-  const onScroll = () => {
+  let scrollQueued = false;
+  const updateScrollState = () => {
     const y = window.scrollY;
     nav.classList.toggle('scrolled', y > 24);
     nav.classList.toggle('hidden', y > lastY && y > 400);
     lastY = y;
     const max = document.documentElement.scrollHeight - innerHeight;
-    progress.style.setProperty('--progress', (y / max).toFixed(4));
+    progress.style.setProperty('--progress', max > 0 ? (y / max).toFixed(4) : 0);
     let current = '';
     sections.forEach((s) => { if (s.getBoundingClientRect().top < innerHeight * 0.45) current = s.id; });
     links.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === `#${current}`));
+    if (!reduceMotion && finePointer) {
+      $$('.blob').forEach((b, i) => { b.style.translate = `0 ${y * (0.08 + i * 0.05)}px`; });
+    }
+    scrollQueued = false;
+  };
+  const onScroll = () => {
+    if (scrollQueued) return;
+    scrollQueued = true;
+    requestAnimationFrame(updateScrollState);
   };
   addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  updateScrollState();
 
   /* ---------- cursor glow + magnetic buttons + card spotlight ---------- */
-  if (!reduceMotion && matchMedia('(pointer:fine)').matches) {
+  if (!reduceMotion && finePointer) {
     const glow = $('.cursor-glow');
     addEventListener('pointermove', (e) => {
       glow.style.setProperty('--mx', `${e.clientX}px`);
@@ -100,9 +111,17 @@
   const stripNeedle = $('#stripNeedle');
   if (stripNeedle && !reduceMotion) {
     let pos = 41;
-    setInterval(() => { pos = pos > 66 ? 41 : pos + 0.03; stripNeedle.style.left = `${pos}%`; }, 100);
+    setInterval(() => {
+      if (document.hidden || $('#hero').dataset.offscreen === 'true') return;
+      pos = pos > 66 ? 41 : pos + 0.03;
+      stripNeedle.style.left = `${pos}%`;
+    }, 100);
   }
   const heroLoop = () => {
+    if (document.hidden || $('#hero').dataset.offscreen === 'true') {
+      setTimeout(heroLoop, 1000);
+      return;
+    }
     const first = $('#heroTasks .task:not(.gone)');
     const overdueCount = $('#heroTasks').previousElementSibling.querySelector('.count');
     if (!first) {
@@ -194,11 +213,12 @@
   scrub.addEventListener('input', () => setTime(+scrub.value));
   setTime(+scrub.value);
   // gentle auto-advance until the user touches it
-  if (!reduceMotion) {
+  if (!reduceMotion && finePointer) {
     let touched = false;
     scrub.addEventListener('pointerdown', () => { touched = true; }, { once: true });
     const auto = setInterval(() => {
       if (touched) return clearInterval(auto);
+      if (document.hidden || schedule.dataset.offscreen === 'true') return;
       let v = +scrub.value + 0.01;
       if (v > 18) v = 8;
       scrub.value = v;
@@ -245,12 +265,10 @@
     wiggle.observe(compare);
   }
 
-  /* ---------- parallax on aurora blobs ---------- */
-  if (!reduceMotion) {
-    const blobs = $$('.blob');
-    addEventListener('scroll', () => {
-      const y = window.scrollY;
-      blobs.forEach((b, i) => { b.style.translate = `0 ${y * (0.08 + i * 0.05)}px`; });
-    }, { passive: true });
-  }
+  /* Pause continuous demo work while its section is off-screen. */
+  const activityObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => { entry.target.dataset.offscreen = String(!entry.isIntersecting); });
+  }, { rootMargin: '150px 0px' });
+  activityObserver.observe($('#hero'));
+  activityObserver.observe(schedule);
 })();
