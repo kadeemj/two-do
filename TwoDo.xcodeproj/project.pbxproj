@@ -30,6 +30,7 @@
 		3EFCD26F77E44AF5B2BCFFE5 /* HourlyScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E83C0C6A0394B9BB518524E /* HourlyScheduleView.swift */; };
 		4553EC9AF5A645DC8A01CEE4 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981F3B65B8CB444ABF721C22 /* Typography.swift */; };
 		57BC496EA2304BEDB3CE740E /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8577F7C31AC04855979C3FFD /* SearchView.swift */; };
+		5C1410B5305D8D8D00EA129E /* ProjectTagManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1410B4305D8D8D00EA129E /* ProjectTagManagementView.swift */; };
 		5DDDEA70C8CE48828B2051B2 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BA69B98F6D4684B78FD2AD /* Tag.swift */; };
 		7C0B5C6D1BFB43FFB89D7868 /* TaskQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = D503BA70C28440F597FEC90D /* TaskQueries.swift */; };
 		8C81C470B642443884716E7D /* DateFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D864F2F93534BC1B71EF809 /* DateFormatting.swift */; };
@@ -100,6 +101,7 @@
 		46AFD1D2E0F24ED8B865AD08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		528B95E57A1A4C79BE20F9D3 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		5B3C18A6EEDB41408AEFF34D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5C1410B4305D8D8D00EA129E /* ProjectTagManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTagManagementView.swift; sourceTree = "<group>"; };
 		642CDB29FF6349F3AF68C13D /* ModelContainer+CloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ModelContainer+CloudKit.swift"; sourceTree = "<group>"; };
 		69C52EBAD1E44730858B1EB5 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		6AAC6237D5F24F0F8657C45B /* ColorTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTokens.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 				FE16D838775F47E1A0F3AE42 /* GoogleCalendarConfig.swift */,
 				995D07D16A7F48C0936F605E /* KeychainStore.swift */,
 				01B53D1B2EA3474E9765650C /* GoogleCalendarAuthService.swift */,
+				5C1410B4305D8D8D00EA129E /* ProjectTagManagementView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -592,6 +595,7 @@
 				3EFCD26F77E44AF5B2BCFFE5 /* HourlyScheduleView.swift in Sources */,
 				A9C0D1E2F3B45D66A1358902 /* GoogleCalendarEventsService.swift in Sources */,
 				DC2E8EAB3F3446A0852E4E69 /* AddEditTaskView.swift in Sources */,
+				5C1410B5305D8D8D00EA129E /* ProjectTagManagementView.swift in Sources */,
 				57BC496EA2304BEDB3CE740E /* SearchView.swift in Sources */,
 				330C36DF87794912B0820C6C /* SettingsView.swift in Sources */,
 				C195A77C318F4138967688AF /* GoogleCalendarConfig.swift in Sources */,

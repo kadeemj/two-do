@@ -14,6 +14,9 @@ struct SearchView: View {
         return roots.filter {
             $0.title.localizedCaseInsensitiveContains(q)
                 || ($0.project?.name.localizedCaseInsensitiveContains(q) ?? false)
+                || ($0.tags?.contains { $0.name.localizedCaseInsensitiveContains(q) } ?? false)
+                || ($0.locationName?.localizedCaseInsensitiveContains(q) ?? false)
+                || ($0.phoneLabel?.localizedCaseInsensitiveContains(q) ?? false)
                 || $0.notes.localizedCaseInsensitiveContains(q)
         }
     }
@@ -39,6 +42,13 @@ struct SearchView: View {
                                             .font(TwoDoTypography.metadata)
                                             .foregroundStyle(.secondary)
                                     }
+                                }
+                                if let tag = task.tags?.sorted(by: {
+                                    $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending
+                                }).first {
+                                    Label(tag.name, systemImage: "tag")
+                                        .font(TwoDoTypography.metadata)
+                                        .foregroundStyle(.secondary)
                                 }
                                 if let due = task.dueAt {
                                     Text(DateFormatting.relativeDue(due))

@@ -68,7 +68,7 @@ struct TaskRow: View {
     private var metadataRow: some View {
         HStack(spacing: 10) {
             if task.isFlagged {
-                Image(systemName: "eye")
+                Image(systemName: "flag.fill")
                     .font(.system(size: 12, weight: .medium))
             }
             if task.hasLocation {
@@ -78,6 +78,13 @@ struct TaskRow: View {
             if task.hasPhone {
                 Image(systemName: "phone")
                     .font(.system(size: 12, weight: .medium))
+            }
+            if let tag = task.tags?.sorted(by: {
+                $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending
+            }).first {
+                Label(tag.name, systemImage: "tag")
+                    .font(TwoDoTypography.metadata)
+                    .lineLimit(1)
             }
             if let minutes = task.durationMinutes {
                 HStack(spacing: 3) {

@@ -10,6 +10,7 @@ struct AddEditTaskView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @Query(sort: \Project.sortIndex) private var projects: [Project]
+    @Query(sort: \Tag.name) private var tags: [Tag]
 
     let mode: TaskEditorMode
 
@@ -27,7 +28,9 @@ struct AddEditTaskView: View {
     @State private var hasPhone = false
     @State private var isFlagged = false
     @State private var locationName = ""
+    @State private var phoneLabel = ""
     @State private var selectedProjectID: UUID?
+    @State private var selectedTagIDs: Set<UUID> = []
     @State private var subtaskTitle = ""
     @State private var pendingSubtasks: [String] = []
 
@@ -141,6 +144,56 @@ struct AddEditTaskView: View {
                     .padding(.vertical, 10)
                 }
 
+                flatSection("Tags") {
+                    if tags.isEmpty {
+                        Text("Create tags in Settings to assign them to tasks.")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                            .padding(.vertical, 12)
+                    } else {
+                        ForEach(Array(tags.enumerated()), id: \.element.id) { index, tag in
+                            Button {
+                                toggleTag(tag)
+                            } label: {
+                                HStack {
+                                    Label(tag.name, systemImage: "tag")
+                                        .foregroundStyle(.primary)
+                                    Spacer()
+                                    if selectedTagIDs.contains(tag.id) {
+                                        Image(systemName: "checkmark")
+                                            .font(.body.weight(.semibold))
+                                            .foregroundStyle(TwoDoColor.accentBlue)
+                                    }
+                                }
+                                .contentShape(Rectangle())
+                                .padding(.vertical, 11)
+                            }
+                            .buttonStyle(.plain)
+
+                            if index < tags.count - 1 {
+                                FlatDivider()
+                            }
+                        }
+                    }
+                }
+
+                flatSection("Context") {
+                    FlatToggle(title: "Flagged", isOn: $isFlagged)
+                    FlatDivider()
+                    FlatToggle(title: "Location", isOn: $hasLocation)
+                    if hasLocation {
+                        FlatDivider()
+                        FlatTextField(placeholder: "Location name or address", text: $locationName)
+                    }
+                    FlatDivider()
+                    FlatToggle(title: "Phone call", isOn: $hasPhone)
+                    if hasPhone {
+                        FlatDivider()
+                        FlatTextField(placeholder: "Phone number or contact", text: $phoneLabel)
+                            .keyboardType(.phonePad)
+                    }
+                }
+
                 flatSection("Subtasks") {
                     ForEach(Array(pendingSubtasks.enumerated()), id: \.offset) { index, name in
                         Text(name)
@@ -204,8 +257,18 @@ struct AddEditTaskView: View {
         hasPhone = task.hasPhone
         isFlagged = task.isFlagged
         locationName = task.locationName ?? ""
+        phoneLabel = task.phoneLabel ?? ""
         selectedProjectID = task.project?.id
+        selectedTagIDs = Set((task.tags ?? []).map(\.id))
         pendingSubtasks = (task.subtasks ?? []).map(\.title)
+    }
+
+    private func toggleTag(_ tag: Tag) {
+        if selectedTagIDs.contains(tag.id) {
+            selectedTagIDs.remove(tag.id)
+        } else {
+            selectedTagIDs.insert(tag.id)
+        }
     }
 
     private func save() {
@@ -231,8 +294,10 @@ struct AddEditTaskView: View {
         task.hasLocation = hasLocation
         task.hasPhone = hasPhone
         task.isFlagged = isFlagged
-        task.locationName = hasLocation ? locationName : nil
+        task.locationName = hasLocation ? locationName.trimmingCharacters(in: .whitespacesAndNewlines) : nil
+        task.phoneLabel = hasPhone ? phoneLabel.trimmingCharacters(in: .whitespacesAndNewlines) : nil
         task.project = selectedProject
+        task.tags = tags.filter { selectedTagIDs.contains($0.id) }
         task.updatedAt = .now
 
         if case .edit = mode {
@@ -306,6 +371,47 @@ private struct TaskDetailContent: View {
                             Text(project.name)
                         }
                         .padding(.vertical, 12)
+                    }
+                }
+
+                if let tags = task.tags?.sorted(by: {
+                    $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending
+                }), !tags.isEmpty {
+                    detailSection("Tags") {
+                        ForEach(Array(tags.enumerated()), id: \.element.id) { index, tag in
+                            Label(tag.name, systemImage: "tag")
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.vertical, 10)
+                            if index < tags.count - 1 {
+                                FlatDivider()
+                            }
+                        }
+                    }
+                }
+
+                if task.isFlagged || task.hasLocation || task.hasPhone {
+                    detailSection("Context") {
+                        if task.isFlagged {
+                            detailRow("Flagged", "Yes")
+                        }
+                        if task.hasLocation {
+                            if task.isFlagged {
+                                FlatDivider()
+                            }
+                            detailRow(
+                                "Location",
+                                task.locationName?.isEmpty == false ? (task.locationName ?? "Added") : "Added"
+                            )
+                        }
+                        if task.hasPhone {
+                            if task.isFlagged || task.hasLocation {
+                                FlatDivider()
+                            }
+                            detailRow(
+                                "Phone",
+                                task.phoneLabel?.isEmpty == false ? (task.phoneLabel ?? "Added") : "Added"
+                            )
+                        }
                     }
                 }
 
