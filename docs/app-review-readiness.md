@@ -6,13 +6,13 @@ Updated September 18, 2026 for the approved replacement of direct Google OAuth w
 
 | Item | Evidence | Required next step |
 | --- | --- | --- |
-| New binary required | Rejected build: 1.0 (12). Installed TestFlight build: 1.0 (13). Current source replaces Google OAuth with EventKit and removes the iCloud container row from Settings. | Upload a replacement and use that same build for physical QA, the recording, and App Store review. |
+| Replacement binary uploaded | Rejected build: 1.0 (12). Build 1.0 (14) was uploaded from `c427360` with EventKit, flat Settings, the privacy link, and manifests. Apple processing and physical installation have not been verified. | Confirm processing and install the replacement; use the same build for physical QA, the recording, and App Store review. |
 | Physical-device evidence missing | Device discovery timed out while initializing CoreDeviceService. No physical-device tests or recording were completed in this review. | Run the selected build on physical iPhone and iPad, since both families are enabled. Record on a device running the latest public OS required by Apple's message. |
-| Privacy policy link missing | `website/index.html` has `Privacy` linked to `#`; `SettingsView.swift` links only to the website, without a dedicated privacy policy link. | Publish an accurate policy, link it clearly in the app, and set its URL in App Store Connect. Apple guideline 5.1.1(i) requires both metadata and in-app access. |
+| Privacy policy publication pending | `website/index.html` links to `privacy/`, `website/privacy/index.html` contains the policy, and Settings → About links directly to `https://t2do.app/privacy/`. | Publish and verify the public policy URL, then set it in App Store Connect. Apple guideline 5.1.1(i) requires both metadata and in-app access. |
 | Calendar permission changed | EventKit requires Full Access to read events; the app contains no event-writing operations. Calendar selection starts empty. | Demonstrate permission, explicit selection, event display, denial recovery, and disconnect on a physical device. |
 | No provider login required | Calendars must already be configured in Apple Calendar. Google OAuth source and callback scheme have been removed. | Provide sample events on the review device; no T2Do or Google demo credentials are needed. |
 | Legacy Google credential cleanup | The next app launch removes the five app-owned Google Keychain entries. It does not revoke the old grant on Google's servers. | Existing users may remove T2Do from their Google Account's third-party connections separately. Do not claim server-side revocation. |
-| Marketing privacy claim needs support | Website says “End-to-end private CloudKit storage.” A private database alone does not establish end-to-end encryption. | Remove or substantiate this claim against the actual storage configuration. |
+| Marketing privacy claim corrected | The unsupported end-to-end encryption claim has been removed; the website now describes private CloudKit sync. | Verify the corrected copy on the deployed website. |
 
 App Store screenshots, age rating, privacy disclosures, support URL, availability, and the current App Review Notes have not been inspected in App Store Connect. Confirm them against the actual release before resubmission. A replacement binary is needed if fixes change the app; the information request alone does not establish that a new binary is necessary.
 
@@ -55,7 +55,7 @@ On the iPhone Air Simulator running iOS 26.5:
 Fill in actual results. A code inspection or successful Simulator test is not a physical-device pass.
 
 Rejected version/build: 1.0 (12), confirmed by the developer
-Candidate version/build for new QA and recording: PENDING new TestFlight upload with EventKit
+Candidate version/build for new QA and recording: 1.0 (14), uploaded; processing and installation verification pending
 TestFlight install confirmed: Developer reports 1.0 (13) running on the physical iPhone
 iPhone model / OS: Developer reports “iPhone 17 air” / iOS 27; confirm exact Model Name and OS version in Settings → General → About before sending
 iPhone QA date and results: PENDING
