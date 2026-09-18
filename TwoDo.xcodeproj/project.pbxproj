@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B70000000000000000000001 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A70000000000000000000001 /* PrivacyInfo.xcprivacy */; };
+		B70000000000000000000002 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A70000000000000000000002 /* PrivacyInfo.xcprivacy */; };
 		B10000000000000000000001 /* WidgetTaskData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000001 /* WidgetTaskData.swift */; };
 		B10000000000000000000002 /* WidgetTaskSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000002 /* WidgetTaskSelection.swift */; };
 		B10000000000000000000003 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000003 /* AppRouter.swift */; };
@@ -18,8 +20,9 @@
 		B20000000000000000000005 /* TaskWidgetViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000003 /* TaskWidgetViews.swift */; };
 		B20000000000000000000006 /* TwoDoTaskWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000004 /* TwoDoTaskWidget.swift */; };
 		B30000000000000000000001 /* WidgetTaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30000000000000000000001 /* WidgetTaskTests.swift */; };
+		B30000000000000000000002 /* DeviceCalendarServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30000000000000000000002 /* DeviceCalendarServiceTests.swift */; };
 		B40000000000000000000001 /* TwoDoWidgets.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A40000000000000000000001 /* TwoDoWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		01AF284E37A740F29CA18E57 /* GoogleCalendarAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B53D1B2EA3474E9765650C /* GoogleCalendarAuthService.swift */; };
+		01AF284E37A740F29CA18E57 /* CalendarSettingsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B53D1B2EA3474E9765650C /* CalendarSettingsSection.swift */; };
 		19C1B7F8918B4A7A84A419AA /* ModelContainer+CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642CDB29FF6349F3AF68C13D /* ModelContainer+CloudKit.swift */; };
 		1B61DD0D065B47D281A33C36 /* TaskRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B290BDFCCF649FBBBA15C88 /* TaskRow.swift */; };
 		239CE68043044673AA0CED29 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022A76F33D5D468D84837BE6 /* Project.swift */; };
@@ -40,7 +43,6 @@
 		7C0B5C6D1BFB43FFB89D7868 /* TaskQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = D503BA70C28440F597FEC90D /* TaskQueries.swift */; };
 		8C81C470B642443884716E7D /* DateFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D864F2F93534BC1B71EF809 /* DateFormatting.swift */; };
 		9A11BC22DE33F4448A55C601 /* NotesFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11BC22DE33F4448A55C602 /* NotesFormatting.swift */; };
-		C195A77C318F4138967688AF /* GoogleCalendarConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE16D838775F47E1A0F3AE42 /* GoogleCalendarConfig.swift */; };
 		C7CEFA97348B4213AF911740 /* TwoDoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A875B11F3284B32B09745E2 /* TwoDoApp.swift */; };
 		C89D87CCCAEB48F9936EA9E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B3C18A6EEDB41408AEFF34D /* Assets.xcassets */; };
 		D60142A264444EE3804F2D39 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C52EBAD1E44730858B1EB5 /* SampleData.swift */; };
@@ -51,7 +53,7 @@
 		FBA6844B1A8340FF850560D9 /* ColorTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC6237D5F24F0F8657C45B /* ColorTokens.swift */; };
 		FD3A82C10E5B4C21A7D94E68 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E97B6D2A1F04385BC28D571 /* NotificationScheduler.swift */; };
 		B1E2D3C4A5F64788B9C0D1E2 /* NotificationSmokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F3E4D5B6A75899CAD1E2F3 /* NotificationSmokeTests.swift */; };
-		A9C0D1E2F3B45D66A1358902 /* GoogleCalendarEventsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D1E2F3A4C56E77B2469013 /* GoogleCalendarEventsService.swift */; };
+		A9C0D1E2F3B45D66A1358902 /* DeviceCalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D1E2F3A4C56E77B2469013 /* DeviceCalendarService.swift */; };
 		C1E2F3A4B5D67F88C3570124 /* CalendarEventsSmokeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F3A4B5C6E78099D4681235 /* CalendarEventsSmokeTests.swift */; };
 		E3A4B5C6D7F891AAE5792346 /* DateOnlyTaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B5C6D7E8A9A2BBF6803457 /* DateOnlyTaskTests.swift */; };
 /* End PBXBuildFile section */
@@ -81,6 +83,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A70000000000000000000001 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		A70000000000000000000002 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		A10000000000000000000001 /* WidgetTaskData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTaskData.swift; sourceTree = "<group>"; };
 		A10000000000000000000002 /* WidgetTaskSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTaskSelection.swift; sourceTree = "<group>"; };
 		A10000000000000000000003 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
@@ -92,9 +96,10 @@
 		A20000000000000000000005 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A20000000000000000000006 /* TwoDoWidgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TwoDoWidgets.entitlements; sourceTree = "<group>"; };
 		A30000000000000000000001 /* WidgetTaskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTaskTests.swift; sourceTree = "<group>"; };
+		A30000000000000000000002 /* DeviceCalendarServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCalendarServiceTests.swift; sourceTree = "<group>"; };
 		A40000000000000000000001 /* TwoDoWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TwoDoWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		A40000000000000000000002 /* TwoDoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TwoDoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		01B53D1B2EA3474E9765650C /* GoogleCalendarAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleCalendarAuthService.swift; sourceTree = "<group>"; };
+		01B53D1B2EA3474E9765650C /* CalendarSettingsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSettingsSection.swift; sourceTree = "<group>"; };
 		022A76F33D5D468D84837BE6 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		0EFDCF82C2044CB6822DD38B /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
 		2A875B11F3284B32B09745E2 /* TwoDoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoDoApp.swift; sourceTree = "<group>"; };
@@ -125,11 +130,10 @@
 		D503BA70C28440F597FEC90D /* TaskQueries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskQueries.swift; sourceTree = "<group>"; };
 		E22DD3ED1E7B4B0697427D4D /* AddEditTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditTaskView.swift; sourceTree = "<group>"; };
 		EE5E75FEB73649489FD1FD81 /* DayTimelineStrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTimelineStrip.swift; sourceTree = "<group>"; };
-		FE16D838775F47E1A0F3AE42 /* GoogleCalendarConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleCalendarConfig.swift; sourceTree = "<group>"; };
 		FF90F4B488CF4438BBCCF377 /* RootTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabView.swift; sourceTree = "<group>"; };
 		4E97B6D2A1F04385BC28D571 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
 		C2F3E4D5B6A75899CAD1E2F3 /* NotificationSmokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSmokeTests.swift; sourceTree = "<group>"; };
-		B0D1E2F3A4C56E77B2469013 /* GoogleCalendarEventsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleCalendarEventsService.swift; sourceTree = "<group>"; };
+		B0D1E2F3A4C56E77B2469013 /* DeviceCalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCalendarService.swift; sourceTree = "<group>"; };
 		D2F3A4B5C6E78099D4681235 /* CalendarEventsSmokeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventsSmokeTests.swift; sourceTree = "<group>"; };
 		F4B5C6D7E8A9A2BBF6803457 /* DateOnlyTaskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateOnlyTaskTests.swift; sourceTree = "<group>"; };
 		E5B6C7D8F9A04B11CDEF2345 /* TwoDoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TwoDoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -172,6 +176,7 @@
 		A60000000000000000000002 /* TwoDoWidgets */ = {
 			isa = PBXGroup;
 			children = (
+				A70000000000000000000002 /* PrivacyInfo.xcprivacy */,
 				A20000000000000000000001 /* TaskWidgetConfiguration.swift */,
 				A20000000000000000000002 /* TaskWidgetProvider.swift */,
 				A20000000000000000000003 /* TaskWidgetViews.swift */,
@@ -186,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				A30000000000000000000001 /* WidgetTaskTests.swift */,
+				A30000000000000000000002 /* DeviceCalendarServiceTests.swift */,
 			);
 			path = TwoDoTests;
 			sourceTree = "<group>";
@@ -204,6 +210,7 @@
 		125D9A7188144BD8A401B159 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A70000000000000000000001 /* PrivacyInfo.xcprivacy */,
 				5B3C18A6EEDB41408AEFF34D /* Assets.xcassets */,
 				46AFD1D2E0F24ED8B865AD08 /* Info.plist */,
 				393ACE6EB1574AA287809069 /* TwoDo.entitlements */,
@@ -282,7 +289,7 @@
 			children = (
 				528B95E57A1A4C79BE20F9D3 /* ScheduleView.swift */,
 				2E83C0C6A0394B9BB518524E /* HourlyScheduleView.swift */,
-				B0D1E2F3A4C56E77B2469013 /* GoogleCalendarEventsService.swift */,
+				B0D1E2F3A4C56E77B2469013 /* DeviceCalendarService.swift */,
 			);
 			path = Schedule;
 			sourceTree = "<group>";
@@ -291,9 +298,8 @@
 			isa = PBXGroup;
 			children = (
 				BBD39ECC81674481BB7CCC90 /* SettingsView.swift */,
-				FE16D838775F47E1A0F3AE42 /* GoogleCalendarConfig.swift */,
 				995D07D16A7F48C0936F605E /* KeychainStore.swift */,
-				01B53D1B2EA3474E9765650C /* GoogleCalendarAuthService.swift */,
+				01B53D1B2EA3474E9765650C /* CalendarSettingsSection.swift */,
 				5C1410B4305D8D8D00EA129E /* ProjectTagManagementView.swift */,
 			);
 			path = Settings;
@@ -523,6 +529,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B70000000000000000000002 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,6 +537,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B70000000000000000000001 /* PrivacyInfo.xcprivacy in Resources */,
 				C89D87CCCAEB48F9936EA9E4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -569,6 +577,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B30000000000000000000001 /* WidgetTaskTests.swift in Sources */,
+				B30000000000000000000002 /* DeviceCalendarServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -613,14 +622,13 @@
 				2D71F9B330474591BE5C9AF0 /* ScheduleView.swift in Sources */,
 				3EFCD26F77E44AF5B2BCFFE5 /* HourlyScheduleView.swift in Sources */,
 				5C1410BD305D997B00EA129E /* TaskCapture.swift in Sources */,
-				A9C0D1E2F3B45D66A1358902 /* GoogleCalendarEventsService.swift in Sources */,
+				A9C0D1E2F3B45D66A1358902 /* DeviceCalendarService.swift in Sources */,
 				DC2E8EAB3F3446A0852E4E69 /* AddEditTaskView.swift in Sources */,
 				5C1410B5305D8D8D00EA129E /* ProjectTagManagementView.swift in Sources */,
 				57BC496EA2304BEDB3CE740E /* SearchView.swift in Sources */,
 				330C36DF87794912B0820C6C /* SettingsView.swift in Sources */,
-				C195A77C318F4138967688AF /* GoogleCalendarConfig.swift in Sources */,
 				D83A7B7FA86F4EB98CC42342 /* KeychainStore.swift in Sources */,
-				01AF284E37A740F29CA18E57 /* GoogleCalendarAuthService.swift in Sources */,
+				01AF284E37A740F29CA18E57 /* CalendarSettingsSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

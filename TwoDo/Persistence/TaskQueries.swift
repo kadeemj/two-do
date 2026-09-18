@@ -94,15 +94,17 @@ enum TimelineLayout {
         )
     }
 
-    static func blocks(from events: [GoogleCalendarEvent], on day: Date, calendar: Calendar = .current) -> [TimelineBlock] {
-        events
-            .filter { !$0.isAllDay && calendar.isDate($0.start, inSameDayAs: day) }
+    static func blocks(from events: [DeviceCalendarEvent], on day: Date, calendar: Calendar = .current) -> [TimelineBlock] {
+        let dayStart = calendar.startOfDay(for: day)
+        guard let dayEnd = calendar.date(byAdding: .day, value: 1, to: dayStart) else { return [] }
+        return events
+            .filter { !$0.isAllDay && $0.start < dayEnd && $0.end > dayStart }
             .map { event in
                 TimelineBlock(
                     id: event.id,
                     title: event.title,
-                    start: event.start,
-                    end: event.end,
+                    start: max(event.start, dayStart),
+                    end: min(event.end, dayEnd),
                     colorHex: event.colorHex,
                     taskID: nil,
                     isCalendarEvent: true

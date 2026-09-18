@@ -7,6 +7,7 @@ final class DateOnlyTaskTests: XCTestCase {
     @MainActor
     func testCreateTaskWithDueDateIsDateOnly() throws {
         let app = XCUIApplication()
+        continueAfterFailure = false
         app.launch()
 
         let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
@@ -20,7 +21,7 @@ final class DateOnlyTaskTests: XCTestCase {
         addButton.tap()
 
         // Unique title so reruns don't collide with earlier saved tasks.
-        let taskTitle = "Errand \(Int(Date().timeIntervalSince1970) % 100_000)"
+        let taskTitle = "Errand \(UUID().uuidString)"
         let title = app.textFields["Title"]
         XCTAssertTrue(title.waitForExistence(timeout: 5))
         title.tap()
@@ -33,11 +34,17 @@ final class DateOnlyTaskTests: XCTestCase {
 
         app.buttons["Save"].tap()
 
-        // The row's title is its own accessibility element — match by label.
-        let row = app.descendants(matching: .any)
-            .matching(NSPredicate(format: "label CONTAINS %@", taskTitle))
-            .firstMatch
-        XCTAssertTrue(row.waitForExistence(timeout: 5), "Saved task should appear in the list")
+        // The CI Simulator keeps tasks between runs. Overdue rows can push
+        // Today below the lazy stack's rendered area, so locate this task
+        // through Search instead of assuming it is in the first viewport.
+        app.tabBars.buttons["Search"].tap()
+        let search = app.searchFields.firstMatch
+        XCTAssertTrue(search.waitForExistence(timeout: 5))
+        search.tap()
+        search.typeText(taskTitle)
+        let row = app.buttons[taskTitle]
+        XCTAssertTrue(row.waitForExistence(timeout: 5), "Saved task should appear in search results")
+        XCTAssertTrue(app.staticTexts["Today"].exists, "Saved task should have today's date")
 
         // Timed dues used to render as "Today, 10:30 AM"; date-only dues
         // render as plain "Today", so no label anywhere carries a time.
@@ -56,4 +63,3 @@ final class DateOnlyTaskTests: XCTestCase {
         XCTAssertFalse(app.switches["Time"].exists, "Time toggle should not reappear in edit mode")
     }
 }
-

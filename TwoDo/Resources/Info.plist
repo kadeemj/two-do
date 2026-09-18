@@ -28,17 +28,11 @@
 				<string>twodo</string>
 			</array>
 		</dict>
-		<dict>
-			<key>CFBundleURLName</key>
-			<string>com.kadeem.twodo.google.oauth</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.13891422235-fvtacidps3cpo4n15b8hkldsq7jbbaev</string>
-			</array>
-		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>T2Do displays events from calendars you choose alongside your tasks. T2Do does not add, edit, or delete calendar events.</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — T2Do</title>
+  <meta name="description" content="How T2Do handles tasks, iCloud sync, optional calendar access, reminders, and support information." />
+  <meta name="theme-color" content="#070a14" />
+  <link rel="canonical" href="https://t2do.app/privacy/" />
+  <link rel="icon" href="../assets/favicon.ico" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../privacy.css" />
+</head>
+<body class="policy-page">
+  <a class="skip-link" href="#policy">Skip to privacy policy</a>
+  <header class="policy-header">
+    <a class="brand" href="../" aria-label="T2Do home"><img class="brand-icon" src="../assets/icon-192.png" alt="" width="36" height="36" /><span class="brand-name">T2Do</span></a>
+    <a href="../">Back to home <span aria-hidden="true">↗</span></a>
+  </header>
+  <main id="policy" class="policy-content" tabindex="-1">
+    <p class="kicker">Your data &amp; your choices</p>
+    <h1>Privacy policy</h1>
+    <p class="policy-date">Last updated: September 18, 2026</p>
+    <p class="policy-lede">T2Do helps you organize tasks and see your day. Your task data stays on your devices and, when available, syncs through your private iCloud database. You do not need a separate T2Do account.</p>
+    <p>This policy explains how T2Do (the “app”) and t2do.app (the “website”) handle information. T2Do is operated by Kadeem Jeffery (“we”). For privacy questions, contact <a href="mailto:kadeem.jeffery@mail.lavalabs.ai">kadeem.jeffery@mail.lavalabs.ai</a>.</p>
+
+    <nav class="policy-contents" aria-label="Policy sections">
+      <a href="#tasks">Tasks &amp; iCloud</a><a href="#calendars">Calendars</a><a href="#apple-features">Apple features</a><a href="#support">Support &amp; diagnostics</a><a href="#website">Website</a><a href="#choices">Retention &amp; deletion</a><a href="#contact">Contact &amp; rights</a>
+    </nav>
+
+    <section id="tasks">
+      <h2>1. Tasks and iCloud sync</h2>
+      <p>The app stores the information you enter, including task titles, notes, due dates, time blocks, recurrence and reminder settings, completion history, projects, tags, subtasks, flags, and any location names or phone details you type. It uses this information to organize, find, schedule, and display your tasks.</p>
+      <p>Task data is stored locally using Apple's SwiftData framework. When iCloud is available, it syncs using Apple's CloudKit service in a private database associated with your Apple Account. The app can also operate with a local-only store. We do not operate a separate server that receives your task database.</p>
+      <p>Location names and phone details are text you provide. The app does not request your device's GPS location or address book. We do not receive your Apple Account password.</p>
+    </section>
+
+    <section id="calendars">
+      <h2>2. Optional device-calendar access</h2>
+      <p>If you connect calendars, the app asks for Full Access to calendar events through Apple's EventKit framework. iOS requires that permission to read events, although T2Do only displays them: it does not create, edit, or delete calendar events.</p>
+      <p>The app reads calendar names, sources, colors, and identifiers so you can select calendars. For the calendars you select, it uses event titles, start and end times, all-day status, calendar names, colors, and identifiers to display events beside your tasks. No calendars are selected automatically.</p>
+      <p>This works with calendars already synced to Apple Calendar, including supported iCloud, Google, and Outlook accounts. T2Do does not sign in directly to Google or Microsoft or receive their passwords. Your operating system and calendar provider manage that account's syncing under their own terms.</p>
+      <p>Displayed event information is held in app memory, not copied into T2Do's task database or uploaded by T2Do to a developer server. Your connection preference and selected calendar identifiers are saved on your device. Disconnecting clears the displayed events but retains your calendar selection for reconnecting.</p>
+      <p>You can change the selection or disconnect in T2Do Settings. To withdraw system permission, change T2Do's Calendar access in iOS Settings. Your original calendar events are unaffected, and task features remain available without calendar access.</p>
+    </section>
+
+    <section id="apple-features">
+      <h2>3. Reminders, widgets, and Shortcuts</h2>
+      <p><strong>Reminders:</strong> with notification permission, T2Do schedules local notifications on your device. They can show task titles and reminder text. Control notification permission and Lock Screen previews in iOS Settings.</p>
+      <p><strong>Widgets:</strong> the app saves a local task snapshot in a shared app container for its widget extension. This can include task titles, dates, time blocks, project names and colors, flags, and identifiers. Widgets may make this information visible to anyone who can view your screen.</p>
+      <p><strong>Siri and Shortcuts:</strong> the app supports task capture through Apple's App Intents. Information you provide through those features becomes task data. Quick capture can also donate the task action, including its title, to Apple's system for suggestions. Apple's privacy settings govern Siri and related system processing.</p>
+      <p>Apple provides iCloud, calendar access, notifications, widgets, Siri, and Shortcuts. See <a href="https://www.apple.com/legal/privacy/">Apple's privacy policy</a> for its handling of information. These system features are not advertising integrations.</p>
+    </section>
+
+    <section id="support">
+      <h2>4. Support and diagnostics</h2>
+      <p>If you email us, we receive your email address, your message, and any attachments you choose to send. We use that information to respond, investigate problems, and handle privacy requests. Our support email is delivered and stored using Google Workspace. See <a href="https://policies.google.com/privacy">Google's privacy policy</a>. Please avoid sending private task or calendar details unless needed to explain a problem.</p>
+      <p>The app does not include third-party advertising, tracking, analytics, or AI-service SDKs. It does not send task or calendar content to an AI service.</p>
+      <p>Apple may separately provide app diagnostics according to your device settings. During TestFlight testing, Apple automatically collects and shares beta usage and crash information with us. Feedback you submit, including screenshots, is also shared; your name and email may be included depending on how you joined the beta. We use beta information to diagnose problems and improve T2Do, not for advertising, and do not share TestFlight information with third parties. See <a href="https://www.apple.com/legal/privacy/data/en/test-flight/">TestFlight &amp; Privacy</a>.</p>
+    </section>
+
+    <section id="website">
+      <h2>5. Website visits</h2>
+      <p>The website serves informational pages and does not ask you to create an account or submit task data. We do not use website analytics, advertising cookies, or visitor-tracking tools.</p>
+      <p>The website is hosted by Netlify. When you visit, Netlify processes connection information needed to serve and secure the site, such as your IP address, requested URL, browser information, and request time, and may retain access or security logs. See <a href="https://www.netlify.com/privacy/">Netlify's privacy policy</a>. This is separate from the task and calendar data stored by the app.</p>
+      <p>Following an external link or sending an email takes you to another service whose own privacy practices apply.</p>
+    </section>
+
+    <section id="choices">
+      <h2>6. Retention, deletion, and your controls</h2>
+      <ul>
+        <li><strong>Tasks:</strong> data remains in the app's data storage until you delete it. Delete tasks in the app; Settings also offers “Clear completed tasks.” Manage projects and tags in their Settings screens. When iCloud sync is active, deletions sync to other connected devices as syncing completes.</li>
+        <li><strong>Device and iCloud copies:</strong> removing the app does not necessarily remove iCloud data or existing backups. Use Apple's iCloud storage and backup controls to manage those copies. Disabling sync is not the same as deleting data.</li>
+        <li><strong>Calendars:</strong> disconnect to stop displaying events, or revoke Calendar permission in iOS Settings. Saved calendar identifiers remain local preferences; you can deselect calendars in the app. T2Do does not delete the source events.</li>
+        <li><strong>System features:</strong> remove widgets or change notification and Siri settings to control where task information appears. Apple manages system history and backups under its own controls.</li>
+        <li><strong>Support correspondence:</strong> we retain support emails and attachments for 24 months after the last message in the conversation, then delete them unless longer retention is necessary for a legal obligation or legal claim.</li>
+        <li><strong>Beta feedback:</strong> copies of TestFlight feedback under our control are retained for 12 months after receipt or until the related issue is closed, whichever is later, then deleted unless longer retention is necessary for a legal obligation or legal claim. Apple separately manages retention in its own services; we cannot erase records it independently controls.</li>
+        <li><strong>Deletion requests:</strong> you can request earlier deletion of support correspondence or beta feedback using the contact below, subject to applicable legal exceptions. Provider-managed backups and logs follow the provider's retention and deletion processes.</li>
+      </ul>
+      <p>There is no separate T2Do account to delete. We do not have a developer-hosted copy of your private task database to retrieve or erase for you.</p>
+    </section>
+
+    <section id="protection">
+      <h2>7. Sharing and security</h2>
+      <p>We do not sell your personal information or use task and calendar content for targeted advertising. Information is used for the features and support described above, not to build advertising profiles.</p>
+      <p>T2Do does not track you across other companies' apps or websites, does not use the advertising identifier (IDFA), and does not request App Tracking Transparency permission because it does not track.</p>
+      <p>The app relies on Apple's app sandbox, device protections, and iCloud services. Protect your device and Apple Account, and choose notification and widget settings appropriate for the information you store. No storage or transmission method can be guaranteed completely secure.</p>
+      <p>Information you provide to support may need to be disclosed where legally required. Service providers may process information in countries other than your own under their applicable privacy terms.</p>
+    </section>
+
+    <section id="contact">
+      <h2>8. Privacy questions and requests</h2>
+      <p>Depending on where you live, you may have rights to access, correct, delete, or receive a copy of personal information, or object to or restrict certain processing. Contact <a href="mailto:kadeem.jeffery@mail.lavalabs.ai">kadeem.jeffery@mail.lavalabs.ai</a> to ask about information we hold, including support correspondence or beta feedback. We may need to verify your request. You may also contact your local data-protection authority where applicable.</p>
+      <p>For information controlled by Apple or your calendar provider, use that provider's privacy tools. Please do not send passwords or a complete task database with a request.</p>
+    </section>
+
+    <section id="children">
+      <h2>9. Children's privacy</h2>
+      <p>T2Do is intended for a general audience in the United States and is not directed to children under 13. We do not knowingly collect personal information from children under 13. If you believe a child under 13 has sent us personal information, contact <a href="mailto:kadeem.jeffery@mail.lavalabs.ai">kadeem.jeffery@mail.lavalabs.ai</a> so we can delete information under our control.</p>
+    </section>
+
+    <section id="changes">
+      <h2>10. Changes to this policy</h2>
+      <p>We will update this page and its revision date when our practices change. Where required, we will provide additional notice or request permission before a new use of personal information.</p>
+    </section>
+  </main>
+  <footer class="policy-footer"><a href="../">T2Do home</a><a href="mailto:kadeem.jeffery@mail.lavalabs.ai">Privacy contact</a></footer>
+</body>
+</html>

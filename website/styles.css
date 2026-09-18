@@ -421,22 +421,16 @@ em { font-style: normal; color: var(--text); }
 .feature-icon .fill-blue { fill: var(--blue); stroke: none; }
 .feature-icon .fill-purple { fill: var(--purple); stroke: none; }
 
-/* ---------- screens compare ---------- */
-.screens::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse at 50% 50%, rgba(158,122,230,.12), transparent 60%); }
-.screen-compare {
-  position: relative; margin: 56px auto 0; max-width: 900px; aspect-ratio: 1376 / 1514; border-radius: 24px; overflow: hidden;
-  box-shadow: 0 60px 120px -40px rgba(0,0,0,.9), 0 0 0 1px var(--border); user-select: none; cursor: ew-resize; touch-action: none;
-  --split: 50%;
-}
-.screen-compare .screen { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.screen-compare .screen.dark { clip-path: inset(0 0 0 var(--split)); }
-.compare-handle { position: absolute; top: 0; bottom: 0; left: var(--split); width: 2px; background: var(--needle); translate: -50% 0; box-shadow: 0 0 20px rgba(242,64,74,.8); }
-.compare-handle span {
-  position: absolute; top: 50%; left: 50%; translate: -50% -50%; width: 44px; height: 44px; border-radius: 50%;
-  background: var(--needle); box-shadow: 0 8px 24px rgba(0,0,0,.4); display: grid; place-items: center;
-}
-.compare-handle span::before { content: "⟷"; color: #fff; font-size: 18px; font-weight: 700; }
-.hint { text-align: center; color: var(--text-3); font-size: 13px; margin-top: 16px; }
+/* ---------- device calendar setup ---------- */
+.calendar-steps { padding-left: 24px; margin: 28px 0; color: var(--text-2); list-style: decimal; text-align: left; }
+.calendar-steps li { padding-left: 8px; margin-bottom: 20px; }
+.calendar-steps strong { color: var(--text); }
+.calendar-help { border-top: 1px solid var(--border); margin-top: 28px; padding-top: 20px; text-align: left; }
+.calendar-help summary { cursor: pointer; color: var(--text); min-height: 44px; }
+.calendar-help p { margin-top: 12px; }
+.settings-preview { width: min(100%, 340px); margin: 0 auto; }
+.settings-preview img { display: block; width: 100%; height: auto; border-radius: 28px; border: 1px solid var(--border); }
+.settings-preview figcaption { color: var(--text-2); text-align: center; font-size: 13px; margin-top: 16px; }
 
 /* ---------- sync orbit ---------- */
 .orbit { position: relative; width: min(440px, 90vw); aspect-ratio: 1; margin-inline: auto; display: grid; place-items: center; }
@@ -543,8 +537,6 @@ em { font-style: normal; color: var(--text); }
   .schedule-grid { grid-template-columns: 44px minmax(0, 1fr); }
   .lanes { padding-right: 0; gap: 0 6px; }
   .block { padding-inline: 8px; font-size: 12px; }
-  .screen-compare { margin-top: 40px; border-radius: 16px; }
-  .compare-handle span { width: 48px; height: 48px; }
   .orbit { width: min(360px, calc(100vw - 48px)); }
   .cta { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
   .footer { padding: 36px 0 calc(36px + env(safe-area-inset-bottom)); }

@@ -6,7 +6,7 @@ struct ScheduleView: View {
     @Query(sort: \TodoTask.sortIndex) private var tasks: [TodoTask]
     @State private var editingTask: TodoTask?
     @State private var showingAdd = false
-    @State private var googleEvents = GoogleCalendarEventsService()
+    @Environment(DeviceCalendarService.self) private var calendarEvents
     @State private var selectedDay: Date = Calendar.current.startOfDay(for: .now)
     @State private var showingDayPicker = false
 
@@ -25,7 +25,7 @@ struct ScheduleView: View {
     private var timelineBlocks: [TimelineBlock] {
         TimelineLayout.merged(
             TimelineLayout.blocks(from: tasks, on: selectedDay),
-            TimelineLayout.blocks(from: googleEvents.timedEvents, on: selectedDay)
+            TimelineLayout.blocks(from: calendarEvents.timedEvents, on: selectedDay)
         )
     }
 
@@ -36,7 +36,7 @@ struct ScheduleView: View {
                     VStack(alignment: .leading, spacing: 0) {
                         header
 
-                        if !googleEvents.allDayEvents.isEmpty || !allDayTasks.isEmpty {
+                        if !calendarEvents.allDayEvents.isEmpty || !allDayTasks.isEmpty {
                             allDayRow
                                 .padding(.horizontal, TwoDoSpacing.rowHorizontal)
                                 .padding(.bottom, 12)
@@ -82,7 +82,7 @@ struct ScheduleView: View {
                 }
                 .background(Color(.systemBackground))
                 .refreshable {
-                    await googleEvents.loadEvents(for: selectedDay)
+                    calendarEvents.loadEvents(for: selectedDay)
                 }
 
                 Button {
@@ -109,7 +109,7 @@ struct ScheduleView: View {
                 dayPickerSheet
             }
             .task(id: selectedDay) {
-                await googleEvents.loadEvents(for: selectedDay)
+                calendarEvents.loadEvents(for: selectedDay)
             }
         }
     }
@@ -136,7 +136,7 @@ struct ScheduleView: View {
                     }
                     .buttonStyle(.plain)
                 }
-                ForEach(googleEvents.allDayEvents) { event in
+                ForEach(calendarEvents.allDayEvents) { event in
                     HStack(spacing: 6) {
                         Circle()
                             .fill(TwoDoColor.project(from: event.colorHex))
@@ -367,5 +367,6 @@ struct ScheduleView: View {
 
 #Preview {
     ScheduleView()
+        .environment(DeviceCalendarService())
         .modelContainer(ModelContainerFactory.makePreview())
 }
