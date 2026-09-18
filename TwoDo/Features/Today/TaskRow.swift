@@ -71,6 +71,11 @@ struct TaskRow: View {
                 Image(systemName: "flag.fill")
                     .font(.system(size: 12, weight: .medium))
             }
+            if task.recurrence != nil {
+                Image(systemName: "arrow.triangle.2.circlepath")
+                    .font(.system(size: 12, weight: .medium))
+                    .accessibilityLabel(task.recurrence?.displayName ?? "Recurring")
+            }
             if task.hasLocation {
                 Image(systemName: "mappin")
                     .font(.system(size: 12, weight: .medium))
@@ -106,11 +111,8 @@ struct TaskRow: View {
 
     private func toggleComplete() {
         withAnimation(.snappy) {
-            task.isCompleted.toggle()
-            task.completedAt = task.isCompleted ? .now : nil
-            task.updatedAt = .now
+            _ = try? TaskCompletion.toggle(task, in: modelContext)
         }
-        try? modelContext.save()
     }
 }
 

@@ -31,6 +31,9 @@ struct AddEditTaskView: View {
     @State private var phoneLabel = ""
     @State private var selectedProjectID: UUID?
     @State private var selectedTagIDs: Set<UUID> = []
+    @State private var recurrenceKind: RecurrenceKind?
+    @State private var recurrenceInterval = 2
+    @State private var recurrenceUnit: RecurrenceUnit = .day
     @State private var subtaskTitle = ""
     @State private var pendingSubtasks: [String] = []
 
@@ -55,6 +58,12 @@ struct AddEditTaskView: View {
 
     private var selectedProject: Project? {
         projects.first { $0.id == selectedProjectID }
+    }
+
+    private var selectedRecurrence: TaskRecurrence? {
+        recurrenceKind.map {
+            TaskRecurrence(kind: $0, interval: recurrenceInterval, unit: recurrenceUnit)
+        }
     }
 
     var body: some View {
@@ -130,6 +139,43 @@ struct AddEditTaskView: View {
                             step: 5
                         )
                         .padding(.vertical, 10)
+                    }
+                }
+
+                flatSection("Repeat") {
+                    Picker("Repeat", selection: $recurrenceKind) {
+                        Text("Never").tag(Optional<RecurrenceKind>.none)
+                        ForEach(RecurrenceKind.allCases) { kind in
+                            Text(kind.title).tag(Optional(kind))
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    .padding(.vertical, 10)
+
+                    if recurrenceKind == .custom {
+                        FlatDivider()
+                        Stepper(
+                            "Every \(recurrenceInterval) \(recurrenceUnit.label(for: recurrenceInterval))",
+                            value: $recurrenceInterval,
+                            in: 1...99
+                        )
+                        .padding(.vertical, 10)
+                        FlatDivider()
+                        Picker("Unit", selection: $recurrenceUnit) {
+                            ForEach(RecurrenceUnit.allCases) { unit in
+                                Text(unit.label(for: 2).capitalized).tag(unit)
+                            }
+                        }
+                        .pickerStyle(.menu)
+                        .padding(.vertical, 10)
+                    }
+
+                    if recurrenceKind != nil && !hasDue && !hasSchedule {
+                        FlatDivider()
+                        Text("The next occurrence will use the completion day as its starting point.")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                            .padding(.vertical, 10)
                     }
                 }
 
@@ -260,6 +306,9 @@ struct AddEditTaskView: View {
         phoneLabel = task.phoneLabel ?? ""
         selectedProjectID = task.project?.id
         selectedTagIDs = Set((task.tags ?? []).map(\.id))
+        recurrenceKind = task.recurrence?.kind
+        recurrenceInterval = task.recurrence?.interval ?? 2
+        recurrenceUnit = task.recurrence?.unit ?? .day
         pendingSubtasks = (task.subtasks ?? []).map(\.title)
     }
 
@@ -298,6 +347,7 @@ struct AddEditTaskView: View {
         task.phoneLabel = hasPhone ? phoneLabel.trimmingCharacters(in: .whitespacesAndNewlines) : nil
         task.project = selectedProject
         task.tags = tags.filter { selectedTagIDs.contains($0.id) }
+        task.recurrence = selectedRecurrence
         task.updatedAt = .now
 
         if case .edit = mode {
@@ -359,6 +409,12 @@ private struct TaskDetailContent: View {
                                 detailRow("Duration", DateFormatting.durationLabel(minutes))
                             }
                         }
+                    }
+                }
+
+                if let recurrence = task.recurrence {
+                    detailSection("Repeat") {
+                        detailRow("Repeats", recurrence.displayName)
                     }
                 }
 

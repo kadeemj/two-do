@@ -1,4 +1,6 @@
 import XCTest
+import Testing
+import SwiftData
 @testable import TwoDo
 
 final class WidgetTaskTests: XCTestCase {
@@ -8,6 +10,7 @@ final class WidgetTaskTests: XCTestCase {
         let suiteName = "WidgetTaskTests.\(UUID().uuidString)"
         let defaults = try XCTUnwrap(UserDefaults(suiteName: suiteName))
         defer { defaults.removePersistentDomain(forName: suiteName) }
+
         let envelope = WidgetSnapshotEnvelope(generatedAt: date(hour: 9), tasks: [task(id: 1)])
 
         XCTAssertTrue(WidgetSnapshotStore.save(envelope, defaults: defaults))
@@ -123,5 +126,115 @@ final class WidgetTaskTests: XCTestCase {
             isFlagged: false,
             sortIndex: sortIndex
         )
+    }
+}
+
+@Suite("Recurring tasks")
+struct RecurringTaskTests {
+    @Test("Weekday recurrence skips weekends")
+    func weekdayRecurrenceSkipsWeekend() throws {
+        let calendar = makeCalendar()
+        let rule = TaskRecurrence(kind: .weekdays)
+        let friday = date(year: 2026, month: 7, day: 17, calendar: calendar)
+        let monday = date(year: 2026, month: 7, day: 20, calendar: calendar)
+
+        let next = try #require(rule.nextDate(after: friday, calendar: calendar))
+        #expect(next == monday)
+    }
+
+    @Test("Missed occurrences advance to the next future date")
+    func missedOccurrencesAreSkipped() throws {
+        let calendar = makeCalendar()
+        let rule = TaskRecurrence(kind: .daily)
+        let oldDueDate = date(year: 2026, month: 7, day: 14, calendar: calendar)
+        let completionDate = date(year: 2026, month: 7, day: 18, hour: 10, calendar: calendar)
+        let expected = date(year: 2026, month: 7, day: 19, calendar: calendar)
+
+        let next = try #require(rule.nextEligibleDate(
+            after: oldDueDate,
+            laterThan: completionDate,
+            dateOnly: true,
+            calendar: calendar
+        ))
+        #expect(next == expected)
+    }
+
+    @Test("Custom recurrence respects its interval and unit")
+    func customRecurrenceUsesInterval() throws {
+        let calendar = makeCalendar()
+        let rule = TaskRecurrence(kind: .custom, interval: 2, unit: .week)
+        let start = date(year: 2026, month: 7, day: 6, calendar: calendar)
+        let expected = date(year: 2026, month: 7, day: 20, calendar: calendar)
+
+        let next = try #require(rule.nextDate(after: start, calendar: calendar))
+        #expect(next == expected)
+        #expect(rule.displayName == "Every 2 weeks")
+    }
+
+    @Test("Completing an occurrence creates only one successor")
+    @MainActor
+    func completionCreatesOneSuccessor() throws {
+        let calendar = makeCalendar()
+        let schema = Schema([TodoTask.self, Project.self, Tag.self])
+        let configuration = ModelConfiguration(
+            isStoredInMemoryOnly: true,
+            cloudKitDatabase: .none
+        )
+        let container = try ModelContainer(for: schema, configurations: [configuration])
+        let context = container.mainContext
+        let now = date(year: 2026, month: 7, day: 18, hour: 10, calendar: calendar)
+        let original = TodoTask(
+            title: "Plan tomorrow",
+            dueAt: date(year: 2026, month: 7, day: 18, calendar: calendar),
+            durationMinutes: 30
+        )
+        original.recurrence = TaskRecurrence(kind: .daily)
+        context.insert(original)
+        try context.save()
+
+        let generated = try TaskCompletion.toggle(
+            original,
+            in: context,
+            now: now,
+            calendar: calendar
+        )
+        let successor = try #require(generated)
+
+        #expect(original.isCompleted)
+        #expect(successor.title == original.title)
+        #expect(successor.dueAt == date(year: 2026, month: 7, day: 19, calendar: calendar))
+        #expect(successor.recurrence == original.recurrence)
+        #expect(successor.recurrenceSeriesID == original.recurrenceSeriesID)
+
+        _ = try TaskCompletion.toggle(original, in: context, now: now, calendar: calendar)
+        let duplicate = try TaskCompletion.toggle(original, in: context, now: now, calendar: calendar)
+        let storedTasks = try context.fetch(FetchDescriptor<TodoTask>())
+
+        #expect(duplicate == nil)
+        #expect(storedTasks.count == 2)
+    }
+
+    private func makeCalendar() -> Calendar {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0) ?? .current
+        return calendar
+    }
+
+    private func date(
+        year: Int,
+        month: Int,
+        day: Int,
+        hour: Int = 0,
+        calendar: Calendar
+    ) -> Date {
+        guard let value = calendar.date(from: DateComponents(
+            year: year,
+            month: month,
+            day: day,
+            hour: hour
+        )) else {
+            fatalError("Invalid test date")
+        }
+        return value
     }
 }
