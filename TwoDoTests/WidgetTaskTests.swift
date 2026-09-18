@@ -356,3 +356,104 @@ struct TaskReminderTests {
         return value
     }
 }
+
+@Suite("Smart lists and search")
+struct TaskDiscoveryTests {
+    @Test("Smart lists select their expected tasks")
+    func smartLists() {
+        let calendar = makeCalendar()
+        let now = date(day: 18, hour: 12, calendar: calendar)
+        let today = TodoTask(title: "Today", dueAt: date(day: 18, calendar: calendar))
+        let future = TodoTask(title: "Future", dueAt: date(day: 20, calendar: calendar))
+        let flagged = TodoTask(title: "Flagged", isFlagged: true)
+        let completed = TodoTask(
+            title: "Completed",
+            isCompleted: true,
+            completedAt: date(day: 17, calendar: calendar)
+        )
+        let tasks = [today, future, flagged, completed]
+
+        #expect(TaskSmartList.all.tasks(from: tasks, now: now, calendar: calendar).count == 3)
+        #expect(TaskSmartList.today.tasks(from: tasks, now: now, calendar: calendar).map(\.title) == ["Today"])
+        #expect(TaskSmartList.upcoming.tasks(from: tasks, now: now, calendar: calendar).map(\.title) == ["Future"])
+        #expect(TaskSmartList.flagged.tasks(from: tasks, now: now, calendar: calendar).map(\.title) == ["Flagged"])
+        #expect(TaskSmartList.completed.tasks(from: tasks, now: now, calendar: calendar).map(\.title) == ["Completed"])
+        #expect(TaskSmartList.noDate.tasks(from: tasks, now: now, calendar: calendar).map(\.title) == ["Flagged"])
+    }
+
+    @Test("Search scopes inspect the appropriate fields")
+    func searchScopes() {
+        let project = Project(name: "Launch", colorHex: "3380F5")
+        let task = TodoTask(title: "Write announcement", notes: "Mention accessibility", project: project)
+        let other = TodoTask(title: "Book room", notes: "Launch logistics")
+        let tasks = [task, other]
+
+        #expect(TaskSearch.results(in: tasks, query: "launch", scope: .everything).count == 2)
+        #expect(TaskSearch.results(in: tasks, query: "launch", scope: .titles).isEmpty)
+        #expect(TaskSearch.results(in: tasks, query: "accessibility", scope: .notes).map(\.title) == ["Write announcement"])
+    }
+
+    private func makeCalendar() -> Calendar {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0) ?? .current
+        return calendar
+    }
+
+    private func date(
+        day: Int,
+        hour: Int = 0,
+        calendar: Calendar
+    ) -> Date {
+        guard let value = calendar.date(from: DateComponents(
+            year: 2026,
+            month: 7,
+            day: day,
+            hour: hour
+        )) else {
+            fatalError("Invalid test date")
+        }
+        return value
+    }
+}
+
+@Suite("Quick capture")
+struct TaskCaptureTests {
+    @Test("Capture trims text, normalizes due dates, and appends ordering")
+    @MainActor
+    func createsTask() throws {
+        let schema = Schema([TodoTask.self, Project.self, Tag.self])
+        let configuration = ModelConfiguration(
+            isStoredInMemoryOnly: true,
+            cloudKitDatabase: .none
+        )
+        let container = try ModelContainer(for: schema, configurations: [configuration])
+        let context = container.mainContext
+        context.insert(TodoTask(title: "Existing", sortIndex: 4))
+        try context.save()
+
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0) ?? .current
+        let dueAt = try #require(calendar.date(from: DateComponents(
+            year: 2026,
+            month: 7,
+            day: 18,
+            hour: 16
+        )))
+
+        let captured = try TaskCapture.create(
+            title: "  Follow up  ",
+            notes: "  Bring notes  ",
+            dueAt: dueAt,
+            isFlagged: true,
+            in: context,
+            calendar: calendar
+        )
+
+        #expect(captured.title == "Follow up")
+        #expect(captured.notes == "Bring notes")
+        #expect(captured.dueAt == calendar.startOfDay(for: dueAt))
+        #expect(captured.isFlagged)
+        #expect(captured.sortIndex == 5)
+        #expect(try context.fetch(FetchDescriptor<TodoTask>()).count == 2)
+    }
+}

@@ -33,6 +33,9 @@
 		5C1410B5305D8D8D00EA129E /* ProjectTagManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1410B4305D8D8D00EA129E /* ProjectTagManagementView.swift */; };
 		5C1410B7305D91B500EA129E /* TaskRecurrence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1410B6305D91B500EA129E /* TaskRecurrence.swift */; };
 		5C1410B9305D93D100EA129E /* TaskReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1410B8305D93D100EA129E /* TaskReminder.swift */; };
+		5C1410BB305D992400EA129E /* TaskDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1410BA305D992400EA129E /* TaskDiscovery.swift */; };
+		5C1410BD305D997B00EA129E /* TaskCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1410BC305D997B00EA129E /* TaskCapture.swift */; };
+		5C1410BF305D997B00EA129E /* CaptureTaskIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1410BE305D997B00EA129E /* CaptureTaskIntent.swift */; };
 		5DDDEA70C8CE48828B2051B2 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BA69B98F6D4684B78FD2AD /* Tag.swift */; };
 		7C0B5C6D1BFB43FFB89D7868 /* TaskQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = D503BA70C28440F597FEC90D /* TaskQueries.swift */; };
 		8C81C470B642443884716E7D /* DateFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D864F2F93534BC1B71EF809 /* DateFormatting.swift */; };
@@ -106,6 +109,9 @@
 		5C1410B4305D8D8D00EA129E /* ProjectTagManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTagManagementView.swift; sourceTree = "<group>"; };
 		5C1410B6305D91B500EA129E /* TaskRecurrence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRecurrence.swift; sourceTree = "<group>"; };
 		5C1410B8305D93D100EA129E /* TaskReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskReminder.swift; sourceTree = "<group>"; };
+		5C1410BA305D992400EA129E /* TaskDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDiscovery.swift; sourceTree = "<group>"; };
+		5C1410BC305D997B00EA129E /* TaskCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCapture.swift; sourceTree = "<group>"; };
+		5C1410BE305D997B00EA129E /* CaptureTaskIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureTaskIntent.swift; sourceTree = "<group>"; };
 		642CDB29FF6349F3AF68C13D /* ModelContainer+CloudKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ModelContainer+CloudKit.swift"; sourceTree = "<group>"; };
 		69C52EBAD1E44730858B1EB5 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		6AAC6237D5F24F0F8657C45B /* ColorTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTokens.swift; sourceTree = "<group>"; };
@@ -213,6 +219,7 @@
 				30D956EC437E4A948327C3F4 /* TodoTask.swift */,
 				5C1410B6305D91B500EA129E /* TaskRecurrence.swift */,
 				5C1410B8305D93D100EA129E /* TaskReminder.swift */,
+				5C1410BA305D992400EA129E /* TaskDiscovery.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -250,6 +257,7 @@
 				2A875B11F3284B32B09745E2 /* TwoDoApp.swift */,
 				FF90F4B488CF4438BBCCF377 /* RootTabView.swift */,
 				A10000000000000000000003 /* AppRouter.swift */,
+				5C1410BE305D997B00EA129E /* CaptureTaskIntent.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -339,6 +347,7 @@
 			children = (
 				4E97B6D2A1F04385BC28D571 /* NotificationScheduler.swift */,
 				A10000000000000000000004 /* WidgetSnapshotExporter.swift */,
+				5C1410BC305D997B00EA129E /* TaskCapture.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -583,12 +592,14 @@
 				B10000000000000000000004 /* WidgetSnapshotExporter.swift in Sources */,
 				C7CEFA97348B4213AF911740 /* TwoDoApp.swift in Sources */,
 				283378A4D9614745B5FE6465 /* RootTabView.swift in Sources */,
+				5C1410BF305D997B00EA129E /* CaptureTaskIntent.swift in Sources */,
 				FBA6844B1A8340FF850560D9 /* ColorTokens.swift in Sources */,
 				4553EC9AF5A645DC8A01CEE4 /* Typography.swift in Sources */,
 				8C81C470B642443884716E7D /* DateFormatting.swift in Sources */,
 				9A11BC22DE33F4448A55C601 /* NotesFormatting.swift in Sources */,
 				239CE68043044673AA0CED29 /* Project.swift in Sources */,
 				5DDDEA70C8CE48828B2051B2 /* Tag.swift in Sources */,
+				5C1410BB305D992400EA129E /* TaskDiscovery.swift in Sources */,
 				353580FF4BA64A3C9382C841 /* TodoTask.swift in Sources */,
 				19C1B7F8918B4A7A84A419AA /* ModelContainer+CloudKit.swift in Sources */,
 				5C1410B7305D91B500EA129E /* TaskRecurrence.swift in Sources */,
@@ -601,6 +612,7 @@
 				E831CA2F2E624EC9BCEB5D92 /* DayTimelineStrip.swift in Sources */,
 				2D71F9B330474591BE5C9AF0 /* ScheduleView.swift in Sources */,
 				3EFCD26F77E44AF5B2BCFFE5 /* HourlyScheduleView.swift in Sources */,
+				5C1410BD305D997B00EA129E /* TaskCapture.swift in Sources */,
 				A9C0D1E2F3B45D66A1358902 /* GoogleCalendarEventsService.swift in Sources */,
 				DC2E8EAB3F3446A0852E4E69 /* AddEditTaskView.swift in Sources */,
 				5C1410B5305D8D8D00EA129E /* ProjectTagManagementView.swift in Sources */,

@@ -10,6 +10,8 @@ struct TodayView: View {
     @State private var showingAdd = false
     @State private var sortByDue = true
     @State private var showingSearch = false
+    @State private var quickCaptureTitle = ""
+    @FocusState private var isQuickCaptureFocused: Bool
 
     private var overdue: [TodoTask] { TaskQueries.overdue(from: tasks) }
     private var today: [TodoTask] {
@@ -110,7 +112,9 @@ struct TodayView: View {
                 }
                 .background(Color(.systemBackground))
 
-                fab
+            }
+            .safeAreaInset(edge: .bottom) {
+                quickCaptureBar
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -211,20 +215,55 @@ struct TodayView: View {
         .padding(.bottom, 14)
     }
 
-    private var fab: some View {
-        Button {
-            showingAdd = true
-        } label: {
-            Image(systemName: "plus")
-                .font(.system(size: 22, weight: .bold))
-                .foregroundStyle(.white)
-                .frame(width: 58, height: 58)
-                .background(TwoDoColor.accentBlue, in: Circle())
-                .shadow(color: TwoDoColor.accentBlue.opacity(0.4), radius: 10, y: 5)
+    private var quickCaptureBar: some View {
+        HStack(spacing: 10) {
+            Button {
+                showingAdd = true
+            } label: {
+                Image(systemName: "square.and.pencil")
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundStyle(TwoDoColor.accentBlue)
+                    .frame(width: 34, height: 34)
+            }
+            .accessibilityLabel("Add")
+
+            TextField("Quickly add a task", text: $quickCaptureTitle)
+                .textInputAutocapitalization(.sentences)
+                .submitLabel(.done)
+                .focused($isQuickCaptureFocused)
+                .onSubmit(captureQuickTask)
+
+            Button(action: captureQuickTask) {
+                Image(systemName: "plus.circle.fill")
+                    .font(.system(size: 26, weight: .semibold))
+                    .foregroundStyle(
+                        quickCaptureTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                            ? Color.secondary
+                            : TwoDoColor.accentBlue
+                    )
+            }
+            .disabled(quickCaptureTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+            .accessibilityLabel("Add task")
         }
-        .padding(.trailing, 22)
-        .padding(.bottom, 10)
-        .accessibilityLabel("Add task")
+        .padding(.horizontal, 12)
+        .padding(.vertical, 9)
+        .background(.ultraThinMaterial)
+        .overlay(alignment: .top) {
+            Divider()
+        }
+    }
+
+    private func captureQuickTask() {
+        let title = quickCaptureTitle.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !title.isEmpty else { return }
+
+        do {
+            try TaskCapture.create(title: title, in: modelContext)
+            quickCaptureTitle = ""
+            CaptureTaskDonation.donate(title: title)
+        } catch {
+            return
+        }
     }
 }
 

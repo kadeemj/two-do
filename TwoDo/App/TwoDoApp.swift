@@ -9,6 +9,7 @@ struct TwoDoApp: App {
 
     init() {
         container = ModelContainerFactory.make()
+        TaskCaptureService.shared.configure(container: container)
         NotificationScheduler.shared.activate()
     }
 
