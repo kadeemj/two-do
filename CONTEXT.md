@@ -23,3 +23,11 @@ _Avoid_: Copy, duplicate
 **Recurrence series**:
 The chain of occurrences connected by the same recurring intent.
 _Avoid_: Recurring task group
+
+**Reminder rule**:
+A task preference that describes when an alert should occur relative to its due day or time block.
+_Avoid_: Notification, alarm
+
+**Notification**:
+A concrete device alert produced from a reminder rule.
+_Avoid_: Reminder rule

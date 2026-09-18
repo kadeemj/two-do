@@ -189,6 +189,8 @@ struct RecurringTaskTests {
             durationMinutes: 30
         )
         original.recurrence = TaskRecurrence(kind: .daily)
+        original.reminderOptions = [.eveningBefore, .morningOf]
+        original.remindersEnabled = true
         context.insert(original)
         try context.save()
 
@@ -205,6 +207,8 @@ struct RecurringTaskTests {
         #expect(successor.dueAt == date(year: 2026, month: 7, day: 19, calendar: calendar))
         #expect(successor.recurrence == original.recurrence)
         #expect(successor.recurrenceSeriesID == original.recurrenceSeriesID)
+        #expect(successor.remindersEnabled == original.remindersEnabled)
+        #expect(successor.reminderOptions == original.reminderOptions)
 
         _ = try TaskCompletion.toggle(original, in: context, now: now, calendar: calendar)
         let duplicate = try TaskCompletion.toggle(original, in: context, now: now, calendar: calendar)
@@ -232,6 +236,120 @@ struct RecurringTaskTests {
             month: month,
             day: day,
             hour: hour
+        )) else {
+            fatalError("Invalid test date")
+        }
+        return value
+    }
+}
+
+@Suite("Task reminders")
+struct TaskReminderTests {
+    @Test("Due-date reminders fire at 9 AM")
+    func morningOfDueDate() throws {
+        let calendar = makeCalendar()
+        let dueAt = date(day: 18, calendar: calendar)
+        let task = TodoTask(title: "Submit report", dueAt: dueAt)
+        task.reminderOptions = [.morningOf]
+
+        let occurrences = TaskReminderPlan.occurrences(
+            for: task,
+            now: date(day: 17, hour: 12, calendar: calendar),
+            calendar: calendar
+        )
+
+        let reminder = try #require(occurrences.first)
+        #expect(occurrences.count == 1)
+        #expect(reminder.option == .morningOf)
+        #expect(reminder.fireAt == date(day: 18, hour: 9, calendar: calendar))
+        #expect(reminder.body == "Due today")
+    }
+
+    @Test("A time block supports multiple reminder offsets")
+    func multipleTimeBlockReminders() {
+        let calendar = makeCalendar()
+        let start = date(day: 18, hour: 14, calendar: calendar)
+        let task = TodoTask(title: "Design review", scheduledStart: start)
+        task.reminderOptions = [.oneHourBefore, .thirtyMinutesBefore, .tenMinutesBefore, .atStart]
+
+        let occurrences = TaskReminderPlan.occurrences(
+            for: task,
+            now: date(day: 18, hour: 8, calendar: calendar),
+            calendar: calendar
+        )
+
+        #expect(occurrences.map(\.fireAt) == [
+            date(day: 18, hour: 13, calendar: calendar),
+            date(day: 18, hour: 13, minute: 30, calendar: calendar),
+            date(day: 18, hour: 13, minute: 50, calendar: calendar),
+            start
+        ])
+    }
+
+    @Test("Rules that resolve to the same time produce one notification")
+    func duplicateTimesAreDeduplicated() {
+        let calendar = makeCalendar()
+        let start = date(day: 18, hour: 9, calendar: calendar)
+        let task = TodoTask(title: "Stand-up", dueAt: start, scheduledStart: start)
+        task.reminderOptions = [.morningOf, .atStart]
+
+        let occurrences = TaskReminderPlan.occurrences(
+            for: task,
+            now: date(day: 17, hour: 12, calendar: calendar),
+            calendar: calendar
+        )
+
+        #expect(occurrences.count == 1)
+        #expect(occurrences.first?.fireAt == start)
+    }
+
+    @Test("Disabled reminders produce no notifications")
+    func disabledReminders() {
+        let calendar = makeCalendar()
+        let task = TodoTask(
+            title: "Quiet task",
+            dueAt: date(day: 18, calendar: calendar)
+        )
+        task.remindersEnabled = false
+        task.reminderOptions = [.morningOf]
+
+        let occurrences = TaskReminderPlan.occurrences(
+            for: task,
+            now: date(day: 17, calendar: calendar),
+            calendar: calendar
+        )
+
+        #expect(occurrences.isEmpty)
+    }
+
+    @Test("Time-relative rules require a time block")
+    func availableOptionsMatchTaskTiming() {
+        let dueOnly = TaskReminderPlan.availableOptions(hasDue: true, hasSchedule: false)
+        let scheduled = TaskReminderPlan.availableOptions(hasDue: false, hasSchedule: true)
+
+        #expect(dueOnly == [.eveningBefore, .morningOf])
+        #expect(scheduled.contains(.atStart))
+        #expect(scheduled.contains(.tenMinutesBefore))
+    }
+
+    private func makeCalendar() -> Calendar {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0) ?? .current
+        return calendar
+    }
+
+    private func date(
+        day: Int,
+        hour: Int = 0,
+        minute: Int = 0,
+        calendar: Calendar
+    ) -> Date {
+        guard let value = calendar.date(from: DateComponents(
+            year: 2026,
+            month: 7,
+            day: day,
+            hour: hour,
+            minute: minute
         )) else {
             fatalError("Invalid test date")
         }

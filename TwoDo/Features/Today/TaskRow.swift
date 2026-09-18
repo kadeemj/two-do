@@ -76,6 +76,13 @@ struct TaskRow: View {
                     .font(.system(size: 12, weight: .medium))
                     .accessibilityLabel(task.recurrence?.displayName ?? "Recurring")
             }
+            if task.remindersEnabled,
+               task.dueAt != nil || task.scheduledStart != nil,
+               task.reminderSummary != "Off" {
+                Image(systemName: "bell.fill")
+                    .font(.system(size: 12, weight: .medium))
+                    .accessibilityLabel("Reminders: \(task.reminderSummary)")
+            }
             if task.hasLocation {
                 Image(systemName: "mappin")
                     .font(.system(size: 12, weight: .medium))

@@ -34,6 +34,8 @@ struct AddEditTaskView: View {
     @State private var recurrenceKind: RecurrenceKind?
     @State private var recurrenceInterval = 2
     @State private var recurrenceUnit: RecurrenceUnit = .day
+    @State private var remindersEnabled = true
+    @State private var selectedReminderOptions: Set<TaskReminderOption> = [.morningOf]
     @State private var subtaskTitle = ""
     @State private var pendingSubtasks: [String] = []
 
@@ -64,6 +66,10 @@ struct AddEditTaskView: View {
         recurrenceKind.map {
             TaskRecurrence(kind: $0, interval: recurrenceInterval, unit: recurrenceUnit)
         }
+    }
+
+    private var availableReminderOptions: [TaskReminderOption] {
+        TaskReminderPlan.availableOptions(hasDue: hasDue, hasSchedule: hasSchedule)
     }
 
     var body: some View {
@@ -176,6 +182,49 @@ struct AddEditTaskView: View {
                             .font(.footnote)
                             .foregroundStyle(.secondary)
                             .padding(.vertical, 10)
+                    }
+                }
+
+                flatSection("Reminders") {
+                    if !hasDue && !hasSchedule {
+                        Text("Add a due date or time block to enable reminders.")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                            .padding(.vertical, 12)
+                    } else {
+                        FlatToggle(title: "Remind me", isOn: $remindersEnabled)
+
+                        if remindersEnabled {
+                            ForEach(availableReminderOptions) { option in
+                                FlatDivider()
+                                Button {
+                                    toggleReminder(option)
+                                } label: {
+                                    HStack(spacing: 12) {
+                                        VStack(alignment: .leading, spacing: 2) {
+                                            Text(option.title)
+                                                .foregroundStyle(.primary)
+                                            Text(option.detail)
+                                                .font(.footnote)
+                                                .foregroundStyle(.secondary)
+                                        }
+                                        Spacer()
+                                        if selectedReminderOptions.contains(option) {
+                                            Image(systemName: "checkmark")
+                                                .font(.body.weight(.semibold))
+                                                .foregroundStyle(TwoDoColor.accentBlue)
+                                        }
+                                    }
+                                    .contentShape(Rectangle())
+                                    .padding(.vertical, 10)
+                                }
+                                .buttonStyle(.plain)
+                                .accessibilityValue(
+                                    selectedReminderOptions.contains(option) ? "Selected" : "Not selected"
+                                )
+                                .accessibilityHint("Double tap to toggle this reminder")
+                            }
+                        }
                     }
                 }
 
@@ -309,7 +358,19 @@ struct AddEditTaskView: View {
         recurrenceKind = task.recurrence?.kind
         recurrenceInterval = task.recurrence?.interval ?? 2
         recurrenceUnit = task.recurrence?.unit ?? .day
+        remindersEnabled = task.remindersEnabled
+        selectedReminderOptions = task.reminderOptions
         pendingSubtasks = (task.subtasks ?? []).map(\.title)
+    }
+
+    private func toggleReminder(_ option: TaskReminderOption) {
+        if selectedReminderOptions.contains(option) {
+            let validSelection = selectedReminderOptions.intersection(Set(availableReminderOptions))
+            guard validSelection.count > 1 else { return }
+            selectedReminderOptions.remove(option)
+        } else {
+            selectedReminderOptions.insert(option)
+        }
     }
 
     private func toggleTag(_ tag: Tag) {
@@ -348,6 +409,13 @@ struct AddEditTaskView: View {
         task.project = selectedProject
         task.tags = tags.filter { selectedTagIDs.contains($0.id) }
         task.recurrence = selectedRecurrence
+        let reminderAnchorExists = hasDue || hasSchedule
+        task.remindersEnabled = remindersEnabled && reminderAnchorExists
+        let availableReminders = Set(availableReminderOptions)
+        let validReminders = selectedReminderOptions.intersection(availableReminders)
+        task.reminderOptions = validReminders.isEmpty && task.remindersEnabled
+            ? TaskReminderPlan.defaultOptions(hasDue: hasDue, hasSchedule: hasSchedule)
+            : validReminders
         task.updatedAt = .now
 
         if case .edit = mode {
@@ -409,6 +477,12 @@ private struct TaskDetailContent: View {
                                 detailRow("Duration", DateFormatting.durationLabel(minutes))
                             }
                         }
+                    }
+                }
+
+                if task.dueAt != nil || task.scheduledStart != nil {
+                    detailSection("Reminders") {
+                        detailRow("Alerts", task.reminderSummary)
                     }
                 }
 

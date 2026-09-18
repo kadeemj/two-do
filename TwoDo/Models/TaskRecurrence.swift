@@ -256,6 +256,8 @@ enum TaskCompletion {
         successor.tags = task.tags
         successor.recurrence = recurrence
         successor.recurrenceSeriesID = seriesID
+        successor.remindersEnabled = task.remindersEnabled
+        successor.reminderOptionsRaw = task.reminderOptionsRaw
         context.insert(successor)
 
         for (index, subtask) in (task.subtasks ?? [])

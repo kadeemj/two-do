@@ -32,6 +32,10 @@ final class TodoTask: Identifiable {
     var recurrenceSeriesID: UUID?
     var generatedNextOccurrenceID: UUID?
 
+    // Nil options preserve the legacy defaults for tasks created before configuration existed.
+    var remindersEnabled: Bool = true
+    var reminderOptionsRaw: String?
+
     var project: Project?
 
     var parent: TodoTask?
