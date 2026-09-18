@@ -64,6 +64,7 @@ struct TimelineBlock: Identifiable {
     let start: Date
     let end: Date
     let colorHex: String
+    var taskID: UUID?
     var isCalendarEvent: Bool = false
 
     var durationMinutes: Int {
@@ -88,7 +89,8 @@ enum TimelineLayout {
             title: task.title,
             start: start,
             end: start.addingTimeInterval(TimeInterval(minutes * 60)),
-            colorHex: task.project?.colorHex ?? "3380F5"
+            colorHex: task.project?.colorHex ?? "3380F5",
+            taskID: task.id
         )
     }
 
@@ -102,6 +104,7 @@ enum TimelineLayout {
                     start: event.start,
                     end: event.end,
                     colorHex: event.colorHex,
+                    taskID: nil,
                     isCalendarEvent: true
                 )
             }
