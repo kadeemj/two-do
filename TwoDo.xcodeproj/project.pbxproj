@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B70000000000000000000001 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A70000000000000000000001 /* PrivacyInfo.xcprivacy */; };
+		B70000000000000000000002 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A70000000000000000000002 /* PrivacyInfo.xcprivacy */; };
 		B10000000000000000000001 /* WidgetTaskData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000001 /* WidgetTaskData.swift */; };
 		B10000000000000000000002 /* WidgetTaskSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000002 /* WidgetTaskSelection.swift */; };
 		B10000000000000000000003 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000003 /* AppRouter.swift */; };
@@ -81,6 +83,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A70000000000000000000001 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		A70000000000000000000002 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		A10000000000000000000001 /* WidgetTaskData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTaskData.swift; sourceTree = "<group>"; };
 		A10000000000000000000002 /* WidgetTaskSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTaskSelection.swift; sourceTree = "<group>"; };
 		A10000000000000000000003 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
@@ -172,6 +176,7 @@
 		A60000000000000000000002 /* TwoDoWidgets */ = {
 			isa = PBXGroup;
 			children = (
+				A70000000000000000000002 /* PrivacyInfo.xcprivacy */,
 				A20000000000000000000001 /* TaskWidgetConfiguration.swift */,
 				A20000000000000000000002 /* TaskWidgetProvider.swift */,
 				A20000000000000000000003 /* TaskWidgetViews.swift */,
@@ -205,6 +210,7 @@
 		125D9A7188144BD8A401B159 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A70000000000000000000001 /* PrivacyInfo.xcprivacy */,
 				5B3C18A6EEDB41408AEFF34D /* Assets.xcassets */,
 				46AFD1D2E0F24ED8B865AD08 /* Info.plist */,
 				393ACE6EB1574AA287809069 /* TwoDo.entitlements */,
@@ -523,6 +529,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B70000000000000000000002 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,6 +537,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B70000000000000000000001 /* PrivacyInfo.xcprivacy in Resources */,
 				C89D87CCCAEB48F9936EA9E4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

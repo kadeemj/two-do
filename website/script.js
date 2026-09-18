@@ -172,6 +172,7 @@
   });
 
   /* ---------- schedule: scrub the needle ---------- */
+  const schedule = $('#schedule');
   const scrub = $('#scrub');
   const needle = $('#needle');
   const needleTime = $('#needleTime');
@@ -224,45 +225,6 @@
       scrub.value = v;
       setTime(v);
     }, 60);
-  }
-
-  /* ---------- light/dark compare slider ---------- */
-  const compare = $('#compare');
-  const handle = $('#compareHandle');
-  const setSplit = (pct) => {
-    pct = Math.max(2, Math.min(98, pct));
-    compare.style.setProperty('--split', `${pct}%`);
-    handle.setAttribute('aria-valuenow', Math.round(pct));
-  };
-  let dragging = false;
-  const fromEvent = (e) => {
-    const r = compare.getBoundingClientRect();
-    setSplit(((e.clientX - r.left) / r.width) * 100);
-  };
-  compare.addEventListener('pointerdown', (e) => { dragging = true; fromEvent(e); });
-  addEventListener('pointermove', (e) => { if (dragging) fromEvent(e); });
-  addEventListener('pointerup', () => { dragging = false; });
-  handle.addEventListener('keydown', (e) => {
-    const cur = parseFloat(compare.style.getPropertyValue('--split')) || 50;
-    if (e.key === 'ArrowLeft') setSplit(cur - 4);
-    if (e.key === 'ArrowRight') setSplit(cur + 4);
-  });
-  // wiggle once when it scrolls into view so people know it moves
-  if (!reduceMotion) {
-    const wiggle = new IntersectionObserver((entries) => {
-      if (!entries[0].isIntersecting) return;
-      wiggle.disconnect();
-      let t0 = null;
-      const anim = (t) => {
-        if (!t0) t0 = t;
-        const p = (t - t0) / 1800;
-        if (p >= 1 || dragging) { if (!dragging) setSplit(50); return; }
-        setSplit(50 + Math.sin(p * Math.PI * 2) * 14 * (1 - p));
-        requestAnimationFrame(anim);
-      };
-      setTimeout(() => requestAnimationFrame(anim), 500);
-    }, { threshold: 0.5 });
-    wiggle.observe(compare);
   }
 
   /* Pause continuous demo work while its section is off-screen. */

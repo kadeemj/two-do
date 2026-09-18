@@ -45,12 +45,18 @@ struct SettingsView: View {
                     Link(destination: URL(string: "https://t2do.app")!) {
                         LabeledContent("Website", value: "t2do.app")
                     }
+                    Link(destination: URL(string: "https://t2do.app/privacy/")!) {
+                        Label("Privacy Policy", systemImage: "hand.raised")
+                    }
                     LabeledContent("Appearance", value: "System light / dark")
                     Text("A time-blocking todo list with overdue focus.")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
             }
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
+            .background(Color(.systemBackground))
             .navigationTitle("Settings")
             .confirmationDialog("Clear all completed tasks?", isPresented: $showingClearConfirm, titleVisibility: .visible) {
                 Button("Clear completed", role: .destructive) {

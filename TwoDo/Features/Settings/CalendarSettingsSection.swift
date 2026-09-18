@@ -45,6 +45,8 @@ struct CalendarSettingsSection: View {
             Text("Device Calendars")
         } footer: {
             Text("Show calendars already synced with Apple Calendar, including iCloud, Google, and Outlook. iOS requires Full Access to read events; T2Do never changes them. Disconnecting hides events in T2Do. You can revoke permission in iOS Settings.")
+                .font(.footnote)
+                .foregroundStyle(.secondary)
         }
     }
 
@@ -85,9 +87,14 @@ private struct CalendarSelectionView: View {
                     }
                 } footer: {
                     Text("Choose the calendars to show alongside your tasks. With none selected, only T2Do tasks appear. Calendar choices apply to this device.")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
                 }
             }
         }
+        .listStyle(.plain)
+        .scrollContentBackground(.hidden)
+        .background(Color(.systemBackground))
         .navigationTitle("Choose Calendars")
         .task { calendars.refresh() }
     }
