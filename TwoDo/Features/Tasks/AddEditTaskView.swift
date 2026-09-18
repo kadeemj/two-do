@@ -10,6 +10,7 @@ struct AddEditTaskView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @Query(sort: \Project.sortIndex) private var projects: [Project]
+    @Query(sort: \Tag.name) private var tags: [Tag]
 
     let mode: TaskEditorMode
 
@@ -27,7 +28,14 @@ struct AddEditTaskView: View {
     @State private var hasPhone = false
     @State private var isFlagged = false
     @State private var locationName = ""
+    @State private var phoneLabel = ""
     @State private var selectedProjectID: UUID?
+    @State private var selectedTagIDs: Set<UUID> = []
+    @State private var recurrenceKind: RecurrenceKind?
+    @State private var recurrenceInterval = 2
+    @State private var recurrenceUnit: RecurrenceUnit = .day
+    @State private var remindersEnabled = true
+    @State private var selectedReminderOptions: Set<TaskReminderOption> = [.morningOf]
     @State private var subtaskTitle = ""
     @State private var pendingSubtasks: [String] = []
 
@@ -52,6 +60,16 @@ struct AddEditTaskView: View {
 
     private var selectedProject: Project? {
         projects.first { $0.id == selectedProjectID }
+    }
+
+    private var selectedRecurrence: TaskRecurrence? {
+        recurrenceKind.map {
+            TaskRecurrence(kind: $0, interval: recurrenceInterval, unit: recurrenceUnit)
+        }
+    }
+
+    private var availableReminderOptions: [TaskReminderOption] {
+        TaskReminderPlan.availableOptions(hasDue: hasDue, hasSchedule: hasSchedule)
     }
 
     var body: some View {
@@ -130,6 +148,86 @@ struct AddEditTaskView: View {
                     }
                 }
 
+                flatSection("Repeat") {
+                    Picker("Repeat", selection: $recurrenceKind) {
+                        Text("Never").tag(Optional<RecurrenceKind>.none)
+                        ForEach(RecurrenceKind.allCases) { kind in
+                            Text(kind.title).tag(Optional(kind))
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    .padding(.vertical, 10)
+
+                    if recurrenceKind == .custom {
+                        FlatDivider()
+                        Stepper(
+                            "Every \(recurrenceInterval) \(recurrenceUnit.label(for: recurrenceInterval))",
+                            value: $recurrenceInterval,
+                            in: 1...99
+                        )
+                        .padding(.vertical, 10)
+                        FlatDivider()
+                        Picker("Unit", selection: $recurrenceUnit) {
+                            ForEach(RecurrenceUnit.allCases) { unit in
+                                Text(unit.label(for: 2).capitalized).tag(unit)
+                            }
+                        }
+                        .pickerStyle(.menu)
+                        .padding(.vertical, 10)
+                    }
+
+                    if recurrenceKind != nil && !hasDue && !hasSchedule {
+                        FlatDivider()
+                        Text("The next occurrence will use the completion day as its starting point.")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                            .padding(.vertical, 10)
+                    }
+                }
+
+                flatSection("Reminders") {
+                    if !hasDue && !hasSchedule {
+                        Text("Add a due date or time block to enable reminders.")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                            .padding(.vertical, 12)
+                    } else {
+                        FlatToggle(title: "Remind me", isOn: $remindersEnabled)
+
+                        if remindersEnabled {
+                            ForEach(availableReminderOptions) { option in
+                                FlatDivider()
+                                Button {
+                                    toggleReminder(option)
+                                } label: {
+                                    HStack(spacing: 12) {
+                                        VStack(alignment: .leading, spacing: 2) {
+                                            Text(option.title)
+                                                .foregroundStyle(.primary)
+                                            Text(option.detail)
+                                                .font(.footnote)
+                                                .foregroundStyle(.secondary)
+                                        }
+                                        Spacer()
+                                        if selectedReminderOptions.contains(option) {
+                                            Image(systemName: "checkmark")
+                                                .font(.body.weight(.semibold))
+                                                .foregroundStyle(TwoDoColor.accentBlue)
+                                        }
+                                    }
+                                    .contentShape(Rectangle())
+                                    .padding(.vertical, 10)
+                                }
+                                .buttonStyle(.plain)
+                                .accessibilityValue(
+                                    selectedReminderOptions.contains(option) ? "Selected" : "Not selected"
+                                )
+                                .accessibilityHint("Double tap to toggle this reminder")
+                            }
+                        }
+                    }
+                }
+
                 flatSection("Project") {
                     Picker("Project", selection: $selectedProjectID) {
                         Text("None").tag(Optional<UUID>.none)
@@ -139,6 +237,56 @@ struct AddEditTaskView: View {
                     }
                     .pickerStyle(.menu)
                     .padding(.vertical, 10)
+                }
+
+                flatSection("Tags") {
+                    if tags.isEmpty {
+                        Text("Create tags in Settings to assign them to tasks.")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                            .padding(.vertical, 12)
+                    } else {
+                        ForEach(Array(tags.enumerated()), id: \.element.id) { index, tag in
+                            Button {
+                                toggleTag(tag)
+                            } label: {
+                                HStack {
+                                    Label(tag.name, systemImage: "tag")
+                                        .foregroundStyle(.primary)
+                                    Spacer()
+                                    if selectedTagIDs.contains(tag.id) {
+                                        Image(systemName: "checkmark")
+                                            .font(.body.weight(.semibold))
+                                            .foregroundStyle(TwoDoColor.accentBlue)
+                                    }
+                                }
+                                .contentShape(Rectangle())
+                                .padding(.vertical, 11)
+                            }
+                            .buttonStyle(.plain)
+
+                            if index < tags.count - 1 {
+                                FlatDivider()
+                            }
+                        }
+                    }
+                }
+
+                flatSection("Context") {
+                    FlatToggle(title: "Flagged", isOn: $isFlagged)
+                    FlatDivider()
+                    FlatToggle(title: "Location", isOn: $hasLocation)
+                    if hasLocation {
+                        FlatDivider()
+                        FlatTextField(placeholder: "Location name or address", text: $locationName)
+                    }
+                    FlatDivider()
+                    FlatToggle(title: "Phone call", isOn: $hasPhone)
+                    if hasPhone {
+                        FlatDivider()
+                        FlatTextField(placeholder: "Phone number or contact", text: $phoneLabel)
+                            .keyboardType(.phonePad)
+                    }
                 }
 
                 flatSection("Subtasks") {
@@ -204,8 +352,33 @@ struct AddEditTaskView: View {
         hasPhone = task.hasPhone
         isFlagged = task.isFlagged
         locationName = task.locationName ?? ""
+        phoneLabel = task.phoneLabel ?? ""
         selectedProjectID = task.project?.id
+        selectedTagIDs = Set((task.tags ?? []).map(\.id))
+        recurrenceKind = task.recurrence?.kind
+        recurrenceInterval = task.recurrence?.interval ?? 2
+        recurrenceUnit = task.recurrence?.unit ?? .day
+        remindersEnabled = task.remindersEnabled
+        selectedReminderOptions = task.reminderOptions
         pendingSubtasks = (task.subtasks ?? []).map(\.title)
+    }
+
+    private func toggleReminder(_ option: TaskReminderOption) {
+        if selectedReminderOptions.contains(option) {
+            let validSelection = selectedReminderOptions.intersection(Set(availableReminderOptions))
+            guard validSelection.count > 1 else { return }
+            selectedReminderOptions.remove(option)
+        } else {
+            selectedReminderOptions.insert(option)
+        }
+    }
+
+    private func toggleTag(_ tag: Tag) {
+        if selectedTagIDs.contains(tag.id) {
+            selectedTagIDs.remove(tag.id)
+        } else {
+            selectedTagIDs.insert(tag.id)
+        }
     }
 
     private func save() {
@@ -231,8 +404,18 @@ struct AddEditTaskView: View {
         task.hasLocation = hasLocation
         task.hasPhone = hasPhone
         task.isFlagged = isFlagged
-        task.locationName = hasLocation ? locationName : nil
+        task.locationName = hasLocation ? locationName.trimmingCharacters(in: .whitespacesAndNewlines) : nil
+        task.phoneLabel = hasPhone ? phoneLabel.trimmingCharacters(in: .whitespacesAndNewlines) : nil
         task.project = selectedProject
+        task.tags = tags.filter { selectedTagIDs.contains($0.id) }
+        task.recurrence = selectedRecurrence
+        let reminderAnchorExists = hasDue || hasSchedule
+        task.remindersEnabled = remindersEnabled && reminderAnchorExists
+        let availableReminders = Set(availableReminderOptions)
+        let validReminders = selectedReminderOptions.intersection(availableReminders)
+        task.reminderOptions = validReminders.isEmpty && task.remindersEnabled
+            ? TaskReminderPlan.defaultOptions(hasDue: hasDue, hasSchedule: hasSchedule)
+            : validReminders
         task.updatedAt = .now
 
         if case .edit = mode {
@@ -297,6 +480,18 @@ private struct TaskDetailContent: View {
                     }
                 }
 
+                if task.dueAt != nil || task.scheduledStart != nil {
+                    detailSection("Reminders") {
+                        detailRow("Alerts", task.reminderSummary)
+                    }
+                }
+
+                if let recurrence = task.recurrence {
+                    detailSection("Repeat") {
+                        detailRow("Repeats", recurrence.displayName)
+                    }
+                }
+
                 if let project = task.project {
                     detailSection("Project") {
                         HStack(spacing: 8) {
@@ -306,6 +501,47 @@ private struct TaskDetailContent: View {
                             Text(project.name)
                         }
                         .padding(.vertical, 12)
+                    }
+                }
+
+                if let tags = task.tags?.sorted(by: {
+                    $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending
+                }), !tags.isEmpty {
+                    detailSection("Tags") {
+                        ForEach(Array(tags.enumerated()), id: \.element.id) { index, tag in
+                            Label(tag.name, systemImage: "tag")
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.vertical, 10)
+                            if index < tags.count - 1 {
+                                FlatDivider()
+                            }
+                        }
+                    }
+                }
+
+                if task.isFlagged || task.hasLocation || task.hasPhone {
+                    detailSection("Context") {
+                        if task.isFlagged {
+                            detailRow("Flagged", "Yes")
+                        }
+                        if task.hasLocation {
+                            if task.isFlagged {
+                                FlatDivider()
+                            }
+                            detailRow(
+                                "Location",
+                                task.locationName?.isEmpty == false ? (task.locationName ?? "Added") : "Added"
+                            )
+                        }
+                        if task.hasPhone {
+                            if task.isFlagged || task.hasLocation {
+                                FlatDivider()
+                            }
+                            detailRow(
+                                "Phone",
+                                task.phoneLabel?.isEmpty == false ? (task.phoneLabel ?? "Added") : "Added"
+                            )
+                        }
                     }
                 }
 

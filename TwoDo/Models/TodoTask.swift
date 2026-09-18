@@ -25,6 +25,17 @@ final class TodoTask: Identifiable {
     var createdAt: Date = Date.now
     var updatedAt: Date = Date.now
 
+    // Recurrence metadata stays on each occurrence so it can create one successor.
+    var recurrenceKindRaw: String?
+    var recurrenceInterval: Int = 1
+    var recurrenceUnitRaw: String?
+    var recurrenceSeriesID: UUID?
+    var generatedNextOccurrenceID: UUID?
+
+    // Nil options preserve the legacy defaults for tasks created before configuration existed.
+    var remindersEnabled: Bool = true
+    var reminderOptionsRaw: String?
+
     var project: Project?
 
     var parent: TodoTask?

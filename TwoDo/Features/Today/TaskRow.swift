@@ -68,8 +68,20 @@ struct TaskRow: View {
     private var metadataRow: some View {
         HStack(spacing: 10) {
             if task.isFlagged {
-                Image(systemName: "eye")
+                Image(systemName: "flag.fill")
                     .font(.system(size: 12, weight: .medium))
+            }
+            if task.recurrence != nil {
+                Image(systemName: "arrow.triangle.2.circlepath")
+                    .font(.system(size: 12, weight: .medium))
+                    .accessibilityLabel(task.recurrence?.displayName ?? "Recurring")
+            }
+            if task.remindersEnabled,
+               task.dueAt != nil || task.scheduledStart != nil,
+               task.reminderSummary != "Off" {
+                Image(systemName: "bell.fill")
+                    .font(.system(size: 12, weight: .medium))
+                    .accessibilityLabel("Reminders: \(task.reminderSummary)")
             }
             if task.hasLocation {
                 Image(systemName: "mappin")
@@ -78,6 +90,13 @@ struct TaskRow: View {
             if task.hasPhone {
                 Image(systemName: "phone")
                     .font(.system(size: 12, weight: .medium))
+            }
+            if let tag = task.tags?.sorted(by: {
+                $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending
+            }).first {
+                Label(tag.name, systemImage: "tag")
+                    .font(TwoDoTypography.metadata)
+                    .lineLimit(1)
             }
             if let minutes = task.durationMinutes {
                 HStack(spacing: 3) {
@@ -99,11 +118,8 @@ struct TaskRow: View {
 
     private func toggleComplete() {
         withAnimation(.snappy) {
-            task.isCompleted.toggle()
-            task.completedAt = task.isCompleted ? .now : nil
-            task.updatedAt = .now
+            _ = try? TaskCompletion.toggle(task, in: modelContext)
         }
-        try? modelContext.save()
     }
 }
 

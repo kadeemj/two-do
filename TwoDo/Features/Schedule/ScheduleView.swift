@@ -13,6 +13,15 @@ struct ScheduleView: View {
     private var isToday: Bool { Calendar.current.isDateInToday(selectedDay) }
     private var overdue: [TodoTask] { TaskQueries.overdue(from: tasks) }
     private var allDayTasks: [TodoTask] { TaskQueries.dateOnly(on: selectedDay, from: tasks) }
+    private var unscheduledTasks: [TodoTask] {
+        TaskQueries.incomplete(from: tasks)
+            .filter { $0.scheduledStart == nil }
+            .sorted {
+                let lhs = $0.dueAt ?? .distantFuture
+                let rhs = $1.dueAt ?? .distantFuture
+                return lhs == rhs ? $0.sortIndex < $1.sortIndex : lhs < rhs
+            }
+    }
     private var timelineBlocks: [TimelineBlock] {
         TimelineLayout.merged(
             TimelineLayout.blocks(from: tasks, on: selectedDay),
@@ -37,8 +46,20 @@ struct ScheduleView: View {
                             .padding(.horizontal, TwoDoSpacing.rowHorizontal)
                             .padding(.bottom, 18)
 
-                        HourlyScheduleView(blocks: timelineBlocks)
-                            .padding(.bottom, 12)
+                        if !unscheduledTasks.isEmpty {
+                            unscheduledTray
+                                .padding(.bottom, 14)
+                        }
+
+                        HourlyScheduleView(
+                            day: selectedDay,
+                            blocks: timelineBlocks,
+                            onDropTask: schedule,
+                            onMoveTask: move,
+                            onResizeTask: resize,
+                            onTapTask: openTask
+                        )
+                        .padding(.bottom, 12)
 
                         if isToday && !overdue.isEmpty {
                             TaskSectionHeader(title: "Overdue", count: overdue.count, isOverdue: true)
@@ -131,6 +152,119 @@ struct ScheduleView: View {
                 }
             }
         }
+    }
+
+    private var unscheduledTray: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text("UNSCHEDULED")
+                    .font(TwoDoTypography.sectionHeader)
+                    .tracking(0.8)
+                Spacer()
+                Label("Drag onto calendar", systemImage: "hand.draw")
+                    .font(TwoDoTypography.metadata)
+                    .foregroundStyle(.secondary)
+            }
+            .padding(.horizontal, TwoDoSpacing.rowHorizontal)
+
+            ScrollView(.horizontal, showsIndicators: false) {
+                LazyHStack(spacing: 10) {
+                    ForEach(unscheduledTasks, id: \.id) { task in
+                        Button {
+                            editingTask = task
+                        } label: {
+                            VStack(alignment: .leading, spacing: 5) {
+                                HStack(spacing: 6) {
+                                    Circle()
+                                        .fill(TwoDoColor.project(from: task.project?.colorHex ?? "3380F5"))
+                                        .frame(width: 7, height: 7)
+                                    Text(task.title)
+                                        .font(.subheadline.weight(.semibold))
+                                        .foregroundStyle(.primary)
+                                        .lineLimit(1)
+                                }
+
+                                HStack(spacing: 5) {
+                                    Image(systemName: "clock")
+                                    Text(DateFormatting.durationLabel(task.durationMinutes ?? 30))
+                                    if let due = task.dueAt {
+                                        Text("•")
+                                        Text(DateFormatting.relativeDue(due))
+                                    }
+                                }
+                                .font(TwoDoTypography.metadata)
+                                .foregroundStyle(.secondary)
+                                .lineLimit(1)
+                            }
+                            .frame(width: 190, alignment: .leading)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 10)
+                            .background(Color.primary.opacity(0.06), in: RoundedRectangle(cornerRadius: 12))
+                            .contentShape(RoundedRectangle(cornerRadius: 12))
+                        }
+                        .buttonStyle(.plain)
+                        .onDrag {
+                            NSItemProvider(object: task.id.uuidString as NSString)
+                        } preview: {
+                            Text(task.title)
+                                .font(.subheadline.weight(.semibold))
+                                .padding(.horizontal, 14)
+                                .padding(.vertical, 10)
+                                .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 12))
+                        }
+                        .contextMenu {
+                            Button("Schedule at 9:00 AM") {
+                                schedule(task.id, at: time(on: selectedDay, hour: 9))
+                            }
+                            Button("Schedule at 12:00 PM") {
+                                schedule(task.id, at: time(on: selectedDay, hour: 12))
+                            }
+                            Button("Schedule at 3:00 PM") {
+                                schedule(task.id, at: time(on: selectedDay, hour: 15))
+                            }
+                        }
+                        .accessibilityHint("Drag onto the hourly calendar or use the context menu")
+                    }
+                }
+                .padding(.horizontal, TwoDoSpacing.rowHorizontal)
+            }
+        }
+    }
+
+    private func schedule(_ taskID: UUID, at date: Date) {
+        guard let task = tasks.first(where: { $0.id == taskID }) else { return }
+        withAnimation(.snappy) {
+            task.scheduledStart = date
+            task.durationMinutes = max(task.durationMinutes ?? 30, 15)
+            task.updatedAt = .now
+            try? modelContext.save()
+        }
+    }
+
+    private func move(_ taskID: UUID, to date: Date) {
+        guard let task = tasks.first(where: { $0.id == taskID }) else { return }
+        withAnimation(.snappy) {
+            task.scheduledStart = date
+            task.updatedAt = .now
+            try? modelContext.save()
+        }
+    }
+
+    private func resize(_ taskID: UUID, to minutes: Int) {
+        guard let task = tasks.first(where: { $0.id == taskID }) else { return }
+        withAnimation(.snappy) {
+            task.durationMinutes = max(minutes, 15)
+            task.updatedAt = .now
+            try? modelContext.save()
+        }
+    }
+
+    private func openTask(_ taskID: UUID) {
+        editingTask = tasks.first { $0.id == taskID }
+    }
+
+    private func time(on day: Date, hour: Int) -> Date {
+        Calendar.current.date(bySettingHour: hour, minute: 0, second: 0, of: day) ?? day
     }
 
     private func delete(_ task: TodoTask) {

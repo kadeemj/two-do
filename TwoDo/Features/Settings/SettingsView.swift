@@ -82,6 +82,20 @@ struct SettingsView: View {
                     Text("Google Calendar")
                 }
 
+                Section("Organize") {
+                    NavigationLink {
+                        ProjectManagementView()
+                    } label: {
+                        Label("Projects", systemImage: "folder")
+                    }
+
+                    NavigationLink {
+                        TagManagementView()
+                    } label: {
+                        Label("Tags", systemImage: "tag")
+                    }
+                }
+
                 Section("Data") {
                     LabeledContent("Open tasks", value: "\(tasks.filter { !$0.isCompleted && $0.parent == nil }.count)")
                     Button("Clear completed tasks", role: .destructive) {

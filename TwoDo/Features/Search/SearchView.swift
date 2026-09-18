@@ -5,65 +5,126 @@ struct SearchView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \TodoTask.sortIndex) private var tasks: [TodoTask]
     @State private var query = ""
+    @State private var selectedList: TaskSmartList = .all
+    @State private var searchScope: TaskSearchScope = .everything
     @State private var editingTask: TodoTask?
 
+    private var smartListTasks: [TodoTask] {
+        selectedList.tasks(from: tasks)
+    }
+
     private var results: [TodoTask] {
-        let roots = tasks.filter { !$0.isCompleted && $0.parent == nil }
-        let q = query.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !q.isEmpty else { return roots.sorted { $0.sortIndex < $1.sortIndex } }
-        return roots.filter {
-            $0.title.localizedCaseInsensitiveContains(q)
-                || ($0.project?.name.localizedCaseInsensitiveContains(q) ?? false)
-                || $0.notes.localizedCaseInsensitiveContains(q)
-        }
+        TaskSearch.results(in: smartListTasks, query: query, scope: searchScope)
+    }
+
+    private var trimmedQuery: String {
+        query.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     var body: some View {
         NavigationStack {
             List {
-                ForEach(results, id: \.id) { task in
-                    Button {
-                        editingTask = task
-                    } label: {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(task.title)
-                                .font(TwoDoTypography.taskTitle)
-                                .foregroundStyle(task.isOverdue() ? TwoDoColor.overdue : Color.primary)
-                            HStack(spacing: 8) {
-                                if let project = task.project {
-                                    HStack(spacing: 4) {
-                                        Circle()
-                                            .fill(TwoDoColor.project(from: project.colorHex))
-                                            .frame(width: 6, height: 6)
-                                        Text(project.name)
-                                            .font(TwoDoTypography.metadata)
-                                            .foregroundStyle(.secondary)
-                                    }
-                                }
-                                if let due = task.dueAt {
-                                    Text(DateFormatting.relativeDue(due))
-                                        .font(TwoDoTypography.metadata)
-                                        .foregroundStyle(TwoDoColor.accentBlue)
+                smartListsSection
+                    .listRowInsets(EdgeInsets())
+                    .listRowSeparator(.hidden)
+
+                if results.isEmpty {
+                    emptyState
+                        .listRowSeparator(.hidden)
+                } else {
+                    Section {
+                        ForEach(results, id: \.id) { task in
+                            TaskRow(task: task, showDragHandle: false) {
+                                editingTask = task
+                            }
+                            .listRowInsets(EdgeInsets())
+                            .swipeActions(edge: .trailing) {
+                                Button(role: .destructive) {
+                                    delete(task)
+                                } label: {
+                                    Label("Delete", systemImage: "trash.fill")
                                 }
                             }
                         }
-                        .padding(.vertical, 2)
-                    }
-                    .swipeActions(edge: .trailing) {
-                        Button(role: .destructive) {
-                            delete(task)
-                        } label: {
-                            Label("Delete", systemImage: "trash.fill")
-                        }
+                    } header: {
+                        Text("\(selectedList.title) · \(results.count)")
                     }
                 }
             }
-            .searchable(text: $query, prompt: "Search tasks")
+            .listStyle(.plain)
+            .searchable(
+                text: $query,
+                placement: .navigationBarDrawer(displayMode: .always),
+                prompt: "Search tasks, notes, projects, and tags"
+            )
+            .searchScopes($searchScope) {
+                ForEach(TaskSearchScope.allCases) { scope in
+                    Text(scope.title).tag(scope)
+                }
+            }
             .navigationTitle("Search")
             .sheet(item: $editingTask) { task in
                 AddEditTaskView(mode: .edit(task))
             }
         }
+    }
+
+    private var smartListsSection: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("SMART LISTS")
+                .font(TwoDoTypography.sectionHeader)
+                .tracking(0.8)
+                .padding(.horizontal, TwoDoSpacing.rowHorizontal)
+
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 10) {
+                    ForEach(TaskSmartList.allCases) { list in
+                        Button {
+                            withAnimation(.snappy) {
+                                selectedList = list
+                            }
+                        } label: {
+                            VStack(alignment: .leading, spacing: 8) {
+                                HStack {
+                                    Image(systemName: list.systemImage)
+                                    Spacer(minLength: 14)
+                                    Text("\(list.tasks(from: tasks).count)")
+                                        .font(.subheadline.monospacedDigit())
+                                }
+                                Text(list.title)
+                                    .font(.subheadline.weight(.semibold))
+                            }
+                            .foregroundStyle(selectedList == list ? .white : .primary)
+                            .frame(width: 112, alignment: .leading)
+                            .padding(12)
+                            .background(
+                                selectedList == list ? TwoDoColor.accentBlue : Color(.secondarySystemBackground),
+                                in: RoundedRectangle(cornerRadius: 14, style: .continuous)
+                            )
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel("\(list.title), \(list.tasks(from: tasks).count) tasks")
+                        .accessibilityAddTraits(selectedList == list ? .isSelected : [])
+                    }
+                }
+                .padding(.horizontal, TwoDoSpacing.rowHorizontal)
+            }
+        }
+        .padding(.vertical, 12)
+    }
+
+    private var emptyState: some View {
+        ContentUnavailableView(
+            trimmedQuery.isEmpty ? "No Tasks" : "No Results",
+            systemImage: trimmedQuery.isEmpty ? selectedList.systemImage : "magnifyingglass",
+            description: Text(
+                trimmedQuery.isEmpty
+                    ? "There are no tasks in this smart list."
+                    : "Try another search term, scope, or smart list."
+            )
+        )
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 44)
     }
 
     private func delete(_ task: TodoTask) {
