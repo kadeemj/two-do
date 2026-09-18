@@ -8,6 +8,7 @@ struct TwoDoApp: App {
     private let container: ModelContainer
 
     init() {
+        KeychainStore.removeLegacyGoogleCredentials()
         container = ModelContainerFactory.make()
         TaskCaptureService.shared.configure(container: container)
         NotificationScheduler.shared.activate()

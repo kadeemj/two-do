@@ -1,6 +1,6 @@
 # T2Do
 
-T2Do is a focused iOS time-blocking to-do list for turning a busy day into a clear plan. It keeps overdue work visible, places tasks on a daily timeline, and brings scheduled Google Calendar events into the same view.
+T2Do is a focused iOS time-blocking to-do list for turning a busy day into a clear plan. It keeps overdue work visible, places tasks on a daily timeline, and displays events from selected device calendars in the same view.
 
 Website: [t2do.app](https://t2do.app)
 
@@ -10,7 +10,7 @@ Website: [t2do.app](https://t2do.app)
 
 - Organizes work into overdue, today, upcoming, and undated task sections.
 - Supports due dates, scheduled time blocks, notes, projects, tags, flags, locations, phone details, and subtasks.
-- Provides an hourly Schedule view that combines T2Do tasks with read-only Google Calendar events.
+- Provides an hourly Calendar view combining tasks with events from calendars synced to Apple Calendar, including iCloud, Google, and Outlook. Connect in Settings, grant calendar access, and choose calendars to display. No separate app login is required, and T2Do never edits calendar events.
 - Searches tasks by title, project, and notes.
 - Sends local notifications for due dates and scheduled blocks.
 - Syncs task data across devices with SwiftData and the private CloudKit database when iCloud is available, with a local fallback for unsigned or simulator environments.
@@ -24,7 +24,7 @@ Website: [t2do.app](https://t2do.app)
 - SwiftData
 - CloudKit private database sync
 - WidgetKit and App Intents
-- Google Calendar OAuth 2.0 with PKCE
+- EventKit for optional device-calendar access (iOS Full Access permission is required to read events)
 - XCUITest smoke tests
 
 ## Build & CI

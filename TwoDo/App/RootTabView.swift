@@ -1,7 +1,10 @@
 import SwiftUI
+import EventKit
 
 struct RootTabView: View {
     @Bindable var router: AppRouter
+    @Environment(\.scenePhase) private var scenePhase
+    @State private var calendars = DeviceCalendarService()
 
     init(router: AppRouter) {
         self.router = router
@@ -43,6 +46,13 @@ struct RootTabView: View {
                 .tag(AppTab.settings)
         }
         .tint(TwoDoColor.accentBlue)
+        .environment(calendars)
+        .onReceive(NotificationCenter.default.publisher(for: .EKEventStoreChanged)) { _ in
+            calendars.refresh()
+        }
+        .onChange(of: scenePhase) { _, phase in
+            if phase == .active { calendars.refresh() }
+        }
         .onOpenURL { url in
             _ = router.handle(url: url)
         }
